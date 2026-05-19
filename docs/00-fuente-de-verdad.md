@@ -4,7 +4,6 @@
 
 Este documento es la fuente de verdad principal para el diseno de red de la Olimpiada Mexicana de Informatica en campus sede. Aplica Spec Driven Development en formato Markdown: primero se define el comportamiento esperado del evento, despues se derivan arquitectura, restricciones, escenarios y validaciones.
 
-No se usaran archivos Gherkin ni YAML. Las decisiones oficiales viven en esta serie de documentos:
 
 - `00-fuente-de-verdad.md`: conteos, decisiones, calendario, requerimientos y supuestos.
 - `01-arquitectura-red.md`: VLANs, subredes, topologia logica, direccionamiento y reglas.

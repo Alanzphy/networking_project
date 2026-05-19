@@ -8,7 +8,6 @@ La especificacion se organiza como:
 Usuario -> Evento -> Escenario -> Requerimientos -> Restricciones -> Resultado esperado
 ```
 
-Este documento reemplaza el uso de Gherkin. Mantiene el estilo de escenarios verificables, pero en Markdown.
 
 ## Usuarios del evento
 
