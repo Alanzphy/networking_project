@@ -10,6 +10,41 @@ Este documento es la fuente de verdad principal para el diseno de red de la Olim
 - `02-eventos-escenarios.md`: usuarios, eventos, escenarios, restricciones y flujos.
 - `03-validacion-operacion.md`: pruebas, matriz de acceso, checklist operativo y fallos esperados.
 
+## Instalaciones del campus
+
+### Salas de computo
+
+Los cinco salones con equipo de computo fijo disponibles para la competencia son:
+
+| Sala | Equipos de computo | Sistema | Nodos de red |
+| --- | --- | --- | ---: |
+| 1223 | 40 PC | Windows 11 | 40 |
+| 1224 | 30 iMac | macOS | 0 |
+| 12102 | 30 PC Workstation | Windows 11 | 30 |
+| 12104 (Lab de moviles) | 15 PC Workstation + 19 MacBook Pro | Windows 11 / macOS | 14 |
+| 12401 (Lab de redes) | 10 PC | Windows 11 | 0 |
+| **Total** | **144 equipos** | | **84 nodos** |
+
+Notas:
+
+- La sala 12104 incluye 19 iPads que no se consideran para la competencia por requerirse equipo de computo.
+- Los 84 nodos existentes cubren solo una parte de los equipos disponibles; las salas 1224 y 12401 no tienen puertos cableados propios y requieren cableado adicional.
+- El campus dispone de 144 equipos de computo, inferior al maximo requerido de 256 para primaria. La diferencia debe cubrirse con equipo externo o ajuste del formato de competencia.
+
+### Espacios de gran capacidad seleccionados
+
+| Espacio | Aforo | Uso previsto |
+| --- | ---: | --- |
+| Sala Menlo | ~300 personas | Inauguracion, entrenadores e invitados |
+| Auditorio Escuela de Negocios y Humanidades | ~150 personas | Prensa y reporteros |
+| Domo Escuela de Negocios y Humanidades | Variable | Soporte logistico o desborde de invitados |
+
+### Camaras de vigilancia
+
+Se contemplan 20 camaras de seguridad distribuidas en las 5 salas de computo, con 4 camaras por sala. Requieren conectividad de red y se asignan a Red C (VLAN 80) separada de las redes de competencia y gestion.
+
+---
+
 ## Alcance
 
 La infraestructura debe soportar un evento presencial con participantes de los 32 estados de Mexico, equipos de competencia del campus, roles operativos separados y redes inalambricas para usuarios no criticos.
@@ -78,6 +113,8 @@ Restricciones del calendario:
 | Bloque base sugerido | `10.50.0.0/22` | Permite segmentar el evento completo en subredes internas. |
 | Servidor local | Plataforma de concurso | Competidores acceden al servicio; jueces administran/evaluan. |
 | Separacion de roles | VLAN por rol | Reduce riesgos y facilita reglas de acceso. |
+| Camaras de vigilancia | Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y gestion para evitar trafico de video en rutas criticas. |
+| Espacios del evento | Sala Menlo, Auditorio ENH, Domo ENH | Seleccionados por aforo y disponibilidad para acomodar los distintos roles del evento. |
 
 ## Requerimientos funcionales
 
@@ -156,9 +193,11 @@ La infraestructura queda aceptada cuando:
 
 ## Supuestos
 
-- El campus puede prestar 256 computadoras cableadas simultaneas.
-- Hay switches y puertos suficientes para conectar la Red A.
-- La red troncal del campus permite transportar las VLANs requeridas.
+- El campus dispone de 144 equipos de computo fijos en 5 salones; los 112 equipos restantes para cubrir el maximo de 256 deben provenir de equipo externo o reajuste del formato.
+- Los 84 nodos de red existentes requieren cableado adicional para salas sin nodos (1224, 12401) y para equipos sin puerto asignado en las demas salas.
+- Hay switches y puertos suficientes para conectar la Red A una vez habilitado el cableado faltante.
+- La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras.
 - El bloque `10.50.0.0/22` puede cambiar si ya existe conflicto.
 - La plataforma de concurso estara en el servidor local.
 - El equipo tecnico del campus puede configurar VLANs, DHCP, ACLs y WiFi.
+- Las 20 camaras de vigilancia en los salones de computo son parte de la infraestructura del evento y tienen conectividad de red.

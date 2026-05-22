@@ -40,6 +40,7 @@ Este bloque ofrece direcciones desde `10.50.0.0` hasta `10.50.3.255`. Debe cambi
 | Red E | 50 | `10.50.2.128/26` | `10.50.2.129` | 62 | Entrenadores |
 | Red I | 60 | `10.50.3.0/25` | `10.50.3.1` | 126 | Invitados |
 | Red M | 70 | `10.50.3.128/27` | `10.50.3.129` | 30 | Gestion |
+| Red C | 80 | `10.50.3.160/27` | `10.50.3.161` | 30 | Camaras de vigilancia |
 
 ## Reservas recomendadas
 
@@ -52,6 +53,7 @@ Este bloque ofrece direcciones desde `10.50.0.0` hasta `10.50.3.255`. Debe cambi
 | Red E | `10.50.2.140 - 10.50.2.190` | Gateway y equipo de soporte |
 | Red I | `10.50.3.10 - 10.50.3.126` | Gateway |
 | Red M | IPs estaticas | Switches, APs, firewall, monitoreo |
+| Red C | IPs estaticas o DHCP reservado | 20 camaras de vigilancia en 5 salones de computo |
 
 ## Direcciones estaticas de servicios
 
@@ -73,10 +75,28 @@ Firewall / Router capa 3
    |
 Troncal campus / core switch
    |
-+------------------+------------------+------------------+
-|                  |                  |                  |
-Switches Red A     Switch jueces/TI   Switch/APs WiFi    Gestion
-VLAN 10            VLAN 20/30         VLAN 40/50/60      VLAN 70
++------------------+------------------+------------------+------------------+
+|                  |                  |                  |                  |
+Switches Red A     Switch jueces/TI   Switch/APs WiFi    Gestion / Camaras
+VLAN 10            VLAN 20/30         VLAN 40/50/60      VLAN 70 / VLAN 80
+```
+
+Salones de computo con equipo:
+
+```text
+Sala 1223  (40 PC Win11,  40 nodos)  VLAN 10 + VLAN 80
+Sala 1224  (30 iMac,       0 nodos)  VLAN 10 + VLAN 80  (requiere cableado)
+Sala 12102 (30 PC Win11,  30 nodos)  VLAN 10 + VLAN 80
+Sala 12104 (15 PC + 19 MB, 14 nodos) VLAN 10 + VLAN 80
+Sala 12401 (10 PC Win11,   0 nodos)  VLAN 10 + VLAN 80  (requiere cableado)
+```
+
+Espacios de gran capacidad del evento:
+
+```text
+Sala Menlo         (~300 personas)  VLAN 50/60 (entrenadores e invitados)
+Auditorio ENH      (~150 personas)  VLAN 40    (prensa y reporteros)
+Domo ENH           (variable)       VLAN 60    (invitados y soporte logistico)
 ```
 
 El enrutamiento entre VLANs debe pasar por el firewall o por un dispositivo capa 3 con reglas equivalentes.
@@ -118,6 +138,9 @@ Politica base: negar por defecto y permitir solo lo necesario.
 | Red I | Internet | Permitir | Invitados |
 | Red I | Redes internas | Bloquear | Seguridad |
 | Red M | Equipos de red | Permitir administracion | Operacion tecnica |
+| Red C | Servidor de grabacion/monitoreo en Red M | Permitir solo streaming de video | Vigilancia de salones |
+| Red C | Redes de usuario | Bloquear | Las camaras no deben ser accesibles desde competidores ni invitados |
+| Red A / Red I / Red E / Red Repos | Red C | Bloquear | Ningun usuario accede a camaras |
 
 ## Priorizacion de trafico
 
@@ -133,12 +156,26 @@ Si el enlace a Internet se congestiona, se debe limitar Red I antes de afectar R
 
 ## Requerimientos de infraestructura fisica
 
-- Al menos 256 puertos cableados disponibles para competidores o switches de acceso suficientes para cubrirlos.
-- Cableado probado para todos los equipos de Red A.
+Salones de computo (Red A + Red C):
+
+- 84 nodos de red existentes cubren salas 1223 (40), 12102 (30) y 12104 (14).
+- Salas 1224 y 12401 no tienen nodos; requieren cableado adicional para sus 30 y 10 equipos respectivamente.
+- 20 camaras de vigilancia (4 por sala) deben tener punto de red en cada salida de camara, asignado a VLAN 80.
+- Switches de acceso en cada salon con puertos suficientes para equipos + camaras + uplink troncal.
+
+Espacios de gran capacidad:
+
+- Sala Menlo: cobertura WiFi para hasta 300 usuarios simultanios (entrenadores e invitados).
+- Auditorio ENH: cobertura WiFi para hasta 150 usuarios (prensa y reporteros).
+- Domo ENH: cobertura WiFi segun aforo configurado, VLAN de invitados.
+
+General:
+
+- Cableado probado en todos los equipos de Red A antes de cada turno.
 - Uplinks troncales con capacidad suficiente hacia core/firewall.
-- Energia estable para switches, servidor, impresoras y APs.
-- Access points suficientes para reporteros, entrenadores e invitados.
-- Etiquetado fisico de puertos o salones por VLAN.
+- Energia estable para switches, servidor, impresoras, APs y camaras.
+- Access points suficientes para reporteros, entrenadores e invitados en los tres espacios de gran capacidad.
+- Etiquetado fisico de puertos por salon y por VLAN.
 
 ## Restricciones tecnicas
 
@@ -157,3 +194,5 @@ Si el enlace a Internet se congestiona, se debe limitar Red I antes de afectar R
 - Las impresoras responden desde Red T y no desde Red A.
 - Invitados, reporteros y entrenadores no alcanzan redes internas no autorizadas.
 - La red de gestion alcanza switches, APs y firewall.
+- Las 20 camaras reciben IP en `10.50.3.160/27` y solo el sistema de monitoreo puede alcanzarlas.
+- Ningun equipo de competidor, invitado o reportero puede alcanzar Red C.
