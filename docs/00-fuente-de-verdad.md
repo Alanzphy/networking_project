@@ -35,9 +35,9 @@ Notas:
 
 | Espacio | Aforo | Uso previsto |
 | --- | ---: | --- |
-| Sala Menlo | ~300 personas | Inauguracion, entrenadores e invitados |
-| Auditorio Escuela de Negocios y Humanidades | ~150 personas | Prensa y reporteros |
-| Domo Escuela de Negocios y Humanidades | Variable | Soporte logistico o desborde de invitados |
+| Sala Menlo | ~300 personas | Invitados |
+| Auditorio Escuela de Negocios y Humanidades | ~150 personas | Entrenadores |
+| Domo Escuela de Negocios y Humanidades | Variable | Reporteros |
 
 ### Camaras de vigilancia
 
