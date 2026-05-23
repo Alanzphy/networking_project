@@ -20,6 +20,7 @@ Este directorio es la fuente de verdad del proyecto de infraestructura de red pa
 | --- | --- |
 | `features/` | Specs de nuevas features o cambios antes de modificar los documentos base. |
 | `decisions/` | Decisiones tecnicas importantes que deben quedar justificadas. |
+| `entregables/` | Documentos formales para entrega, derivados de la fuente SDD. |
 
 ## Regla principal
 
