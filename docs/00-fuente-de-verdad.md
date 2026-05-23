@@ -29,7 +29,7 @@ Notas:
 
 - Solo se contabilizan equipos de computo utiles para la competencia: PC, iMac y MacBook.
 - Los 84 nodos existentes cubren solo una parte de los equipos disponibles; las salas 1224 y 12401 no tienen puertos cableados propios y requieren cableado adicional.
-- El campus dispone de 144 equipos de computo, inferior al maximo requerido de 256 para primaria. La diferencia de 112 equipos se cubre con equipo externo en Sala Borrego como Plan A; Auditorio Escuela de Ingenieria queda como Plan B contingente.
+- El campus dispone de 144 equipos de computo, inferior al maximo requerido de 264 para primaria. La diferencia de 120 equipos se cubre con equipo externo en Sala Borrego como Plan A; Auditorio Escuela de Ingenieria queda como Plan B contingente.
 
 ### Espacios de gran capacidad disponibles
 
@@ -59,7 +59,7 @@ Se contemplan 20 camaras de seguridad rentadas para el evento, distribuidas en l
 
 ## Alcance
 
-La infraestructura debe soportar un evento presencial con participantes de los 32 estados de Mexico, equipos de competencia del campus, roles operativos separados y redes inalambricas para usuarios no criticos.
+La infraestructura debe soportar un evento presencial con participantes de los 32 estados de Mexico (31 estados regulares y 1 estado sede con contingente doble), equipos de competencia del campus, roles operativos separados y redes inalambricas para usuarios no criticos.
 
 Incluye:
 
@@ -81,14 +81,17 @@ No incluye:
 
 ## Conteo oficial
 
-El modelo oficial usa 32 estados parejos. No se aplica el modelo alternativo de estado sede al doble.
+El modelo oficial usa 31 estados regulares con contingente normal y 1 estado sede con contingente doble, sumando 32 estados en total.
+
+- Estados regulares (31): 4 alumnos de prepa, 6 de secundaria, 8 de primaria.
+- Estado sede (1): 8 alumnos de prepa, 12 de secundaria, 16 de primaria.
 
 | Grupo | Formula | Total |
 | --- | ---: | ---: |
-| Preparatoria | 32 estados x 4 alumnos | 128 |
-| Secundaria | 32 estados x 6 alumnos | 192 |
-| Primaria | 32 estados x 8 alumnos | 256 |
-| Competidores totales | 128 + 192 + 256 | 576 |
+| Preparatoria | (31 x 4) + 8 | 132 |
+| Secundaria | (31 x 6) + 12 | 198 |
+| Primaria | (31 x 8) + 16 | 264 |
+| Competidores totales | 132 + 198 + 264 | 594 |
 | Jueces | Fijo | 10 |
 | Servidor local | Fijo | 1 |
 | Impresoras | Fijo | 4 |
@@ -96,21 +99,21 @@ El modelo oficial usa 32 estados parejos. No se aplica el modelo alternativo de 
 | Entrenadores | Fijo | 40 |
 | Invitados | Aforo reservado | 100 |
 
-La capacidad maxima simultanea de competencia es de 256 equipos, porque primaria participa completa en el segundo dia.
+La capacidad maxima simultanea de competencia es de 264 equipos, porque primaria participa completa en el segundo dia.
 
 ## Calendario oficial
 
 | Dia | Horario | Categoria | Competidores | Equipos requeridos |
 | --- | --- | --- | ---: | ---: |
-| Dia 1 | Manana | Preparatoria | 128 | 128 |
-| Dia 1 | Tarde | Secundaria | 192 | 192 |
-| Dia 2 | Jornada de competencia | Primaria | 256 | 256 |
+| Dia 1 | Manana | Preparatoria | 132 | 132 |
+| Dia 1 | Tarde | Secundaria | 198 | 198 |
+| Dia 2 | Jornada de competencia | Primaria | 264 | 264 |
 
 Restricciones del calendario:
 
 - No hay olas dentro de una misma categoria.
 - Cada categoria compite completa en su horario.
-- La red de competidores debe soportar el peor caso de 256 equipos simultaneos.
+- La red de competidores debe soportar el peor caso de 264 equipos simultaneos.
 - Entre turnos debe existir tiempo de limpieza logica: reinicio de equipos, revision de conectividad, liberacion de sesiones y validacion del servidor.
 
 ## Decisiones oficiales
@@ -118,22 +121,22 @@ Restricciones del calendario:
 | Decision | Valor oficial | Razon |
 | --- | --- | --- |
 | Formato de especificacion | Markdown | Facil de leer, versionar y presentar. |
-| Conteo de estados | 32 estados parejos | Coincide con la decision del proyecto. |
+| Conteo de estados | 31 estados regulares + 1 estado sede con contingente doble | El estado sede tiene el doble de competidores por categoria. |
 | Dias de evento | 2 dias | Preparatoria y secundaria en Dia 1; primaria en Dia 2. |
-| Capacidad maxima Red A | 256 equipos | Primaria requiere 256 computadoras simultaneas. |
+| Capacidad maxima Red A | 264 equipos | Primaria requiere 264 computadoras simultaneas. |
 | Red A | Subred `/23` | Un `/24` solo ofrece 254 hosts utiles y no alcanza. |
 | Bloque base sugerido | `10.50.0.0/22` | Permite segmentar el evento completo en subredes internas. |
 | Servidor local | Plataforma de concurso | Competidores acceden al servicio; jueces administran/evaluan. |
 | Separacion de roles | VLAN por rol | Reduce riesgos y facilita reglas de acceso. |
 | Camaras de vigilancia | Rentadas, inalambricas, Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y usuarios para evitar trafico de video en rutas criticas. |
 | Espacios del evento | Inventario completo registrado | Se conserva para apoyar decisiones, alternativas y planes operativos. |
-| Expansion Red A | Sala Borrego como Plan A; Auditorio Ingenieria como Plan B | Permite cubrir 112 equipos externos sin cambiar calendario ni dividir categorias. |
+| Expansion Red A | Sala Borrego como Plan A; Auditorio Ingenieria como Plan B | Permite cubrir 120 equipos externos sin cambiar calendario ni dividir categorias. |
 
 ## Requerimientos funcionales
 
 RF-01. Los competidores deben conectarse por cable a la Red A durante su turno.
 
-RF-02. La Red A debe soportar al menos 256 equipos simultaneos.
+RF-02. La Red A debe soportar al menos 264 equipos simultaneos.
 
 RF-03. Los competidores deben poder acceder al servidor local de concurso.
 
@@ -155,7 +158,7 @@ RF-11. La red de gestion debe permitir administrar switches, access points y fir
 
 RF-12. Las camaras rentadas deben conectarse por WiFi dedicado a Red C para vigilancia de las salas de computo.
 
-RF-13. Los 112 equipos externos deben conectarse a Red A / VLAN 10 desde Sala Borrego en Plan A.
+RF-13. Los 120 equipos externos deben conectarse a Red A / VLAN 10 desde Sala Borrego en Plan A.
 
 ## Requerimientos no funcionales
 
@@ -189,7 +192,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 
 | Red | Rol | Tipo | Capacidad objetivo | Criticidad |
 | --- | --- | --- | ---: | --- |
-| Red A | Competidores | Cableada | 256 | Alta |
+| Red A | Competidores | Cableada | 264 | Alta |
 | Red T | Jueces | Cableada | 10 | Alta |
 | Red TI | Servidor e impresoras | Cableada | 5+ | Alta |
 | Red Repos | Reporteros | WiFi | 32 | Media |
@@ -202,8 +205,8 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 
 La infraestructura queda aceptada cuando:
 
-- Red A entrega direccion IP valida a 256 equipos simultaneos.
-- Sala Borrego entrega conectividad Red A a 112 equipos externos en Plan A.
+- Red A entrega direccion IP valida a 264 equipos simultaneos.
+- Sala Borrego entrega conectividad Red A a 120 equipos externos en Plan A.
 - Los competidores pueden acceder al servidor de concurso.
 - Los competidores no pueden acceder a jueces, impresoras, gestion, prensa, entrenadores o invitados.
 - Los jueces pueden acceder al servidor e impresoras.
@@ -215,8 +218,8 @@ La infraestructura queda aceptada cuando:
 
 ## Supuestos
 
-- El campus dispone de 144 equipos de computo fijos en 5 salones; los 112 equipos restantes para cubrir el maximo de 256 provienen de equipo externo en Sala Borrego como Plan A.
-- Auditorio Escuela de Ingenieria queda como Plan B contingente para los mismos 112 equipos externos si Sala Borrego no cumple.
+- El campus dispone de 144 equipos de computo fijos en 5 salones; los 120 equipos restantes para cubrir el maximo de 264 provienen de equipo externo en Sala Borrego como Plan A.
+- Auditorio Escuela de Ingenieria queda como Plan B contingente para los mismos 120 equipos externos si Sala Borrego no cumple.
 - Los 84 nodos de red existentes requieren cableado adicional para salas sin nodos (1224, 12401) y para equipos sin puerto asignado en las demas salas.
 - Hay switches y puertos suficientes para conectar la Red A una vez habilitado el cableado faltante.
 - La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras rentadas.

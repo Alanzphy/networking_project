@@ -49,12 +49,12 @@ Notas:
 - Etiquetar puertos por salon y rol.
 - Validar energia para switches, servidor, impresoras, APs y camaras rentadas.
 - Confirmar uplinks con capacidad suficiente.
-- Confirmar switches, energia, mesas y cableado temporal para 112 equipos externos en Sala Borrego.
+- Confirmar switches, energia, mesas y cableado temporal para 120 equipos externos en Sala Borrego.
 - Confirmar Auditorio Escuela de Ingenieria como contingencia si Sala Borrego no cumple.
 
 ### DHCP y direccionamiento
 
-- Crear scope DHCP para Red A con capacidad mayor a 256 clientes.
+- Crear scope DHCP para Red A con capacidad mayor a 264 clientes.
 - Crear scopes para Red T, Red Repos, Red E, Red I y Red C.
 - Asignar IPs fijas a servidor, impresoras y gestion.
 - Probar gateway por VLAN.
@@ -85,7 +85,7 @@ Notas:
 | Prueba | Metodo | Resultado esperado |
 | --- | --- | --- |
 | DHCP Red A | Conectar clientes de prueba en VLAN 10 | IP `10.50.0.0/23`, gateway correcto |
-| Capacidad Red A | Simular o conectar hasta 256 clientes | No se agota el scope |
+| Capacidad Red A | Simular o conectar hasta 264 clientes | No se agota el scope |
 | Expansion Sala Borrego | Conectar clientes de prueba desde Sala Borrego | IP de Red A / VLAN 10 y salida al servidor |
 | Contingencia Auditorio Ingenieria | Probar punto de red temporal en Auditorio Ingenieria | Puede operar como Plan B para Red A |
 | Acceso plataforma | Cliente Red A abre servidor | Plataforma responde |
@@ -102,7 +102,7 @@ Notas:
 
 ### Antes de Dia 1 manana: preparatoria
 
-- Confirmar 128 equipos encendidos y conectados.
+- Confirmar 132 equipos encendidos y conectados.
 - Probar 5 equipos aleatorios en Red A.
 - Confirmar acceso al servidor de concurso.
 - Confirmar bloqueo hacia impresoras y jueces.
@@ -115,13 +115,13 @@ Notas:
 - Reiniciar o limpiar equipos segun politica del concurso.
 - Liberar o renovar leases si es necesario.
 - Probar 5 equipos aleatorios.
-- Confirmar que secundaria tiene 192 equipos disponibles.
+- Confirmar que secundaria tiene 198 equipos disponibles.
 - Validar servidor antes de abrir el turno.
 
 ### Antes de Dia 2: primaria
 
-- Confirmar 256 equipos listos.
-- Confirmar 144 equipos base en salas de computo y 112 equipos externos en Sala Borrego.
+- Confirmar 264 equipos listos.
+- Confirmar 144 equipos base en salas de computo y 120 equipos externos en Sala Borrego.
 - Revisar que el scope Red A tenga margen suficiente.
 - Probar conectividad desde varios puntos del salon.
 - Probar conectividad desde Sala Borrego hacia servidor de concurso.
@@ -232,4 +232,4 @@ Guardar capturas o registros de:
 
 ## Criterio final de exito
 
-El evento se considera exitoso si los tres turnos completan la competencia sin que la red impida el envio de soluciones, sin fugas de acceso entre roles y sin agotamiento de direccionamiento en el turno maximo de primaria.
+El evento se considera exitoso si los tres turnos completan la competencia sin que la red impida el envio de soluciones, sin fugas de acceso entre roles y sin agotamiento de direccionamiento en el turno maximo de primaria (264 equipos).

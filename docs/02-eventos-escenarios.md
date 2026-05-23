@@ -13,9 +13,9 @@ Usuario -> Evento -> Escenario -> Requerimientos -> Restricciones -> Resultado e
 
 | Usuario | Red | Cantidad | Tipo de conexion | Criticidad |
 | --- | --- | ---: | --- | --- |
-| Competidor preparatoria | Red A | 128 | Cableada | Alta |
-| Competidor secundaria | Red A | 192 | Cableada | Alta |
-| Competidor primaria | Red A | 256 | Cableada | Alta |
+| Competidor preparatoria | Red A | 132 | Cableada | Alta |
+| Competidor secundaria | Red A | 198 | Cableada | Alta |
+| Competidor primaria | Red A | 264 | Cableada | Alta |
 | Juez | Red T | 10 | Cableada | Alta |
 | Servidor local | Red TI | 1 | Cableada | Alta |
 | Impresora | Red TI | 4 | Cableada | Media |
@@ -31,7 +31,7 @@ Usuario -> Evento -> Escenario -> Requerimientos -> Restricciones -> Resultado e
 
 Requerimientos:
 
-- 128 equipos de Red A disponibles.
+- 132 equipos de Red A disponibles.
 - DHCP activo en VLAN 10.
 - Servidor local disponible.
 - Acceso permitido desde Red A al servidor de concurso.
@@ -44,7 +44,7 @@ Restricciones:
 
 Resultado esperado:
 
-- Los 128 competidores reciben IP valida.
+- Los 132 competidores reciben IP valida.
 - Todos pueden entrar a la plataforma de concurso.
 - Ningun competidor puede acceder a jueces, impresoras o gestion.
 
@@ -52,7 +52,7 @@ Resultado esperado:
 
 Requerimientos:
 
-- 192 equipos de Red A disponibles.
+- 198 equipos de Red A disponibles.
 - Reinicio o limpieza logica despues del turno de preparatoria.
 - Misma politica de acceso que preparatoria.
 
@@ -63,7 +63,7 @@ Restricciones:
 
 Resultado esperado:
 
-- Los 192 competidores reciben servicio estable.
+- Los 198 competidores reciben servicio estable.
 - La capacidad de Red A no se excede.
 - El servidor de concurso recibe envios correctamente.
 
@@ -71,7 +71,7 @@ Resultado esperado:
 
 Requerimientos:
 
-- 256 equipos de Red A disponibles.
+- 264 equipos de Red A disponibles.
 - Red A dimensionada con subred `/23`.
 - Switches, uplinks y DHCP preparados para el maximo simultaneo.
 
@@ -83,7 +83,7 @@ Restricciones:
 
 Resultado esperado:
 
-- Los 256 competidores participan al mismo tiempo.
+- Los 264 competidores participan al mismo tiempo.
 - No hay agotamiento de direcciones IP.
 - La plataforma de concurso se mantiene accesible.
 

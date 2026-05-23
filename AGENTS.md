@@ -42,11 +42,11 @@ Flujo obligatorio:
 
 - Formato oficial: Markdown.
 - No usar Gherkin ni YAML para la fuente de verdad.
-- Conteo oficial: 32 estados parejos.
-- Capacidad maxima simultanea de competencia: 256 equipos.
+- Conteo oficial: 31 estados regulares + 1 estado sede con contingente doble (8 prepa, 12 secundaria, 16 primaria).
+- Capacidad maxima simultanea de competencia: 264 equipos (turno primaria, Dia 2).
 - Red A: VLAN 10, `10.50.0.0/23`.
 - Red C: VLAN 80 para 20 camaras rentadas inalambricas por SSID `OMI-Camaras`.
-- Expansion Red A: Sala Borrego como Plan A para 112 equipos externos; Auditorio Escuela de Ingenieria como Plan B.
+- Expansion Red A: Sala Borrego como Plan A para 120 equipos externos; Auditorio Escuela de Ingenieria como Plan B.
 - Las tablets no forman parte del inventario de competencia.
 
 ## Privacidad

@@ -2,7 +2,7 @@
 
 ## Objetivo tecnico
 
-Disenar una red segmentada, segura y operable para soportar la competencia OMI durante dos dias, con 256 equipos maximos en la Red A y roles separados por VLAN.
+Disenar una red segmentada, segura y operable para soportar la competencia OMI durante dos dias, con 264 equipos maximos en la Red A y roles separados por VLAN.
 
 La arquitectura se basa en:
 
@@ -17,7 +17,7 @@ La arquitectura se basa en:
 
 Si todos los usuarios compartieran una sola red IP, seria dificil aislar competidores, jueces, servidor, impresoras, prensa, entrenadores e invitados. El subnetting permite que cada VLAN tenga su propio rango y que las reglas de acceso sean claras.
 
-La Red A necesita una subred mayor a `/24`. Un `/24` ofrece 254 hosts utiles, pero primaria requiere 256 computadoras simultaneas, ademas de gateway, reservas y posibles equipos de soporte. Por eso Red A debe usar `/23`.
+La Red A necesita una subred mayor a `/24`. Un `/24` ofrece 254 hosts utiles, pero primaria requiere 264 computadoras simultaneas, ademas de gateway, reservas y posibles equipos de soporte. Por eso Red A debe usar `/23`.
 
 ## Bloque base sugerido
 
@@ -89,8 +89,8 @@ Sala 1224  (30 iMac,       0 nodos)  VLAN 10 + cobertura SSID OMI-Camaras  (requ
 Sala 12102 (30 PC Win11,  30 nodos)  VLAN 10 + cobertura SSID OMI-Camaras
 Sala 12104 (15 PC + 19 MB, 14 nodos) VLAN 10 + cobertura SSID OMI-Camaras
 Sala 12401 (10 PC Win11,   0 nodos)  VLAN 10 + cobertura SSID OMI-Camaras  (requiere cableado para computo)
-Sala Borrego (112 equipos externos)   VLAN 10 (Plan A, requiere switches y cableado temporal)
-Auditorio Ingenieria (112 externos)   VLAN 10 (Plan B contingente)
+Sala Borrego (120 equipos externos)   VLAN 10 (Plan A, requiere switches y cableado temporal)
+Auditorio Ingenieria (120 externos)   VLAN 10 (Plan B contingente)
 ```
 
 Espacios de gran capacidad del evento:
@@ -167,9 +167,9 @@ Salones de computo (Red A + Red C inalambrica):
 
 - 84 nodos de red existentes cubren salas 1223 (40), 12102 (30) y 12104 (14).
 - Salas 1224 y 12401 no tienen nodos; requieren cableado adicional para sus 30 y 10 equipos respectivamente.
-- Sala Borrego debe conectarse a Red A / VLAN 10 para 112 equipos externos en Plan A.
-- Auditorio Escuela de Ingenieria debe poder reemplazar a Sala Borrego como Plan B para los mismos 112 equipos externos.
-- La expansion Red A requiere switches de acceso, uplinks y cableado temporal suficientes para 112 puertos adicionales.
+- Sala Borrego debe conectarse a Red A / VLAN 10 para 120 equipos externos en Plan A.
+- Auditorio Escuela de Ingenieria debe poder reemplazar a Sala Borrego como Plan B para los mismos 120 equipos externos.
+- La expansion Red A requiere switches de acceso, uplinks y cableado temporal suficientes para 120 puertos adicionales.
 - 20 camaras de vigilancia rentadas (4 por sala) deben conectarse por WiFi al SSID `OMI-Camaras`, asignado a VLAN 80.
 - Las camaras no requieren punto de red por unidad, pero si energia, bateria o toma electrica y cobertura WiFi estable.
 - Switches de acceso en cada salon con puertos suficientes para equipos de computo + uplink troncal.
@@ -202,7 +202,7 @@ General:
 
 - Cada VLAN entrega IP del rango correcto.
 - El gateway de cada VLAN responde desde clientes autorizados.
-- Red A soporta 256 clientes con IP unica.
+- Red A soporta 264 clientes con IP unica.
 - El servidor local responde desde Red A y Red T.
 - Las impresoras responden desde Red T y no desde Red A.
 - Invitados, reporteros y entrenadores no alcanzan redes internas no autorizadas.
