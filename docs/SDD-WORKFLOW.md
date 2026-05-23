@@ -63,6 +63,7 @@ Actualizar solo los documentos necesarios:
 - `01-arquitectura-red.md`: diseno tecnico, VLANs, subredes, SSIDs y reglas.
 - `02-eventos-escenarios.md`: usuarios, eventos, restricciones y resultados esperados.
 - `03-validacion-operacion.md`: pruebas, matriz de permisos, checklist y fallos.
+- `04-espacios-fisicos.md`: inventario de espacios, alternativas fisicas y bosquejos.
 
 ### 5. Validar consistencia
 
@@ -71,6 +72,7 @@ Antes de cerrar una feature, revisar:
 - Todo requerimiento tiene al menos un escenario.
 - Toda regla de acceso aparece en la matriz de permisos.
 - Toda VLAN/SSID aparece en arquitectura y validacion.
+- Todo cambio de espacios aparece en `04-espacios-fisicos.md`.
 - Todo supuesto importante aparece en fuente de verdad.
 - No se agregaron datos sensibles.
 

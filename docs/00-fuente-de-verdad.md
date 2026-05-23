@@ -29,16 +29,16 @@ Notas:
 
 - Solo se contabilizan equipos de computo utiles para la competencia: PC, iMac y MacBook.
 - Los 84 nodos existentes cubren solo una parte de los equipos disponibles; las salas 1224 y 12401 no tienen puertos cableados propios y requieren cableado adicional.
-- El campus dispone de 144 equipos de computo, inferior al maximo requerido de 256 para primaria. La diferencia debe cubrirse con equipo externo o ajuste del formato de competencia.
+- El campus dispone de 144 equipos de computo, inferior al maximo requerido de 256 para primaria. La diferencia de 112 equipos se cubre con equipo externo en Sala Borrego como Plan A; Auditorio Escuela de Ingenieria queda como Plan B contingente.
 
 ### Espacios de gran capacidad disponibles
 
 | Espacio | Aforo aproximado | Uso previsto actual |
 | --- | ---: | --- |
 | Sala Menlo | ~300 personas | Invitados |
-| Sala Borrego | ~120 personas | Disponible / por definir |
+| Sala Borrego | ~120 personas | Expansion Red A / Plan A |
 | Auditorio Escuela de Negocios y Humanidades | ~150 personas | Entrenadores |
-| Auditorio Escuela de Ingenieria | ~120 personas | Disponible / por definir |
+| Auditorio Escuela de Ingenieria | ~120 personas | Expansion Red A / Plan B |
 | Domo Escuela de Negocios y Humanidades | Variable | Reporteros |
 | Domo Life | Variable | Jueces |
 | Gimnasio | Variable | Disponible / por definir |
@@ -49,7 +49,7 @@ Notas:
 | Plaza Borrego | Variable | Disponible / por definir |
 | Innovation Gym | ~80 personas | Disponible / por definir |
 
-Nota: las asignaciones operativas actuales de espacios quedan pendientes de decision final. En este ajuste solo se guarda el inventario completo de espacios disponibles.
+Nota: el inventario completo de espacios se conserva para dar contexto a futuras decisiones, alternativas y planes operativos.
 
 ### Camaras de vigilancia
 
@@ -126,7 +126,8 @@ Restricciones del calendario:
 | Servidor local | Plataforma de concurso | Competidores acceden al servicio; jueces administran/evaluan. |
 | Separacion de roles | VLAN por rol | Reduce riesgos y facilita reglas de acceso. |
 | Camaras de vigilancia | Rentadas, inalambricas, Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y usuarios para evitar trafico de video en rutas criticas. |
-| Espacios del evento | Inventario completo registrado; asignacion pendiente | Se conservan asignaciones actuales sin corregir inconsistencias hasta decision final. |
+| Espacios del evento | Inventario completo registrado | Se conserva para apoyar decisiones, alternativas y planes operativos. |
+| Expansion Red A | Sala Borrego como Plan A; Auditorio Ingenieria como Plan B | Permite cubrir 112 equipos externos sin cambiar calendario ni dividir categorias. |
 
 ## Requerimientos funcionales
 
@@ -154,6 +155,8 @@ RF-11. La red de gestion debe permitir administrar switches, access points y fir
 
 RF-12. Las camaras rentadas deben conectarse por WiFi dedicado a Red C para vigilancia de las salas de computo.
 
+RF-13. Los 112 equipos externos deben conectarse a Red A / VLAN 10 desde Sala Borrego en Plan A.
+
 ## Requerimientos no funcionales
 
 RNF-01. Seguridad: cada rol debe estar aislado en su propia VLAN y subred.
@@ -180,6 +183,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 - Invitados y reporteros no deben acceder a redes internas del evento.
 - La administracion de red debe estar separada en una VLAN de gestion.
 - Las camaras inalambricas deben usar un SSID dedicado y no deben compartir red con invitados, reporteros, entrenadores o competidores.
+- La expansion de 112 equipos externos no debe modificar el calendario oficial ni dividir categorias.
 
 ## Especificacion resumida
 
@@ -199,6 +203,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 La infraestructura queda aceptada cuando:
 
 - Red A entrega direccion IP valida a 256 equipos simultaneos.
+- Sala Borrego entrega conectividad Red A a 112 equipos externos en Plan A.
 - Los competidores pueden acceder al servidor de concurso.
 - Los competidores no pueden acceder a jueces, impresoras, gestion, prensa, entrenadores o invitados.
 - Los jueces pueden acceder al servidor e impresoras.
@@ -210,7 +215,8 @@ La infraestructura queda aceptada cuando:
 
 ## Supuestos
 
-- El campus dispone de 144 equipos de computo fijos en 5 salones; los 112 equipos restantes para cubrir el maximo de 256 deben provenir de equipo externo o reajuste del formato.
+- El campus dispone de 144 equipos de computo fijos en 5 salones; los 112 equipos restantes para cubrir el maximo de 256 provienen de equipo externo en Sala Borrego como Plan A.
+- Auditorio Escuela de Ingenieria queda como Plan B contingente para los mismos 112 equipos externos si Sala Borrego no cumple.
 - Los 84 nodos de red existentes requieren cableado adicional para salas sin nodos (1224, 12401) y para equipos sin puerto asignado en las demas salas.
 - Hay switches y puertos suficientes para conectar la Red A una vez habilitado el cableado faltante.
 - La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras rentadas.

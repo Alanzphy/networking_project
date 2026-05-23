@@ -9,9 +9,9 @@ Esta carpeta guarda specs de features o cambios antes de integrarlos a la fuente
 3. Completar problema, objetivo, requerimientos, restricciones, escenarios e impacto.
 4. Integrar los cambios en los documentos base cuando la feature sea aprobada.
 
-## Ejemplos de features posibles
+## Ejemplos de features
 
-- `F001-plan-b-capacidad.md`: alternativa si no se consiguen 256 equipos.
+- `F001-expansion-red-a-112.md`: expansion fisica de Red A con Sala Borrego como Plan A.
 - `F002-asignacion-final-espacios.md`: resolver asignacion definitiva de salones y espacios.
 - `F003-plan-cableado-temporal.md`: definir cableado para salas sin nodos.
 - `F004-monitoreo-camaras.md`: completar monitoreo de camaras rentadas.

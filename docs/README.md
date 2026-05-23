@@ -11,6 +11,7 @@ Este directorio es la fuente de verdad del proyecto de infraestructura de red pa
 | `01-arquitectura-red.md` | VLANs, subredes, topologia logica, SSIDs y reglas de acceso. |
 | `02-eventos-escenarios.md` | Usuarios, eventos, escenarios, restricciones y resultados esperados. |
 | `03-validacion-operacion.md` | Matriz de permisos, pruebas, checklist operativo y fallos esperados. |
+| `04-espacios-fisicos.md` | Inventario de espacios, alternativas fisicas y bosquejos por espacio. |
 | `SDD-WORKFLOW.md` | Proceso para proponer, revisar e integrar nuevas features. |
 
 ## Carpetas de trabajo
@@ -30,7 +31,7 @@ Ningun cambio importante debe vivir solo en una conversacion. Si una decision af
 2. Revisar si la feature cambia una decision tecnica; si si, crear un ADR en `decisions/`.
 3. Actualizar los documentos base que correspondan.
 4. Actualizar pruebas y criterios de aceptacion en `03-validacion-operacion.md`.
-5. Verificar que no haya contradicciones entre fuente de verdad, arquitectura, escenarios y validacion.
+5. Verificar que no haya contradicciones entre fuente de verdad, arquitectura, escenarios, validacion y espacios fisicos.
 
 ## Politicas del proyecto
 

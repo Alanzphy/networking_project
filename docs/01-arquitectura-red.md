@@ -89,17 +89,20 @@ Sala 1224  (30 iMac,       0 nodos)  VLAN 10 + cobertura SSID OMI-Camaras  (requ
 Sala 12102 (30 PC Win11,  30 nodos)  VLAN 10 + cobertura SSID OMI-Camaras
 Sala 12104 (15 PC + 19 MB, 14 nodos) VLAN 10 + cobertura SSID OMI-Camaras
 Sala 12401 (10 PC Win11,   0 nodos)  VLAN 10 + cobertura SSID OMI-Camaras  (requiere cableado para computo)
+Sala Borrego (112 equipos externos)   VLAN 10 (Plan A, requiere switches y cableado temporal)
+Auditorio Ingenieria (112 externos)   VLAN 10 (Plan B contingente)
 ```
 
 Espacios de gran capacidad del evento:
 
 ```text
-Sala Menlo         (~300 personas)  VLAN 50/60 (entrenadores e invitados)
-Auditorio ENH      (~150 personas)  VLAN 40    (prensa y reporteros)
-Domo ENH           (variable)       VLAN 60    (invitados y soporte logistico)
+Sala Menlo         (~300 personas)  VLAN 60 (invitados)
+Auditorio ENH      (~150 personas)  VLAN 50 (entrenadores)
+Domo ENH           (variable)       VLAN 40 (prensa y reporteros)
+Domo Life          (variable)       VLAN 20 (jueces)
 ```
 
-Nota: las asignaciones de espacios se conservan como estan y quedan pendientes de decision final; el inventario completo de espacios disponibles vive en `00-fuente-de-verdad.md`.
+Nota: el inventario completo de espacios disponibles vive en `00-fuente-de-verdad.md` y sirve como contexto para decisiones, alternativas y planes operativos.
 
 El enrutamiento entre VLANs debe pasar por el firewall o por un dispositivo capa 3 con reglas equivalentes.
 
@@ -164,6 +167,9 @@ Salones de computo (Red A + Red C inalambrica):
 
 - 84 nodos de red existentes cubren salas 1223 (40), 12102 (30) y 12104 (14).
 - Salas 1224 y 12401 no tienen nodos; requieren cableado adicional para sus 30 y 10 equipos respectivamente.
+- Sala Borrego debe conectarse a Red A / VLAN 10 para 112 equipos externos en Plan A.
+- Auditorio Escuela de Ingenieria debe poder reemplazar a Sala Borrego como Plan B para los mismos 112 equipos externos.
+- La expansion Red A requiere switches de acceso, uplinks y cableado temporal suficientes para 112 puertos adicionales.
 - 20 camaras de vigilancia rentadas (4 por sala) deben conectarse por WiFi al SSID `OMI-Camaras`, asignado a VLAN 80.
 - Las camaras no requieren punto de red por unidad, pero si energia, bateria o toma electrica y cobertura WiFi estable.
 - Switches de acceso en cada salon con puertos suficientes para equipos de computo + uplink troncal.
@@ -177,6 +183,7 @@ Espacios de gran capacidad:
 General:
 
 - Cableado probado en todos los equipos de Red A antes de cada turno.
+- Cableado temporal probado en Sala Borrego antes del turno de primaria.
 - Uplinks troncales con capacidad suficiente hacia core/firewall.
 - Energia estable para switches, servidor, impresoras, APs y camaras rentadas.
 - Access points suficientes para reporteros, entrenadores, invitados y camaras inalambricas.

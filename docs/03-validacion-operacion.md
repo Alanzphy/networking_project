@@ -49,6 +49,8 @@ Notas:
 - Etiquetar puertos por salon y rol.
 - Validar energia para switches, servidor, impresoras, APs y camaras rentadas.
 - Confirmar uplinks con capacidad suficiente.
+- Confirmar switches, energia, mesas y cableado temporal para 112 equipos externos en Sala Borrego.
+- Confirmar Auditorio Escuela de Ingenieria como contingencia si Sala Borrego no cumple.
 
 ### DHCP y direccionamiento
 
@@ -84,6 +86,8 @@ Notas:
 | --- | --- | --- |
 | DHCP Red A | Conectar clientes de prueba en VLAN 10 | IP `10.50.0.0/23`, gateway correcto |
 | Capacidad Red A | Simular o conectar hasta 256 clientes | No se agota el scope |
+| Expansion Sala Borrego | Conectar clientes de prueba desde Sala Borrego | IP de Red A / VLAN 10 y salida al servidor |
+| Contingencia Auditorio Ingenieria | Probar punto de red temporal en Auditorio Ingenieria | Puede operar como Plan B para Red A |
 | Acceso plataforma | Cliente Red A abre servidor | Plataforma responde |
 | Bloqueo impresoras | Cliente Red A intenta imprimir | Acceso denegado |
 | Acceso jueces | Cliente Red T abre servidor e impresoras | Acceso permitido |
@@ -117,8 +121,11 @@ Notas:
 ### Antes de Dia 2: primaria
 
 - Confirmar 256 equipos listos.
+- Confirmar 144 equipos base en salas de computo y 112 equipos externos en Sala Borrego.
 - Revisar que el scope Red A tenga margen suficiente.
 - Probar conectividad desde varios puntos del salon.
+- Probar conectividad desde Sala Borrego hacia servidor de concurso.
+- Probar bloqueo desde Sala Borrego hacia Red T, Red TI impresoras, Red Repos, Red E, Red I y Red C.
 - Confirmar que el enlace troncal no este saturado.
 - Priorizar Red A y limitar invitados si hace falta.
 - Validar plataforma antes del inicio.

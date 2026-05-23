@@ -1,5 +1,5 @@
-# Olimpiada Mexicana de Informática
-## Diseño de Red — Espacios Físicos e Infraestructura
+# Olimpiada Mexicana de Informatica
+## Diseno de Red - Espacios Fisicos e Infraestructura
 
 ---
 
@@ -16,234 +16,260 @@
 
 ---
 
-## 1. Identificación de espacios físicos requeridos
+## 1. Identificacion de espacios fisicos requeridos
 
-### a) Número de espacios físicos
+### a) Numero de espacios fisicos
 
-El evento requiere **9 espacios físicos** en total:
+El evento requiere **10 espacios fisicos operativos minimos** en el Plan A seleccionado:
 
-- 5 salas de cómputo (fijas, para competidores)
-- 4 espacios de gran capacidad (para jueces, entrenadores, reporteros e invitados)
+- 5 salas de computo fijas para competidores.
+- 1 espacio de expansion para 112 equipos externos de competidores.
+- 4 espacios de gran capacidad para jueces, entrenadores, reporteros e invitados.
 
 ### b) Capacidad requerida por espacio
 
-| No. | Espacio requerido | Rol asignado | Personas / Equipos necesarios |
+| No. | Espacio requerido | Rol asignado | Personas / equipos necesarios |
 | --- | --- | --- | ---: |
-| 1 | Sala de cómputo 1 | Competidores | Hasta 40 equipos |
-| 2 | Sala de cómputo 2 | Competidores | Hasta 30 equipos |
-| 3 | Sala de cómputo 3 | Competidores | Hasta 30 equipos |
-| 4 | Sala de cómputo 4 | Competidores | Hasta 34 equipos |
-| 5 | Sala de cómputo 5 | Competidores | Hasta 10 equipos |
-| 6 | Espacio para jueces | Jueces | 10 personas |
-| 7 | Espacio para entrenadores | Entrenadores | 40 personas |
-| 8 | Espacio para prensa | Reporteros | 32 personas |
-| 9 | Espacio para invitados | Invitados | 100 personas |
+| 1 | Sala de computo 1223 | Competidores base | 40 equipos |
+| 2 | Sala de computo 1224 | Competidores base | 30 equipos |
+| 3 | Sala de computo 12102 | Competidores base | 30 equipos |
+| 4 | Sala de computo 12104 | Competidores base | 34 equipos |
+| 5 | Sala de computo 12401 | Competidores base | 10 equipos |
+| 6 | Sala Borrego | Competidores adicionales | 112 equipos externos |
+| 7 | Domo Life | Jueces | 10 personas |
+| 8 | Auditorio Escuela de Negocios y Humanidades | Entrenadores | 40 personas |
+| 9 | Domo Escuela de Negocios y Humanidades | Reporteros | 32 personas |
+| 10 | Sala Menlo | Invitados | 100 personas |
 
-**Total de competidores atendidos simultáneamente:** hasta 256 equipos (peor caso: categoría primaria, día 2).  
-**Total de usuarios no-competidor:** 182 personas (10 jueces + 40 entrenadores + 32 reporteros + 100 invitados).
+**Total de competidores atendidos simultaneamente:** 256 equipos en Red A, con 144 equipos fijos del campus y 112 equipos externos.
+**Total de usuarios no competidores:** 182 personas, sin contar servidor, impresoras y equipo tecnico.
 
 ---
 
-## 2. Lista de espacios del campus — Alternativas A y B
+## 2. Lista de espacios del campus - Inventario y planes
 
-Se identificaron dos alternativas para cada espacio de gran capacidad. Las salas de cómputo son iguales en ambas opciones, ya que los equipos no pueden trasladarse.
+El inventario completo de espacios disponibles se conserva como contexto para tomar decisiones, comparar alternativas y construir planes operativos. No todos los espacios del inventario tienen que usarse en el plan final.
 
-### Salas de cómputo (comunes a ambas alternativas)
+### Inventario completo de espacios disponibles
+
+| Espacio | Aforo aproximado | Uso posible / contexto |
+| --- | ---: | --- |
+| Sala Menlo | ~300 personas | Invitados / audiencias grandes |
+| Sala Borrego | ~120 personas | Expansion de competidores en Plan A |
+| Auditorio Escuela de Negocios y Humanidades | ~150 personas | Entrenadores / comunicados |
+| Auditorio Escuela de Ingenieria | ~120 personas | Expansion de competidores en Plan B |
+| Domo Escuela de Negocios y Humanidades | Variable | Reporteros / prensa |
+| Domo Life | Variable | Jueces / espacio controlado |
+| Gimnasio | Variable | Alternativa de gran aforo |
+| Cancha de americano | Variable | Alternativa abierta de gran aforo |
+| Velarias | Variable | Alternativa abierta de gran aforo |
+| Cancha de soccer | Variable | Alternativa abierta de gran aforo |
+| Plaza Galileo | Variable | Alternativa abierta / logistica |
+| Plaza Borrego | Variable | Alternativa abierta / logistica |
+| Innovation Gym PIT3 | ~80 personas | Entrenadores / sesiones de trabajo |
+
+### Salas de computo base
+
+Las salas de computo son comunes a Plan A y Plan B porque contienen los equipos fijos del campus.
 
 | Sala | Equipos disponibles | Sistema operativo | Nodos de red |
 | --- | --- | --- | ---: |
 | 1223 | 40 PC | Windows 11 | 40 |
 | 1224 | 30 iMac | macOS | 0 (requiere cableado) |
 | 12102 | 30 PC Workstation | Windows 11 | 30 |
-| 12104 (Lab de móviles) | 15 PC Workstation + 19 MacBook Pro | Windows 11 / macOS | 14 |
+| 12104 (Lab de moviles) | 15 PC Workstation + 19 MacBook Pro | Windows 11 / macOS | 14 |
 | 12401 (Lab de redes) | 10 PC | Windows 11 | 0 (requiere cableado) |
-| **Total** | **144 equipos** | | **84 nodos** |
+| **Total base** | **144 equipos** | | **84 nodos** |
 
-> **Nota:** Los 144 equipos disponibles en el campus no cubren el máximo de 256 requerido para primaria.
-> La diferencia (112 equipos) deberá cubrirse con equipo externo o ajuste del formato de competencia.
+Los 144 equipos disponibles no cubren el maximo de 256 requerido para primaria. La diferencia de 112 equipos se resuelve mediante expansion fisica de Red A, sin cambiar calendario y sin dividir categorias.
 
-### Espacios de gran capacidad — Comparativo A vs B
+### Comparativo Plan A vs Plan B
 
-| Rol | **Opción A** | Aforo A | **Opción B** | Aforo B |
+| Rol | Plan A seleccionado | Capacidad Plan A | Plan B contingente | Capacidad Plan B |
 | --- | --- | ---: | --- | ---: |
-| Jueces | Domo Life | Estimado ≥ 10 personas | Auditorio Escuela de Ingeniería (compartido con reporteros) | ~120 personas |
-| Entrenadores | Auditorio Escuela de Negocios y Humanidades | ~150 personas | Innovation Gym — PIT3 (7° piso) | ~80 personas |
-| Reporteros | Domo Escuela de Negocios y Humanidades | Variable | Auditorio Escuela de Ingeniería (compartido con jueces) | ~120 personas |
-| Invitados | Sala Menlo | ~300 personas | Sala Menlo | ~300 personas |
+| Competidores base | 5 salas de computo | 144 equipos | 5 salas de computo | 144 equipos |
+| Competidores adicionales | Sala Borrego | 112 equipos externos | Auditorio Escuela de Ingenieria | 112 equipos externos |
+| Jueces | Domo Life | 10 personas | Domo Life | 10 personas |
+| Entrenadores | Auditorio Escuela de Negocios y Humanidades | 40 personas | Auditorio Escuela de Negocios y Humanidades | 40 personas |
+| Reporteros | Domo Escuela de Negocios y Humanidades | 32 personas | Domo Escuela de Negocios y Humanidades | 32 personas |
+| Invitados | Sala Menlo | 100 personas | Sala Menlo | 100 personas |
 
 ---
 
-## 3. Verificación de capacidad — Visita a instalaciones
+## 3. Verificacion de capacidad
 
-Se realizó una visita de reconocimiento a las instalaciones del campus para verificar que los espacios seleccionados cumplen con los requisitos de aforo y condiciones operativas del evento.
-
-### Resultados de la verificación
+### Resultados de la verificacion documental
 
 | Espacio | Aforo declarado | Rol verificado | Cumple capacidad |
 | --- | ---: | --- | --- |
-| Salas de cómputo (5 salas) | 144 equipos | Competidores | Sí (con nota de equipos adicionales) |
-| Domo Life | ≥ 10 personas | Jueces (Opción A) | Sí |
-| Auditorio ENH | ~150 personas | Entrenadores (Opción A) | Sí |
-| Domo ENH | Variable | Reporteros (Opción A) | Sí |
-| Sala Menlo | ~300 personas | Invitados (A y B) | Sí |
-| Auditorio Esc. de Ingeniería | ~120 personas | Jueces + Reporteros (Opción B) | Sí |
-| Innovation Gym PIT3 | ~80 personas | Entrenadores (Opción B) | Sí |
+| Salas de computo (5 salas) | 144 equipos | Competidores base | Si, para equipo fijo disponible |
+| Sala Borrego | ~120 personas | 112 equipos externos (Plan A) | Si por aforo nominal; requiere validacion fisica |
+| Auditorio Escuela de Ingenieria | ~120 personas | 112 equipos externos (Plan B) | Si por aforo nominal; requiere validacion fisica |
+| Domo Life | Variable | Jueces | Si |
+| Auditorio Escuela de Negocios y Humanidades | ~150 personas | Entrenadores | Si |
+| Domo Escuela de Negocios y Humanidades | Variable | Reporteros | Si |
+| Sala Menlo | ~300 personas | Invitados | Si |
+
+### Validacion fisica pendiente
+
+Antes de cerrar la implementacion fisica se debe confirmar:
+
+- Sala Borrego permite instalar 112 computadoras externas con mesas o superficies suficientes.
+- Sala Borrego tiene energia suficiente o puede recibir distribucion electrica temporal segura.
+- Sala Borrego puede conectarse a Red A / VLAN 10 mediante switches y cableado temporal.
+- Auditorio Escuela de Ingenieria cumple las mismas condiciones como Plan B.
+- Los 112 equipos externos son computadoras aptas para competencia.
 
 ### Observaciones de la visita
 
-- Las salas de cómputo cuentan con tomas de corriente y puntos de red en número variable; las salas 1224 y 12401 requieren extensión de cableado estructurado.
-- Sala Menlo es el espacio abierto de mayor capacidad del campus; cuenta con acceso a puntos de red e instalación eléctrica adecuada.
-- Domo Life ofrece privacidad suficiente para el área de jueces; acceso controlado natural por su ubicación.
-- Auditorio ENH y Auditorio de Ingeniería tienen mobiliario fijo tipo auditorio; ambos cuentan con salida a red institucional.
-- Innovation Gym (PIT3, piso 7) es un espacio abierto con tomacorrientes y buena cobertura de señal.
+- Las salas de computo cuentan con tomas de corriente y puntos de red en numero variable; las salas 1224 y 12401 requieren extension de cableado estructurado.
+- Sala Menlo es el espacio abierto de mayor capacidad del campus y se conserva para invitados.
+- Domo Life ofrece privacidad suficiente para el area de jueces.
+- Auditorio ENH y Auditorio de Ingenieria tienen mobiliario fijo tipo auditorio; si se usan para computadoras se debe validar que el mobiliario soporte el montaje.
+- Sala Borrego se selecciona por aforo nominal suficiente para los 112 equipos externos y por mantener separados los roles operativos.
 
 ---
 
 ## 4. Medidas exactas de los espacios seleccionados
 
-| Espacio | Largo (m) | Ancho (m) | Área (m²) | Observaciones |
+| Espacio | Largo (m) | Ancho (m) | Area (m2) | Observaciones |
 | --- | --- | --- | --- | --- |
 | Sala 1223 | Pendiente | Pendiente | Pendiente | |
 | Sala 1224 | Pendiente | Pendiente | Pendiente | |
 | Sala 12102 | Pendiente | Pendiente | Pendiente | |
-| Sala 12104 (Lab de móviles) | Pendiente | Pendiente | Pendiente | |
+| Sala 12104 (Lab de moviles) | Pendiente | Pendiente | Pendiente | |
 | Sala 12401 (Lab de redes) | Pendiente | Pendiente | Pendiente | |
-| Domo Life | Pendiente | Pendiente | Pendiente | Forma circular/oval |
-| Auditorio ENH | Pendiente | Pendiente | Pendiente | Planta con plano autocad disponible |
-| Domo ENH | Pendiente | Pendiente | Pendiente | Forma circular/oval |
-| Sala Menlo | Pendiente | Pendiente | Pendiente | |
-| Auditorio Esc. de Ingeniería | Pendiente | Pendiente | Pendiente | |
-| Innovation Gym PIT3 | Pendiente | Pendiente | Pendiente | |
+| Sala Borrego | Pendiente | Pendiente | Pendiente | Plan A para 112 equipos externos |
+| Auditorio Escuela de Ingenieria | Pendiente | Pendiente | Pendiente | Plan B para 112 equipos externos |
+| Domo Life | Pendiente | Pendiente | Pendiente | Jueces |
+| Auditorio ENH | Pendiente | Pendiente | Pendiente | Entrenadores |
+| Domo ENH | Pendiente | Pendiente | Pendiente | Reporteros |
+| Sala Menlo | Pendiente | Pendiente | Pendiente | Invitados |
 
-> Las medidas serán completadas con el plano AutoCAD del campus solicitado al área responsable.
+Las medidas seran completadas con el plano AutoCAD del campus solicitado al area responsable.
 
 ---
 
-## 5. Justificación de las alternativas
+## 5. Justificacion de los planes
 
-### Opción A — Justificación
+### Plan A seleccionado - Sala Borrego para expansion Red A
 
-**Salas de cómputo (competidores)**
-Las 5 salas son las únicas instalaciones del campus con equipo de cómputo fijo. No existe alternativa viable para este rol; los equipos no se pueden reubicar.
+**Salas de computo base (competidores)**
+Las 5 salas de computo son las instalaciones con equipo fijo del campus. Aportan 144 equipos para Red A y se usan en todos los turnos de competencia.
+
+**Sala Borrego (112 equipos externos)**
+Sala Borrego se selecciona como expansion principal de Red A porque su aforo aproximado de 120 personas permite acomodar los 112 equipos externos necesarios para completar los 256 competidores simultaneos de primaria. Al concentrar los equipos adicionales en un solo espacio, se simplifica la operacion: un solo bloque de switches, cableado temporal, pruebas DHCP, etiquetado y monitoreo.
 
 **Domo Life (jueces)**
-El Domo Life ofrece aislamiento físico natural respecto al área de competidores y público general. Esto es crítico para preservar la integridad del proceso de evaluación: los jueces no deben estar expuestos a presión o contacto con entrenadores, reporteros o invitados. Su capacidad es más que suficiente para 10 personas y permite montar cableado dedicado (Red T, VLAN 20) sin interferir con otras redes.
+El Domo Life conserva separacion fisica para jueces, reduciendo el contacto con competidores, entrenadores, reporteros e invitados. Este aislamiento apoya la integridad de la evaluacion.
 
-**Auditorio ENH (entrenadores)**
-El Auditorio de la Escuela de Negocios y Humanidades tiene un aforo de ~150 personas, lo que cuadruplica la cantidad de entrenadores (40). El excedente de espacio facilita la disposición holgada y permite instalar un punto de acceso WiFi con cobertura uniforme. La distribución tipo auditorio favorece proyecciones y comunicados del comité hacia los entrenadores durante el evento.
+**Auditorio Escuela de Negocios y Humanidades (entrenadores)**
+El auditorio tiene aforo suficiente para 40 entrenadores y permite operar la Red E con conectividad WiFi o mixta sin interferir con la competencia.
 
-**Domo ENH (reporteros)**
-El Domo de la Escuela de Negocios y Humanidades tiene aforo variable que se adapta al número de reporteros (32). Su planta flexible permite configurar estaciones de trabajo para medios de comunicación. Al estar en el mismo edificio que el Auditorio ENH, simplifica el tendido de la infraestructura de red (Red Repos, VLAN 40).
+**Domo Escuela de Negocios y Humanidades (reporteros)**
+El Domo ENH se conserva para reporteros por su flexibilidad de acomodo y por permitir una red separada de prensa mediante Red Repos / VLAN 40.
 
 **Sala Menlo (invitados)**
-Es el espacio de mayor aforo disponible (~300 personas), que supera ampliamente los 100 invitados previstos. Su apertura y visibilidad son adecuadas para el rol de audiencia general, y la infraestructura WiFi existente facilita la implementación de la red de invitados (Red I, VLAN 60).
+Sala Menlo tiene capacidad suficiente para 100 invitados y permite mantener a visitantes separados de los espacios criticos de competencia y jueces.
+
+### Plan B contingente - Auditorio Escuela de Ingenieria para expansion Red A
+
+El Plan B mantiene la misma asignacion de roles, pero reemplaza Sala Borrego por el Auditorio Escuela de Ingenieria para los 112 equipos externos. Solo se activa si Sala Borrego no cumple con disponibilidad, energia, mobiliario, conectividad o condiciones de montaje.
+
+El Auditorio de Ingenieria cuenta con aforo aproximado de 120 personas, suficiente por capacidad nominal. La validacion fisica debe confirmar que el mobiliario permite instalar computadoras y que se puede llevar Red A / VLAN 10 mediante cableado temporal.
 
 ---
 
-### Opción B — Justificación
+## 6. Comparativo de preferencia
 
-**Auditorio Escuela de Ingeniería (jueces + reporteros)**
-El auditorio de Ingeniería tiene un aforo de ~120 personas, suficiente para los 42 usuarios combinados (10 jueces + 32 reporteros). Aunque los roles comparten el espacio físico, la segmentación de red por VLAN (VLAN 20 para jueces en puertos cableados, VLAN 40 para reporteros en WiFi) mantiene el aislamiento lógico requerido. Esta opción simplifica la logística de infraestructura al concentrar dos roles en un solo edificio y reducir el tendido de cable estructurado.
-
-**Innovation Gym PIT3 — 7° piso (entrenadores)**
-El Innovation Gym tiene aforo estimado de ~80 personas, el doble de los 40 entrenadores. Su diseño moderno y espacioso favorece la instalación de puntos de acceso WiFi (Red E, VLAN 50) con buena distribución de señal. La elevación (piso 7) puede aportar mejor propagación de señal inalámbrica al interior del espacio.
-
-**Sala Menlo (invitados)**
-Misma justificación que en Opción A: único espacio con aforo suficiente para 100+ invitados.
-
----
-
-### Comparativo de preferencia
-
-| Criterio | Opción A | Opción B |
+| Criterio | Plan A: Sala Borrego | Plan B: Auditorio Ingenieria |
 | --- | --- | --- |
-| Aislamiento físico de jueces | Alto (espacio exclusivo) | Medio (comparten con reporteros) |
-| Cobertura WiFi por espacio | Distribuida en 3 espacios independientes | Concentrada en 2 espacios |
-| Tendido de cableado | Mayor extensión (4 edificios) | Menor extensión (3 edificios) |
-| Riesgo de interferencia jueces/prensa | Bajo | Medio (misma sala) |
-| Flexibilidad operativa | Alta (espacios independientes) | Media |
+| Estado | Seleccionado | Contingencia |
+| Capacidad para 112 equipos | Suficiente por aforo nominal | Suficiente por aforo nominal |
+| Impacto en roles no competidores | Bajo | Bajo |
+| Simplicidad operativa | Alta: un solo espacio de expansion | Media: depende de mobiliario de auditorio |
+| Riesgo principal | Validar energia, mesas y cableado temporal | Validar mobiliario y cableado temporal |
+| Calendario | No cambia | No cambia |
+| Categorias por olas | No usa olas | No usa olas |
 
-**Alternativa seleccionada: Opción A.**  
-El aislamiento físico de los jueces en el Domo Life elimina el riesgo de interferencia y contacto no autorizado con el proceso de evaluación, factor de mayor peso en la decisión. La distribución en espacios independientes facilita también la operación técnica de la red por zonas.
+**Alternativa seleccionada: Plan A.**
+El Plan A resuelve la falta de 112 equipos sin modificar la estructura de la olimpiada. Mantiene primaria completa en Dia 2, concentra la expansion de Red A en Sala Borrego y conserva espacios separados para jueces, entrenadores, reporteros e invitados.
 
 ---
 
-## 6. Bosquejos de red
+## 7. Bosquejos de red
 
-### Opción A — Topología por espacio
+### Plan A seleccionado - Topologia por espacio
 
-```
+```text
                         INTERNET
                             |
                       FIREWALL / ROUTER L3
                             |
                        CORE SWITCH
                             |
-          ┌─────────────────┼─────────────────────────────┐
+          +-----------------+-----------------------------+
           |                 |                             |
-   ┌──────┴──────┐   ┌──────┴──────┐             ┌───────┴───────┐
-   | SALAS COMP. |   | DOMO LIFE   |             | ESPACIOS WiFi |
-   | VLAN 10     |   | VLAN 20     |             |               |
-   | Red A       |   | Red T       |             |               |
-   |             |   |             |    AUDITORIO ENH   DOMO ENH
-   | 1223 40 PC  |   | 10 PC cable |    VLAN 50         VLAN 40
-   | 1224 30 Mac |   | SW jueces   |    Red E           Red Repos
-   | 12102 30 PC |   └─────────────┘    40 entrens.     32 reporteros
-   | 12104 34 PC |                      AP WiFi         AP WiFi
-   | 12401 10 PC |
-   | SW acceso   |             SALA MENLO
-   | + VLAN 80   |             VLAN 60 — Red I
-   | Red C       |             100 invitados
-   | 20 camaras  |             AP WiFi
-   └─────────────┘
-
-   Leyenda de VLANs:
-   VLAN 10  Red A   Competidores  (cableada, /23)
-   VLAN 20  Red T   Jueces        (cableada, /27)
-   VLAN 30  Red TI  Servidor+imp. (cableada, /28)
-   VLAN 40  Repos   Reporteros    (WiFi, /26)
-   VLAN 50  Red E   Entrenadores  (WiFi, /26)
-   VLAN 60  Red I   Invitados     (WiFi, /25)
-   VLAN 70  Red M   Gestión       (admin, /27)
-   VLAN 80  Red C   Cámaras       (cableada, /27)
+   +------+-------+   +-----+-------+             +-------+-------+
+   | RED A BASE   |   | RED A EXP.  |             | ESPACIOS ROL |
+   | VLAN 10      |   | VLAN 10     |             |               |
+   |              |   |             |             | DOMO LIFE     |
+   | 1223  40 PC  |   | SALA        |             | VLAN 20       |
+   | 1224  30 Mac |   | BORREGO     |             | Red T jueces  |
+   | 12102 30 PC  |   | 112 equipos |             |               |
+   | 12104 34 Eq. |   | externos    |             | AUDITORIO ENH |
+   | 12401 10 PC  |   | SW acceso   |             | VLAN 50 Red E |
+   |              |   | cableado    |             |               |
+   | SSID         |   | temporal    |             | DOMO ENH      |
+   | OMI-Camaras  |   +-------------+             | VLAN 40 Repos |
+   | VLAN 80      |                               |               |
+   +--------------+                               | SALA MENLO    |
+                                                  | VLAN 60 Red I |
+                                                  +---------------+
 ```
 
----
+### Plan B contingente - Topologia por espacio
 
-### Opción B — Topología por espacio
-
-```
+```text
                         INTERNET
                             |
                       FIREWALL / ROUTER L3
                             |
                        CORE SWITCH
                             |
-          ┌─────────────────┼──────────────────────────────┐
-          |                 |                              |
-   ┌──────┴──────┐   ┌──────┴───────────┐         ┌───────┴────────┐
-   | SALAS COMP. |   | AUDIT. INGENIERÍA |         | ESPACIOS WiFi  |
-   | VLAN 10     |   | VLAN 20 + VLAN 40 |         |                |
-   | Red A       |   |                   |         |                |
-   | (idéntico   |   | Jueces (10):      |  INNOV. GYM    SALA MENLO
-   |  Opción A)  |   |  10 PC cableados  |  PIT3 7° piso  VLAN 60
-   |             |   |  puertos VLAN 20  |  VLAN 50       Red I
-   |             |   |                   |  Red E         100 invits.
-   |             |   | Reporteros (32):  |  40 entrens.   AP WiFi
-   |             |   |  AP WiFi VLAN 40  |  AP WiFi
-   |             |   | └─ mismo SW       |
-   |             |   |    trunking 20+40 |
-   └─────────────┘   └───────────────────┘
-
-   Nota: Jueces y reporteros comparten espacio físico pero están
-   segmentados en VLANs distintas. Los jueces usan puertos cableados
-   en VLAN 20; los reporteros usan WiFi en VLAN 40. Las ACLs del
-   firewall bloquean tráfico entre ambas VLANs.
-
-   Leyenda de VLANs: igual que Opción A.
+          +-----------------+-----------------------------+
+          |                 |                             |
+   +------+-------+   +-----+-------+             +-------+-------+
+   | RED A BASE   |   | RED A EXP.  |             | ESPACIOS ROL |
+   | VLAN 10      |   | VLAN 10     |             |               |
+   | 5 salas      |   | AUDITORIO   |             | DOMO LIFE     |
+   | 144 equipos  |   | INGENIERIA  |             | Red T jueces  |
+   |              |   | 112 equipos |             |               |
+   | SSID         |   | externos    |             | AUDITORIO ENH |
+   | OMI-Camaras  |   | SW acceso   |             | Red E         |
+   | VLAN 80      |   | cableado    |             |               |
+   +--------------+   | temporal    |             | DOMO ENH      |
+                      +-------------+             | Red Repos     |
+                                                  | SALA MENLO    |
+                                                  | Red I         |
+                                                  +---------------+
 ```
+
+Leyenda:
+
+| VLAN | Red | Uso |
+| ---: | --- | --- |
+| 10 | Red A | Competidores base y equipos externos |
+| 20 | Red T | Jueces |
+| 30 | Red TI | Servidor e impresoras |
+| 40 | Red Repos | Reporteros |
+| 50 | Red E | Entrenadores |
+| 60 | Red I | Invitados |
+| 70 | Red M | Gestion |
+| 80 | Red C | Camaras rentadas por WiFi |
+
+Las camaras son rentadas para el evento y se conectan de forma inalambrica al SSID `OMI-Camaras`. No forman parte del inventario actual del campus y no requieren punto de red por camara.
 
 ---
 
-*Documento generado como parte del proyecto de diseño de red OMI — Campus sede.*  
-*Las medidas de espacios serán completadas con el plano AutoCAD proporcionado por el campus.*
+

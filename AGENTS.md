@@ -14,6 +14,7 @@ La fuente de verdad vive en `docs/`. Antes de proponer o cambiar algo, leer:
 4. `docs/01-arquitectura-red.md`
 5. `docs/02-eventos-escenarios.md`
 6. `docs/03-validacion-operacion.md`
+7. `docs/04-espacios-fisicos.md`
 
 ## Regla SDD
 
@@ -35,6 +36,7 @@ Flujo obligatorio:
 | `docs/01-arquitectura-red.md` | VLANs, subredes, SSIDs, topologia y reglas de acceso. |
 | `docs/02-eventos-escenarios.md` | Usuarios, eventos, restricciones y resultados esperados. |
 | `docs/03-validacion-operacion.md` | Matriz de permisos, pruebas, checklist y fallos. |
+| `docs/04-espacios-fisicos.md` | Inventario de espacios, alternativas fisicas y bosquejos por espacio. |
 
 ## Decisiones vigentes
 
@@ -44,8 +46,8 @@ Flujo obligatorio:
 - Capacidad maxima simultanea de competencia: 256 equipos.
 - Red A: VLAN 10, `10.50.0.0/23`.
 - Red C: VLAN 80 para 20 camaras rentadas inalambricas por SSID `OMI-Camaras`.
+- Expansion Red A: Sala Borrego como Plan A para 112 equipos externos; Auditorio Escuela de Ingenieria como Plan B.
 - Las tablets no forman parte del inventario de competencia.
-- No resolver inconsistencias de asignacion de espacios salvo que una feature lo pida.
 
 ## Privacidad
 
