@@ -12,6 +12,7 @@ La validacion cubre:
 - Acceso al servidor.
 - Bloqueo entre redes.
 - WiFi.
+- Camaras inalambricas.
 - Impresion.
 - Operacion por turnos.
 - Respuesta a fallos.
@@ -20,37 +21,39 @@ La validacion cubre:
 
 Politica general: bloquear por defecto y permitir solo lo especificado.
 
-| Origen | Red A | Red T | Red TI servidor | Red TI impresoras | Red Repos | Red E | Red I | Internet | Red M |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Red A | Local segun politica | No | Si, plataforma | No | No | No | No | Si | No |
-| Red T | No | Local | Si | Si | No | No | No | Si | No |
-| Red TI | No iniciado | Si segun respuesta | Local | Local | No | No | No | Limitado | No |
-| Red Repos | No | No | No | No | Local | No | No | Si | No |
-| Red E | No | No | Solo scoreboard si aplica | No | No | Local | No | Si | No |
-| Red I | No | No | No | No | No | No | Local | Si | No |
-| Red M | Si admin si aplica | Si admin si aplica | Si admin | Si admin | Si admin/AP | Si admin/AP | Si admin/AP | Si | Local |
+| Origen | Red A | Red T | Red TI servidor | Red TI impresoras | Red Repos | Red E | Red I | Red C | Internet | Red M |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Red A | Local segun politica | No | Si, plataforma | No | No | No | No | No | Si | No |
+| Red T | No | Local | Si | Si | No | No | No | No | Si | No |
+| Red TI | No iniciado | Si segun respuesta | Local | Local | No | No | No | No | Limitado | No |
+| Red Repos | No | No | No | No | Local | No | No | No | Si | No |
+| Red E | No | No | Solo scoreboard si aplica | No | No | Local | No | No | Si | No |
+| Red I | No | No | No | No | No | No | Local | No | Si | No |
+| Red C | No | No | No | No | No | No | No | Local | No | Si, video/monitoreo |
+| Red M | Si admin si aplica | Si admin si aplica | Si admin | Si admin | Si admin/AP | Si admin/AP | Si admin/AP | Si monitoreo | Si | Local |
 
 Notas:
 
 - "No iniciado" significa que Red TI no debe iniciar conexiones hacia usuarios salvo respuestas a sesiones permitidas.
 - Red M es de administracion y debe estar limitada al equipo tecnico.
 - Si el scoreboard se publica para entrenadores, debe ser solo lectura.
+- Red C es exclusiva para camaras rentadas inalambricas y solo debe comunicarse con monitoreo autorizado.
 
 ## Checklist previo al evento
 
 ### Infraestructura
 
 - Confirmar bloque IP final con el campus.
-- Configurar VLANs 10, 20, 30, 40, 50, 60 y 70.
+- Configurar VLANs 10, 20, 30, 40, 50, 60, 70 y 80.
 - Configurar trunks entre core, switches de acceso, firewall y APs.
 - Etiquetar puertos por salon y rol.
-- Validar energia para switches, servidor, impresoras y APs.
+- Validar energia para switches, servidor, impresoras, APs y camaras rentadas.
 - Confirmar uplinks con capacidad suficiente.
 
 ### DHCP y direccionamiento
 
 - Crear scope DHCP para Red A con capacidad mayor a 256 clientes.
-- Crear scopes para Red T, Red Repos, Red E y Red I.
+- Crear scopes para Red T, Red Repos, Red E, Red I y Red C.
 - Asignar IPs fijas a servidor, impresoras y gestion.
 - Probar gateway por VLAN.
 - Probar DNS por VLAN.
@@ -62,15 +65,17 @@ Notas:
 - Permitir Red A hacia servidor de concurso solo en puertos necesarios.
 - Permitir Red T hacia servidor e impresoras.
 - Bloquear invitados y reporteros hacia redes internas.
+- Bloquear redes de usuario hacia Red C.
 - Bloquear administracion desde redes de usuario.
 - Documentar cualquier excepcion temporal.
 
 ### WiFi
 
-- Crear SSIDs `OMI-Reporteros`, `OMI-Entrenadores` y `OMI-Invitados`.
+- Crear SSIDs `OMI-Reporteros`, `OMI-Entrenadores`, `OMI-Invitados` y `OMI-Camaras`.
 - Mapear cada SSID a su VLAN.
 - Probar autenticacion.
 - Validar cobertura en salas correspondientes.
+- Validar cobertura de `OMI-Camaras` en las 5 salas de computo.
 - Aplicar limite o prioridad menor a invitados si el equipo lo permite.
 
 ## Pruebas de aceptacion
@@ -86,6 +91,8 @@ Notas:
 | Reporteros Internet | Cliente Red Repos navega | Internet disponible |
 | Entrenadores scoreboard | Cliente Red E consulta resultados | Solo lectura si aplica |
 | Gestion | Cliente Red M administra switch/AP | Acceso permitido solo a tecnicos |
+| Camaras WiFi | Camara rentada se conecta a `OMI-Camaras` | IP de Red C y video visible solo para monitoreo autorizado |
+| Bloqueo Red C | Cliente Red A, Red I o Red Repos intenta llegar a Red C | Acceso denegado |
 
 ## Validacion por turno
 
@@ -126,6 +133,7 @@ Monitorear continuamente:
 - Uso de CPU/memoria/disco del servidor.
 - Estado de uplinks.
 - Clientes conectados por SSID.
+- Camaras conectadas al SSID `OMI-Camaras`.
 - Eventos de firewall bloqueados/permitidos.
 - Estado de impresoras.
 
@@ -144,6 +152,7 @@ Acciones que requieren autorizacion del comite:
 - Cambiar horario de competencia.
 - Habilitar acceso nuevo no previsto.
 - Mover usuarios entre VLANs.
+- Cambiar acceso de Red C o exponer video fuera del monitoreo autorizado.
 
 ## Procedimientos de fallo
 
@@ -184,6 +193,14 @@ Acciones que requieren autorizacion del comite:
 3. Limitar Red I antes que Red Repos o Red E.
 4. Agregar AP o redistribuir usuarios si hay equipo disponible.
 
+### Camara inalambrica falla
+
+1. Verificar energia o bateria de la camara.
+2. Confirmar que la camara este conectada a `OMI-Camaras`.
+3. Revisar intensidad de senal en la sala afectada.
+4. Reubicar camara o AP si la cobertura es insuficiente.
+5. Confirmar que Red C no sea accesible desde redes de usuario.
+
 ## Cierre del evento
 
 - Exportar o respaldar logs necesarios.
@@ -202,6 +219,7 @@ Guardar capturas o registros de:
 - Matriz de reglas firewall/ACL.
 - Pruebas de bloqueo entre redes.
 - Pruebas de acceso al servidor.
+- Pruebas de camaras inalambricas y bloqueo hacia Red C.
 - Clientes conectados por turno.
 - Incidentes y resoluciones.
 

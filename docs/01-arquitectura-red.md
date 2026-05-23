@@ -40,7 +40,7 @@ Este bloque ofrece direcciones desde `10.50.0.0` hasta `10.50.3.255`. Debe cambi
 | Red E | 50 | `10.50.2.128/26` | `10.50.2.129` | 62 | Entrenadores |
 | Red I | 60 | `10.50.3.0/25` | `10.50.3.1` | 126 | Invitados |
 | Red M | 70 | `10.50.3.128/27` | `10.50.3.129` | 30 | Gestion |
-| Red C | 80 | `10.50.3.160/27` | `10.50.3.161` | 30 | Camaras de vigilancia |
+| Red C | 80 | `10.50.3.160/27` | `10.50.3.161` | 30 | Camaras rentadas inalambricas |
 
 ## Reservas recomendadas
 
@@ -53,7 +53,7 @@ Este bloque ofrece direcciones desde `10.50.0.0` hasta `10.50.3.255`. Debe cambi
 | Red E | `10.50.2.140 - 10.50.2.190` | Gateway y equipo de soporte |
 | Red I | `10.50.3.10 - 10.50.3.126` | Gateway |
 | Red M | IPs estaticas | Switches, APs, firewall, monitoreo |
-| Red C | IPs estaticas o DHCP reservado | 20 camaras de vigilancia en 5 salones de computo |
+| Red C | DHCP reservado | 20 camaras rentadas inalambricas en 5 salones de computo |
 
 ## Direcciones estaticas de servicios
 
@@ -78,17 +78,17 @@ Troncal campus / core switch
 +------------------+------------------+------------------+------------------+
 |                  |                  |                  |                  |
 Switches Red A     Switch jueces/TI   Switch/APs WiFi    Gestion / Camaras
-VLAN 10            VLAN 20/30         VLAN 40/50/60      VLAN 70 / VLAN 80
+VLAN 10            VLAN 20/30         VLAN 40/50/60/80   VLAN 70
 ```
 
 Salones de computo con equipo:
 
 ```text
-Sala 1223  (40 PC Win11,  40 nodos)  VLAN 10 + VLAN 80
-Sala 1224  (30 iMac,       0 nodos)  VLAN 10 + VLAN 80  (requiere cableado)
-Sala 12102 (30 PC Win11,  30 nodos)  VLAN 10 + VLAN 80
-Sala 12104 (15 PC + 19 MB, 14 nodos) VLAN 10 + VLAN 80
-Sala 12401 (10 PC Win11,   0 nodos)  VLAN 10 + VLAN 80  (requiere cableado)
+Sala 1223  (40 PC Win11,  40 nodos)  VLAN 10 + cobertura SSID OMI-Camaras
+Sala 1224  (30 iMac,       0 nodos)  VLAN 10 + cobertura SSID OMI-Camaras  (requiere cableado para computo)
+Sala 12102 (30 PC Win11,  30 nodos)  VLAN 10 + cobertura SSID OMI-Camaras
+Sala 12104 (15 PC + 19 MB, 14 nodos) VLAN 10 + cobertura SSID OMI-Camaras
+Sala 12401 (10 PC Win11,   0 nodos)  VLAN 10 + cobertura SSID OMI-Camaras  (requiere cableado para computo)
 ```
 
 Espacios de gran capacidad del evento:
@@ -99,6 +99,8 @@ Auditorio ENH      (~150 personas)  VLAN 40    (prensa y reporteros)
 Domo ENH           (variable)       VLAN 60    (invitados y soporte logistico)
 ```
 
+Nota: las asignaciones de espacios se conservan como estan y quedan pendientes de decision final; el inventario completo de espacios disponibles vive en `00-fuente-de-verdad.md`.
+
 El enrutamiento entre VLANs debe pasar por el firewall o por un dispositivo capa 3 con reglas equivalentes.
 
 ## SSIDs WiFi
@@ -108,11 +110,13 @@ El enrutamiento entre VLANs debe pasar por el firewall o por un dispositivo capa
 | `OMI-Reporteros` | 40 | Reporteros | WPA2/WPA3 |
 | `OMI-Entrenadores` | 50 | Entrenadores | WPA2/WPA3 |
 | `OMI-Invitados` | 60 | Invitados | WPA2/WPA3 o portal cautivo |
+| `OMI-Camaras` | 80 | Camaras rentadas | WPA2/WPA3 con clave controlada |
 
 Buenas practicas:
 
 - No publicar SSIDs internos de gestion.
 - Separar invitados de cualquier red operativa.
+- Separar camaras rentadas de usuarios y gestion mediante VLAN 80.
 - Limitar ancho de banda de invitados si hay congestion.
 - Priorizar Red A y Red T sobre redes WiFi no criticas.
 
@@ -138,7 +142,7 @@ Politica base: negar por defecto y permitir solo lo necesario.
 | Red I | Internet | Permitir | Invitados |
 | Red I | Redes internas | Bloquear | Seguridad |
 | Red M | Equipos de red | Permitir administracion | Operacion tecnica |
-| Red C | Servidor de grabacion/monitoreo en Red M | Permitir solo streaming de video | Vigilancia de salones |
+| Red C | Servidor de grabacion/monitoreo en Red M | Permitir solo streaming de video | Vigilancia de salones con camaras rentadas |
 | Red C | Redes de usuario | Bloquear | Las camaras no deben ser accesibles desde competidores ni invitados |
 | Red A / Red I / Red E / Red Repos | Red C | Bloquear | Ningun usuario accede a camaras |
 
@@ -156,12 +160,13 @@ Si el enlace a Internet se congestiona, se debe limitar Red I antes de afectar R
 
 ## Requerimientos de infraestructura fisica
 
-Salones de computo (Red A + Red C):
+Salones de computo (Red A + Red C inalambrica):
 
 - 84 nodos de red existentes cubren salas 1223 (40), 12102 (30) y 12104 (14).
 - Salas 1224 y 12401 no tienen nodos; requieren cableado adicional para sus 30 y 10 equipos respectivamente.
-- 20 camaras de vigilancia (4 por sala) deben tener punto de red en cada salida de camara, asignado a VLAN 80.
-- Switches de acceso en cada salon con puertos suficientes para equipos + camaras + uplink troncal.
+- 20 camaras de vigilancia rentadas (4 por sala) deben conectarse por WiFi al SSID `OMI-Camaras`, asignado a VLAN 80.
+- Las camaras no requieren punto de red por unidad, pero si energia, bateria o toma electrica y cobertura WiFi estable.
+- Switches de acceso en cada salon con puertos suficientes para equipos de computo + uplink troncal.
 
 Espacios de gran capacidad:
 
@@ -173,8 +178,8 @@ General:
 
 - Cableado probado en todos los equipos de Red A antes de cada turno.
 - Uplinks troncales con capacidad suficiente hacia core/firewall.
-- Energia estable para switches, servidor, impresoras, APs y camaras.
-- Access points suficientes para reporteros, entrenadores e invitados en los tres espacios de gran capacidad.
+- Energia estable para switches, servidor, impresoras, APs y camaras rentadas.
+- Access points suficientes para reporteros, entrenadores, invitados y camaras inalambricas.
 - Etiquetado fisico de puertos por salon y por VLAN.
 
 ## Restricciones tecnicas
@@ -184,6 +189,7 @@ General:
 - No administrar switches desde redes de usuario.
 - No depender de direccionamiento automatico sin scopes DHCP separados.
 - No usar el mismo SSID para roles distintos.
+- No conectar camaras al SSID de invitados, reporteros, entrenadores o gestion.
 
 ## Criterios de aceptacion tecnica
 
@@ -194,5 +200,5 @@ General:
 - Las impresoras responden desde Red T y no desde Red A.
 - Invitados, reporteros y entrenadores no alcanzan redes internas no autorizadas.
 - La red de gestion alcanza switches, APs y firewall.
-- Las 20 camaras reciben IP en `10.50.3.160/27` y solo el sistema de monitoreo puede alcanzarlas.
+- Las 20 camaras rentadas reciben IP en `10.50.3.160/27` por `OMI-Camaras` y solo el sistema de monitoreo puede alcanzarlas.
 - Ningun equipo de competidor, invitado o reportero puede alcanzar Red C.

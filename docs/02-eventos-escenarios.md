@@ -23,6 +23,7 @@ Usuario -> Evento -> Escenario -> Requerimientos -> Restricciones -> Resultado e
 | Entrenador | Red E | 40 | Mixta/WiFi | Media |
 | Invitado | Red I | 100 | WiFi | Baja |
 | Administrador de red | Red M | Equipo tecnico | Cableada/gestion | Alta |
+| Camara rentada | Red C | 20 | WiFi | Media |
 
 ## Evento: inicio de turno de competencia
 
@@ -239,6 +240,30 @@ Resultado esperado:
 - El equipo tecnico detecta fallos rapido.
 - Puede corregir DHCP, VLANs, APs o reglas sin entrar a redes de usuario.
 
+## Evento: camara rentada transmite vigilancia
+
+Requerimientos:
+
+- 20 camaras rentadas distribuidas en las 5 salas de computo.
+- 4 camaras por sala.
+- Conexion al SSID `OMI-Camaras`.
+- SSID mapeado a Red C / VLAN 80.
+- Cobertura WiFi suficiente en cada sala de computo.
+- Energia, bateria o toma electrica disponible por camara.
+
+Restricciones:
+
+- Las camaras no forman parte del inventario actual del campus.
+- Las camaras no deben conectarse a SSIDs de invitados, reporteros, entrenadores o competidores.
+- Competidores, invitados, reporteros y entrenadores no deben acceder a Red C.
+- Solo el sistema de monitoreo o personal autorizado debe consultar video.
+
+Resultado esperado:
+
+- Las 20 camaras reciben IP de Red C.
+- La vigilancia de salas opera sin cableado de red por camara.
+- El trafico de video queda aislado de la red de competencia.
+
 ## Escenarios de fallo
 
 | Fallo | Impacto | Respuesta esperada |
@@ -250,6 +275,7 @@ Resultado esperado:
 | Internet congestionado | Publicacion/recursos lentos | Priorizar Red A y limitar Red I |
 | VLAN mal asignada | Usuario recibe red incorrecta | Revisar puerto, trunk y tagging |
 | ACL demasiado abierta | Riesgo de acceso indebido | Volver a politica deny-by-default |
+| Camara sin cobertura WiFi | Punto de vigilancia sin video | Reubicar camara, validar AP o agregar cobertura para `OMI-Camaras` |
 
 ## Reglas de negocio
 

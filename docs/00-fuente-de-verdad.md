@@ -27,22 +27,33 @@ Los cinco salones con equipo de computo fijo disponibles para la competencia son
 
 Notas:
 
-- La sala 12104 incluye 19 iPads que no se consideran para la competencia por requerirse equipo de computo.
+- Solo se contabilizan equipos de computo utiles para la competencia: PC, iMac y MacBook.
 - Los 84 nodos existentes cubren solo una parte de los equipos disponibles; las salas 1224 y 12401 no tienen puertos cableados propios y requieren cableado adicional.
 - El campus dispone de 144 equipos de computo, inferior al maximo requerido de 256 para primaria. La diferencia debe cubrirse con equipo externo o ajuste del formato de competencia.
 
-### Espacios de gran capacidad seleccionados
+### Espacios de gran capacidad disponibles
 
-| Espacio | Aforo | Uso previsto |
+| Espacio | Aforo aproximado | Uso previsto actual |
 | --- | ---: | --- |
 | Sala Menlo | ~300 personas | Invitados |
+| Sala Borrego | ~120 personas | Disponible / por definir |
 | Auditorio Escuela de Negocios y Humanidades | ~150 personas | Entrenadores |
+| Auditorio Escuela de Ingenieria | ~120 personas | Disponible / por definir |
 | Domo Escuela de Negocios y Humanidades | Variable | Reporteros |
-| Domo Life | Estimado >= 10 personas | Jueces |
+| Domo Life | Variable | Jueces |
+| Gimnasio | Variable | Disponible / por definir |
+| Cancha de americano | Variable | Disponible / por definir |
+| Velarias | Variable | Disponible / por definir |
+| Cancha de soccer | Variable | Disponible / por definir |
+| Plaza Galileo | Variable | Disponible / por definir |
+| Plaza Borrego | Variable | Disponible / por definir |
+| Innovation Gym | ~80 personas | Disponible / por definir |
+
+Nota: las asignaciones operativas actuales de espacios quedan pendientes de decision final. En este ajuste solo se guarda el inventario completo de espacios disponibles.
 
 ### Camaras de vigilancia
 
-Se contemplan 20 camaras de seguridad distribuidas en las 5 salas de computo, con 4 camaras por sala. Requieren conectividad de red y se asignan a Red C (VLAN 80) separada de las redes de competencia y gestion.
+Se contemplan 20 camaras de seguridad rentadas para el evento, distribuidas en las 5 salas de computo, con 4 camaras por sala. No forman parte del inventario actual del campus. Deben ser inalambricas para facilitar la instalacion y conectarse al SSID dedicado `OMI-Camaras`, mapeado a Red C (VLAN 80), separada de las redes de competencia, invitados y gestion.
 
 ---
 
@@ -57,7 +68,7 @@ Incluye:
 - VLANs por rol.
 - Acceso controlado al servidor local de concurso.
 - Salida a Internet para roles permitidos.
-- WiFi separado para reporteros, entrenadores e invitados.
+- WiFi separado para reporteros, entrenadores, invitados y camaras rentadas.
 - Operacion durante dos dias de competencia.
 - Validacion tecnica antes y durante el evento.
 
@@ -114,8 +125,8 @@ Restricciones del calendario:
 | Bloque base sugerido | `10.50.0.0/22` | Permite segmentar el evento completo en subredes internas. |
 | Servidor local | Plataforma de concurso | Competidores acceden al servicio; jueces administran/evaluan. |
 | Separacion de roles | VLAN por rol | Reduce riesgos y facilita reglas de acceso. |
-| Camaras de vigilancia | Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y gestion para evitar trafico de video en rutas criticas. |
-| Espacios del evento | Sala Menlo, Auditorio ENH, Domo ENH | Seleccionados por aforo y disponibilidad para acomodar los distintos roles del evento. |
+| Camaras de vigilancia | Rentadas, inalambricas, Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y usuarios para evitar trafico de video en rutas criticas. |
+| Espacios del evento | Inventario completo registrado; asignacion pendiente | Se conservan asignaciones actuales sin corregir inconsistencias hasta decision final. |
 
 ## Requerimientos funcionales
 
@@ -140,6 +151,8 @@ RF-09. Los entrenadores deben contar con conectividad mixta o WiFi suficiente pa
 RF-10. Los invitados deben usar una red WiFi separada solo para Internet.
 
 RF-11. La red de gestion debe permitir administrar switches, access points y firewall.
+
+RF-12. Las camaras rentadas deben conectarse por WiFi dedicado a Red C para vigilancia de las salas de computo.
 
 ## Requerimientos no funcionales
 
@@ -166,6 +179,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 - Las redes WiFi deben mapearse a VLANs separadas.
 - Invitados y reporteros no deben acceder a redes internas del evento.
 - La administracion de red debe estar separada en una VLAN de gestion.
+- Las camaras inalambricas deben usar un SSID dedicado y no deben compartir red con invitados, reporteros, entrenadores o competidores.
 
 ## Especificacion resumida
 
@@ -178,6 +192,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 | Red E | Entrenadores | Mixta/WiFi | 40 | Media |
 | Red I | Invitados | WiFi | 100 | Baja |
 | Red M | Gestion | Cableada/administrativa | 20+ | Alta |
+| Red C | Camaras rentadas | WiFi | 20 | Media |
 
 ## Criterios de aceptacion
 
@@ -190,6 +205,7 @@ La infraestructura queda aceptada cuando:
 - Reporteros, entrenadores e invitados reciben conectividad segun su rol.
 - La matriz de permisos esta validada antes del primer turno.
 - El calendario de dos dias no rebasa la capacidad maxima de equipos.
+- Las camaras rentadas reciben conectividad por `OMI-Camaras` sin ser accesibles desde redes de usuario.
 - Existe checklist operativo para inicio, cambio y cierre de turnos.
 
 ## Supuestos
@@ -197,8 +213,8 @@ La infraestructura queda aceptada cuando:
 - El campus dispone de 144 equipos de computo fijos en 5 salones; los 112 equipos restantes para cubrir el maximo de 256 deben provenir de equipo externo o reajuste del formato.
 - Los 84 nodos de red existentes requieren cableado adicional para salas sin nodos (1224, 12401) y para equipos sin puerto asignado en las demas salas.
 - Hay switches y puertos suficientes para conectar la Red A una vez habilitado el cableado faltante.
-- La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras.
+- La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras rentadas.
 - El bloque `10.50.0.0/22` puede cambiar si ya existe conflicto.
 - La plataforma de concurso estara en el servidor local.
 - El equipo tecnico del campus puede configurar VLANs, DHCP, ACLs y WiFi.
-- Las 20 camaras de vigilancia en los salones de computo son parte de la infraestructura del evento y tienen conectividad de red.
+- Las 20 camaras de vigilancia son rentadas, inalambricas y requieren cobertura WiFi dedicada en los salones de computo.
