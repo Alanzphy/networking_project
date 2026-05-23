@@ -38,6 +38,7 @@ Notas:
 | Sala Menlo | ~300 personas | Invitados |
 | Auditorio Escuela de Negocios y Humanidades | ~150 personas | Entrenadores |
 | Domo Escuela de Negocios y Humanidades | Variable | Reporteros |
+| Domo Life | Estimado >= 10 personas | Jueces |
 
 ### Camaras de vigilancia
 
