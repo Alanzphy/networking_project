@@ -77,6 +77,8 @@ Los espacios asignados a jueces, entrenadores, reporteros e invitados cumplen co
 
 Las medidas exactas de los espacios seleccionados se encuentran pendientes. Se contempla completarlas con apoyo del plano AutoCAD del campus, solicitado al área correspondiente. Esta información permitirá confirmar dimensiones, distribución de mobiliario, rutas de cableado, ubicación de switches, puntos de energía y posibles trayectorias de instalación temporal.
 
+La cantidad final de switches, access points, cableado y equipo de distribución se definirá después de la validación física de los espacios. De forma preliminar, el diseño requiere capacidad para 120 puertos adicionales en Red A, cobertura WiFi para invitados, reporteros, entrenadores y cámaras, y un router, firewall o equipo de capa 3 capaz de manejar las VLANs propuestas.
+
 Mientras no se cuente con dichas medidas, la selección de espacios se justifica con base en aforo aproximado, disponibilidad operativa, separación de roles y viabilidad técnica preliminar.
 
 ## Justificación del Plan A
