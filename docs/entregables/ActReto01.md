@@ -37,6 +37,8 @@ No todos los espacios disponibles se utilizan en la propuesta final; sin embargo
 
 Para cumplir con los requerimientos del evento se plantearon dos alternativas principales. Ambas mantienen las cinco salas de cómputo como base para los competidores y conservan los mismos espacios para jueces, entrenadores, reporteros e invitados. La diferencia principal entre ambas alternativas es el espacio utilizado para instalar los 120 equipos externos requeridos para completar los 264 equipos simultáneos.
 
+El Plan B conserva la mayor parte de la distribución del Plan A porque funciona como una contingencia controlada, no como un rediseño total del evento. El único elemento que cambia es el espacio de expansión para los 120 equipos externos, ya que ese es el punto que depende más directamente de la validación física de mobiliario, energía, conectividad y montaje. Los espacios de jueces, entrenadores, reporteros e invitados se mantienen iguales porque ya cumplen con la capacidad requerida y permiten conservar la separación de roles, las mismas VLANs y el calendario oficial sin agregar complejidad operativa.
+
 ### Plan A seleccionado
 
 El Plan A utiliza Sala Borrego como espacio de expansión para los 120 equipos externos. En esta alternativa, la distribución queda de la siguiente manera:
