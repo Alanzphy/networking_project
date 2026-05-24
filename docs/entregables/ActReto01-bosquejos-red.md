@@ -25,7 +25,7 @@ flowchart LR
     end
 
     subgraph expansionA["Expansion Plan A"]
-        redAExpansion --> borrego[Sala Borrego / 112 equipos externos]
+        redAExpansion --> borrego[Sala Borrego / 120 equipos externos]
         borrego --> swBorrego[Switches de acceso y cableado temporal]
     end
 
@@ -67,7 +67,7 @@ flowchart LR
     end
 
     subgraph expansionB["Expansion Plan B"]
-        redAExpansion --> audIng[Auditorio Escuela de Ingenieria / 112 equipos externos]
+        redAExpansion --> audIng[Auditorio Escuela de Ingenieria / 120 equipos externos]
         audIng --> swAud[Switches de acceso y cableado temporal]
     end
 
