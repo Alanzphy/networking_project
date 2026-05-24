@@ -93,11 +93,9 @@ Desde el punto de vista de red, los 120 equipos externos de Sala Borrego se inte
 
 ## Justificación del Plan B
 
-El Plan B utiliza el Auditorio de la Escuela de Ingeniería como espacio alternativo para los 120 equipos externos. Esta opción se conserva como contingencia en caso de que Sala Borrego no cumpla con las condiciones físicas de instalación, energía, disponibilidad o conectividad.
+El Plan B utiliza el Auditorio de la Escuela de Ingeniería como espacio alternativo para los 120 equipos externos si Sala Borrego no cumple con las condiciones físicas de instalación, energía, disponibilidad o conectividad.
 
-La ventaja principal del Plan B es que mantiene intacta la lógica del diseño: no modifica calendario, no divide categorías y conserva los mismos espacios para jueces, entrenadores, reporteros e invitados. Su principal desventaja es que, al tratarse de un auditorio, debe validarse que el mobiliario permita instalar computadoras de manera cómoda y segura para los competidores.
-
-Aunque el Auditorio de la Escuela de Ingeniería cuenta con la capacidad necesaria, no se selecciona como prioridad porque su distribución obliga a considerar equipo portátil y un montaje más condicionado por la forma del auditorio. Además, la cercanía entre puestos podría elevar el riesgo de comunicación no autorizada o irregularidades entre concursantes, por lo que se conserva únicamente como alternativa de respaldo.
+Esta alternativa mantiene intacta la lógica del diseño: no modifica calendario, no divide categorías y conserva los mismos espacios para jueces, entrenadores, reporteros e invitados. Aunque el auditorio cuenta con la capacidad necesaria, no se selecciona como prioridad porque su distribución obliga a considerar equipo portátil y un montaje más condicionado por la forma del espacio. Además, la cercanía entre puestos podría elevar el riesgo de comunicación no autorizada o irregularidades entre concursantes.
 
 ## Comparación y selección de alternativa
 
@@ -111,7 +109,7 @@ Aunque el Auditorio de la Escuela de Ingeniería cuenta con la capacidad necesar
 | División de categorías | No requiere | No requiere |
 | Separación de roles | Clara | Clara |
 
-Se selecciona el Plan A como alternativa principal, ya que permite instalar los equipos adicionales en un espacio concentrado y mantiene una distribución clara de roles. El Plan B queda documentado como respaldo operativo.
+Se selecciona el Plan A como alternativa principal por concentrar los equipos adicionales en un espacio cercano a las salas de cómputo y mantener una distribución clara de roles.
 
 ## Bosquejo general de red
 
@@ -126,4 +124,4 @@ Los bosquejos completos de cada alternativa se mantienen como anexo en `ActReto0
 
 La propuesta cumple con los requerimientos de la actividad al identificar los espacios físicos necesarios, documentar su capacidad, plantear dos alternativas de distribución, justificar la selección del Plan A y presentar un bosquejo de red para el evento. La solución mantiene el calendario oficial de la competencia, permite atender a 264 competidores simultáneos y conserva una separación clara entre competidores, jueces, entrenadores, reporteros e invitados.
 
-El Plan A, basado en el uso de Sala Borrego para los 120 equipos externos, se considera la alternativa más viable por su capacidad nominal y simplicidad operativa. El Plan B, basado en el Auditorio de la Escuela de Ingeniería, queda como contingencia. La validación final dependerá de confirmar físicamente las medidas, el mobiliario, la energía disponible y las rutas de cableado temporal con apoyo del plano AutoCAD del campus.
+La validación final dependerá de confirmar físicamente las medidas, el mobiliario, la energía disponible y las rutas de cableado temporal con apoyo del plano AutoCAD del campus.
