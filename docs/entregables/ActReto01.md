@@ -83,7 +83,11 @@ Mientras no se cuente con dichas medidas, la selección de espacios se justifica
 
 El Plan A fue seleccionado porque permite resolver la necesidad principal del evento: alcanzar 264 equipos simultáneos para la categoría primaria sin modificar el calendario oficial. La Sala Borrego permite concentrar los 120 equipos externos en un solo espacio, lo cual simplifica la instalación de red, la administración de switches, el cableado temporal, las pruebas de DHCP, el monitoreo y el soporte técnico durante la competencia.
 
+Sala Borrego también se considera adecuada por su cercanía con las salas de cómputo donde se ubican los demás competidores. Esta proximidad facilita la operación del evento y permite que los reporteros puedan cubrir las actividades sin recorrer distancias largas entre los espacios de competencia.
+
 Además, el Plan A mantiene separados los roles operativos. Los jueces permanecen en Domo Life, lo que favorece el aislamiento físico necesario para proteger el proceso de evaluación. Los entrenadores se ubican en el Auditorio de la Escuela de Negocios y Humanidades, los reporteros en el Domo de la Escuela de Negocios y Humanidades, y los invitados en Sala Menlo. Esta separación reduce interferencias entre usuarios y facilita la aplicación de VLANs y reglas de acceso.
+
+Sala Menlo se selecciona para invitados porque cumple con la capacidad requerida y se encuentra lo suficientemente separada de los espacios de competencia. Esta distancia ayuda a reducir el riesgo de imprevistos, accidentes o irregularidades con los concursantes durante el desarrollo del evento.
 
 Desde el punto de vista de red, los 120 equipos externos de Sala Borrego se integran a la Red A mediante VLAN 10, con las mismas restricciones que los demás competidores. Esto significa que podrán acceder al servidor de concurso y a los servicios permitidos, pero no a redes internas de jueces, impresoras, invitados, reporteros, entrenadores o cámaras.
 
@@ -92,6 +96,8 @@ Desde el punto de vista de red, los 120 equipos externos de Sala Borrego se inte
 El Plan B utiliza el Auditorio de la Escuela de Ingeniería como espacio alternativo para los 120 equipos externos. Esta opción se conserva como contingencia en caso de que Sala Borrego no cumpla con las condiciones físicas de instalación, energía, disponibilidad o conectividad.
 
 La ventaja principal del Plan B es que mantiene intacta la lógica del diseño: no modifica calendario, no divide categorías y conserva los mismos espacios para jueces, entrenadores, reporteros e invitados. Su principal desventaja es que, al tratarse de un auditorio, debe validarse que el mobiliario permita instalar computadoras de manera cómoda y segura para los competidores.
+
+Aunque el Auditorio de la Escuela de Ingeniería cuenta con la capacidad necesaria, no se selecciona como prioridad porque su distribución obliga a considerar equipo portátil y un montaje más condicionado por la forma del auditorio. Además, la cercanía entre puestos podría elevar el riesgo de comunicación no autorizada o irregularidades entre concursantes, por lo que se conserva únicamente como alternativa de respaldo.
 
 ## Comparación y selección de alternativa
 

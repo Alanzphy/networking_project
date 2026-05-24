@@ -5,6 +5,14 @@ Este documento complementa el entregable `ActReto01.md` con los bosquejos de red
 ## Bosquejo Plan A - Sala Borrego
 
 ```mermaid
+---
+config:
+  theme: default
+  layout: dagre
+  fontFamily: '''Recursive Variable'', sans-serif'
+  themeVariables:
+    fontFamily: '''Recursive Variable'', sans-serif'
+---
 flowchart LR
     internet[Internet] --> firewall[Firewall / Router L3]
     firewall --> core[Switch core del campus]
@@ -47,6 +55,14 @@ flowchart LR
 ## Bosquejo Plan B - Auditorio Escuela de Ingeniería
 
 ```mermaid
+---
+config:
+  theme: default
+  layout: dagre
+  fontFamily: '''Recursive Variable'', sans-serif'
+  themeVariables:
+    fontFamily: '''Recursive Variable'', sans-serif'
+---
 flowchart LR
     internet[Internet] --> firewall[Firewall / Router L3]
     firewall --> core[Switch core del campus]
