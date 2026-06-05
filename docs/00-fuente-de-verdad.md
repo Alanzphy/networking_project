@@ -16,19 +16,22 @@ Este documento es la fuente de verdad principal para el diseno de red de la Olim
 
 Los cinco salones con equipo de computo fijo disponibles para la competencia son:
 
-| Sala | Equipos de computo | Sistema | Nodos de red |
-| --- | --- | --- | ---: |
-| 1223 | 40 PC | Windows 11 | 40 |
-| 1224 | 30 iMac | macOS | 0 |
-| 12102 | 30 PC Workstation | Windows 11 | 30 |
-| 12104 (Lab de moviles) | 15 PC Workstation + 19 MacBook Pro | Windows 11 / macOS | 14 |
-| 12401 (Lab de redes) | 10 PC | Windows 11 | 0 |
-| **Total** | **144 equipos** | | **84 nodos** |
+| Sala | Equipos de computo | Sistema | Puertos Ethernet actuales | APs | Tomas de corriente | Camaras observadas | Conexion propuesta |
+| --- | --- | --- | ---: | ---: | ---: | ---: | --- |
+| 1223 | 40 PC | Windows 11 | 43 | 1 | 9 | 1 | Cableada |
+| 1224 | 30 iMac | macOS | 48 | 1 | 24 | 1 | WiFi preferente |
+| 12102 | 30 PC Workstation | Windows 11 | 40 | 1 | 43 | 0 | Cableada |
+| 12104 (Lab de moviles) | 15 PC Workstation + 19 MacBook Pro | Windows 11 / macOS | 8 | 1 | 16 | 0 | Hibrida |
+| 12401 (Lab de redes) | 10 PC | Windows 11 | 20 | 1 | Pendiente | 0 | Cableada |
+| **Total de equipos** | **144 equipos** | | | | | | |
 
 Notas:
 
 - Solo se contabilizan equipos de computo utiles para la competencia: PC, iMac y MacBook.
-- Los 84 nodos existentes cubren solo una parte de los equipos disponibles; las salas 1224 y 12401 no tienen puertos cableados propios y requieren cableado adicional.
+- El levantamiento fisico actualizado reemplaza el conteo anterior de nodos para las salas medidas.
+- La Red A se operara de forma hibrida: cable donde ya exista infraestructura suficiente y WiFi donde sea mas conveniente evitar instalacion nueva.
+- Cada AP se considera con capacidad aproximada de 150 equipos para dimensionar si hacen falta APs adicionales.
+- 12401 queda cerrado para conectividad del Plan A: sus 20 puertos Ethernet cubren sus 10 PCs base y cuenta con 1 AP disponible.
 - El campus dispone de 144 equipos de computo, inferior al maximo requerido de 264 para primaria. La diferencia de 120 equipos se cubre con equipo externo en Sala Borrego como Plan A; Auditorio Escuela de Ingenieria queda como Plan B contingente.
 
 ### Espacios de gran capacidad disponibles
@@ -51,9 +54,31 @@ Notas:
 
 Nota: el inventario completo de espacios se conserva para dar contexto a futuras decisiones, alternativas y planes operativos.
 
+### Levantamiento fisico complementario
+
+| Espacio | Uso previsto | Puertos Ethernet actuales | APs | Tomas de corriente | Camaras observadas | Estado |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| Sala Borrego | Expansion Red A / Plan A | Pendiente | 3 | Pendiente | 1 | Medido parcialmente |
+| Domo Life | Jueces | 2 | 3 | 56 | 0 | Medido |
+| Domo Escuela de Negocios y Humanidades | Reporteros | 1 | 2 | 34 | 0 | Medido |
+| Auditorio Escuela de Negocios y Humanidades | Entrenadores | 16 | 2 | 12 | 0 | Medido |
+| Auditorio Escuela de Ingenieria | Expansion Red A / Plan B | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+| Sala Menlo | Invitados | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+
 ### Camaras de vigilancia
 
-Se contemplan 20 camaras de seguridad rentadas para el evento, distribuidas en las 5 salas de computo, con 4 camaras por sala. No forman parte del inventario actual del campus. Deben ser inalambricas para facilitar la instalacion y conectarse al SSID dedicado `OMI-Camaras`, mapeado a Red C (VLAN 80), separada de las redes de competencia, invitados y gestion.
+Se contemplan camaras existentes observadas y hasta 20 camaras adicionales/rentadas para el evento. Las camaras adicionales deben ser inalambricas para facilitar la instalacion y conectarse al SSID dedicado `OMI-Camaras`, mapeado a Red C (VLAN 80), separada de las redes de competencia, invitados y gestion.
+
+| Lugar | Camaras observadas | Camaras adicionales/rentadas propuestas | Total de cobertura | Criterio |
+| --- | ---: | ---: | ---: | --- |
+| Sala 1223 | 1 | 3 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 1224 | 1 | 3 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 12102 | 0 | 4 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 12104 | 0 | 4 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 12401 | 0 | 3 | 3 | Agregar 3 camaras adicionales/rentadas. |
+| Sala Borrego | 1 | 2 | 3 | Refuerzo para expansion Red A con las camaras adicionales restantes. |
+
+Con esta distribucion se usan hasta 19 camaras adicionales/rentadas: 17 para complementar las 5 salas de computo y 2 como refuerzo en Sala Borrego. Si se exige cobertura de 4 camaras tambien en 12401 o Sala Borrego, se requeririan camaras adicionales fuera de esta base.
 
 ---
 
@@ -68,7 +93,7 @@ Incluye:
 - VLANs por rol.
 - Acceso controlado al servidor local de concurso.
 - Salida a Internet para roles permitidos.
-- WiFi separado para reporteros, entrenadores, invitados y camaras rentadas.
+- WiFi separado para competidores, jueces, reporteros, entrenadores, invitados y camaras adicionales/rentadas.
 - Operacion durante dos dias de competencia.
 - Validacion tecnica antes y durante el evento.
 
@@ -128,13 +153,17 @@ Restricciones del calendario:
 | Bloque base sugerido | `10.50.0.0/22` | Permite segmentar el evento completo en subredes internas. |
 | Servidor local | Plataforma de concurso | Competidores acceden al servicio; jueces administran/evaluan. |
 | Separacion de roles | VLAN por rol | Reduce riesgos y facilita reglas de acceso. |
-| Camaras de vigilancia | Rentadas, inalambricas, Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y usuarios para evitar trafico de video en rutas criticas. |
+| Camaras de vigilancia | Observadas + adicionales/rentadas inalambricas, Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y usuarios para evitar trafico de video en rutas criticas. |
 | Espacios del evento | Inventario completo registrado | Se conserva para apoyar decisiones, alternativas y planes operativos. |
 | Expansion Red A | Sala Borrego como Plan A; Auditorio Ingenieria como Plan B | Permite cubrir 120 equipos externos sin cambiar calendario ni dividir categorias. |
+| Red A hibrida | Cable + SSID `OMI-Competidores` en VLAN 10 | Optimiza recursos y evita instalacion masiva de nodos Cat 6a. |
+| Red T hibrida | Cable + SSID `OMI-Jueces` en VLAN 20 | Permite operar jueces con laptops sin cableado adicional. |
+| Capacidad AP | ~150 equipos por AP | Supuesto operativo para dimensionar si hacen falta APs adicionales. |
+| Mobiliario | Sillas existentes suficientes | No se renta mobiliario de sillas como base de costos. |
 
 ## Requerimientos funcionales
 
-RF-01. Los competidores deben conectarse por cable a la Red A durante su turno.
+RF-01. Los competidores deben conectarse a la Red A durante su turno por cable o por el SSID `OMI-Competidores`, segun el espacio.
 
 RF-02. La Red A debe soportar al menos 264 equipos simultaneos.
 
@@ -142,7 +171,7 @@ RF-03. Los competidores deben poder acceder al servidor local de concurso.
 
 RF-04. Los competidores deben tener salida a Internet si la plataforma o recursos autorizados lo requieren.
 
-RF-05. Los jueces deben contar con 10 equipos en Red T.
+RF-05. Los jueces deben contar con 10 equipos en Red T por cable o por el SSID `OMI-Jueces`.
 
 RF-06. Los jueces deben acceder al servidor local y a las 4 impresoras.
 
@@ -156,9 +185,9 @@ RF-10. Los invitados deben usar una red WiFi separada solo para Internet.
 
 RF-11. La red de gestion debe permitir administrar switches, access points y firewall.
 
-RF-12. Las camaras rentadas deben conectarse por WiFi dedicado a Red C para vigilancia de las salas de computo.
+RF-12. Las camaras adicionales/rentadas deben conectarse por WiFi dedicado a Red C para vigilancia de las salas de computo.
 
-RF-13. Los 120 equipos externos deben conectarse a Red A / VLAN 10 desde Sala Borrego en Plan A.
+RF-13. Los 120 equipos externos deben conectarse a Red A / VLAN 10 desde Sala Borrego en Plan A, preferentemente por WiFi.
 
 ## Requerimientos no funcionales
 
@@ -179,51 +208,59 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 ## Restricciones principales
 
 - Red A no puede compartir subred con invitados, reporteros, entrenadores ni jueces.
-- Red A no puede usar `/24`; necesita una subred con mas de 256 hosts utiles.
+- Red A no puede usar `/24`; necesita una subred con mas de 254 hosts utiles.
 - El servidor local no debe quedar en la misma VLAN que competidores.
 - Las impresoras no deben ser visibles desde competidores, reporteros, entrenadores o invitados.
 - Las redes WiFi deben mapearse a VLANs separadas.
 - Invitados y reporteros no deben acceder a redes internas del evento.
 - La administracion de red debe estar separada en una VLAN de gestion.
 - Las camaras inalambricas deben usar un SSID dedicado y no deben compartir red con invitados, reporteros, entrenadores o competidores.
-- La expansion de 112 equipos externos no debe modificar el calendario oficial ni dividir categorias.
+- La expansion de 120 equipos externos no debe modificar el calendario oficial ni dividir categorias.
+- `OMI-Competidores` debe mapearse exclusivamente a Red A / VLAN 10.
+- `OMI-Jueces` debe mapearse exclusivamente a Red T / VLAN 20.
 
 ## Especificacion resumida
 
 | Red | Rol | Tipo | Capacidad objetivo | Criticidad |
 | --- | --- | --- | ---: | --- |
-| Red A | Competidores | Cableada | 264 | Alta |
-| Red T | Jueces | Cableada | 10 | Alta |
+| Red A | Competidores | Hibrida cable/WiFi | 264 | Alta |
+| Red T | Jueces | Hibrida cable/WiFi | 10 | Alta |
 | Red TI | Servidor e impresoras | Cableada | 5+ | Alta |
 | Red Repos | Reporteros | WiFi | 32 | Media |
 | Red E | Entrenadores | Mixta/WiFi | 40 | Media |
 | Red I | Invitados | WiFi | 100 | Baja |
 | Red M | Gestion | Cableada/administrativa | 20+ | Alta |
-| Red C | Camaras rentadas | WiFi | 20 | Media |
+| Red C | Camaras de monitoreo del evento | WiFi | Hasta 20 | Media |
 
 ## Criterios de aceptacion
 
 La infraestructura queda aceptada cuando:
 
 - Red A entrega direccion IP valida a 264 equipos simultaneos.
-- Sala Borrego entrega conectividad Red A a 120 equipos externos en Plan A.
+- `OMI-Competidores` entrega direccion IP de Red A / VLAN 10 a equipos autorizados.
+- Sala Borrego entrega conectividad Red A a 120 equipos externos en Plan A por WiFi.
 - Los competidores pueden acceder al servidor de concurso.
 - Los competidores no pueden acceder a jueces, impresoras, gestion, prensa, entrenadores o invitados.
-- Los jueces pueden acceder al servidor e impresoras.
+- Los jueces pueden acceder al servidor e impresoras desde Red T cableada o `OMI-Jueces`.
 - Reporteros, entrenadores e invitados reciben conectividad segun su rol.
 - La matriz de permisos esta validada antes del primer turno.
 - El calendario de dos dias no rebasa la capacidad maxima de equipos.
-- Las camaras rentadas reciben conectividad por `OMI-Camaras` sin ser accesibles desde redes de usuario.
+- Las camaras adicionales/rentadas reciben conectividad por `OMI-Camaras` sin ser accesibles desde redes de usuario.
 - Existe checklist operativo para inicio, cambio y cierre de turnos.
 
 ## Supuestos
 
 - El campus dispone de 144 equipos de computo fijos en 5 salones; los 120 equipos restantes para cubrir el maximo de 264 provienen de equipo externo en Sala Borrego como Plan A.
 - Auditorio Escuela de Ingenieria queda como Plan B contingente para los mismos 120 equipos externos si Sala Borrego no cumple.
-- Los 84 nodos de red existentes requieren cableado adicional para salas sin nodos (1224, 12401) y para equipos sin puerto asignado en las demas salas.
-- Hay switches y puertos suficientes para conectar la Red A una vez habilitado el cableado faltante.
-- La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras rentadas.
+- Las laptops rentadas tienen WiFi funcional.
+- Existen sillas suficientes en los espacios del evento; no se cotiza renta de sillas como base.
+- Los APs existentes pueden mapear SSIDs a VLANs o ser configurados por TI.
+- Cada AP soporta aproximadamente 150 equipos para estimar si hacen falta APs adicionales.
+- No se contemplan nodos Cat 6a nuevos como base de la propuesta; solo se agregarian si una necesidad fisica puntual lo vuelve necesario.
+- La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras adicionales/rentadas.
 - El bloque `10.50.0.0/22` puede cambiar si ya existe conflicto.
 - La plataforma de concurso estara en el servidor local.
 - El equipo tecnico del campus puede configurar VLANs, DHCP, ACLs y WiFi.
-- Las 20 camaras de vigilancia son rentadas, inalambricas y requieren cobertura WiFi dedicada en los salones de computo.
+- Las camaras adicionales/rentadas requieren cobertura WiFi dedicada por `OMI-Camaras`.
+- 12401 no tiene camaras existentes; se agregan 3 camaras adicionales/rentadas para ese salon.
+- Sala Menlo y Auditorio Escuela de Ingenieria requieren levantamiento fisico actualizado.

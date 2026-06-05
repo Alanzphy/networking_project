@@ -11,10 +11,10 @@ Esta carpeta guarda specs de features o cambios antes de integrarlos a la fuente
 
 ## Ejemplos de features
 
-- `F001-expansion-red-a-112.md`: expansion fisica de Red A con Sala Borrego como Plan A.
+- `F001-expansion-red-a-120.md`: expansion fisica de Red A con Sala Borrego como Plan A para 120 equipos externos.
 - `F002-asignacion-final-espacios.md`: resolver asignacion definitiva de salones y espacios.
-- `F003-plan-cableado-temporal.md`: definir cableado para salas sin nodos.
-- `F004-monitoreo-camaras.md`: completar monitoreo de camaras rentadas.
+- `F003-red-a-hibrida-wifi.md`: definir Red A hibrida con WiFi optimizado.
+- `F004-monitoreo-camaras.md`: completar monitoreo de camaras adicionales/rentadas.
 
 ## Regla
 

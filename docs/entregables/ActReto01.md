@@ -4,7 +4,7 @@
 
 El presente documento tiene como objetivo identificar, analizar y justificar los espacios físicos requeridos para el diseño de una infraestructura de red destinada a un evento tipo Olimpiada Mexicana de Informática, tomando como sede el campus. La actividad se centra en reconocer los espacios necesarios, estimar la capacidad de cada uno, proponer dos alternativas de distribución y seleccionar la opción más conveniente con base en criterios de capacidad, separación de roles, seguridad, facilidad de operación y viabilidad técnica.
 
-La propuesta considera la participación de competidores de nivel primaria, secundaria y preparatoria, además de jueces, entrenadores, reporteros, invitados y personal técnico. Debido a que el evento depende directamente de la conectividad de red y de la disponibilidad de equipos de cómputo, la selección de espacios físicos debe responder tanto a necesidades de aforo como a condiciones técnicas de instalación, energía, cableado temporal, segmentación de red y control de acceso.
+La propuesta considera la participación de competidores de nivel primaria, secundaria y preparatoria, además de jueces, entrenadores, reporteros, invitados y personal técnico. Debido a que el evento depende directamente de la conectividad de red y de la disponibilidad de equipos de cómputo, la selección de espacios físicos debe responder tanto a necesidades de aforo como a condiciones técnicas de instalación, energía, conectividad, segmentación de red y control de acceso.
 
 ## Identificación de espacios físicos requeridos
 
@@ -69,7 +69,7 @@ El Plan B se conserva como alternativa de respaldo en caso de que Sala Borrego n
 
 Con base en la información disponible, las cinco salas de cómputo proporcionan 144 equipos. Esta capacidad es suficiente para cubrir parcialmente la demanda de competidores, pero no alcanza el máximo requerido de 264 equipos simultáneos. Por ello, se requiere un espacio adicional para 120 equipos externos.
 
-Sala Borrego cuenta con un aforo aproximado de 120 personas, por lo que cumple nominalmente con la capacidad necesaria para instalar los 120 equipos externos. No obstante, al estar justo en el límite requerido, antes de la implementación final se debe validar físicamente que cuente con mobiliario adecuado, energía suficiente y posibilidad de conectarse a Red A mediante switches y cableado temporal.
+Sala Borrego cuenta con un aforo aproximado de 120 personas, por lo que cumple nominalmente con la capacidad necesaria para instalar los 120 equipos externos. En la versión vigente, estos equipos se contemplan como laptops conectadas por `OMI-Competidores`, usando APs existentes y agregando AP adicional solo si falta cobertura mínima.
 
 El Auditorio de la Escuela de Ingeniería también cuenta con un aforo aproximado de 120 personas, por lo que funciona como alternativa para los 120 equipos externos. Sin embargo, al ser un espacio tipo auditorio, debe verificarse que su mobiliario permita la instalación adecuada de computadoras.
 
@@ -79,13 +79,13 @@ Los espacios asignados a jueces, entrenadores, reporteros e invitados cumplen co
 
 Las medidas exactas de los espacios seleccionados se encuentran pendientes. Se contempla completarlas con apoyo del plano AutoCAD del campus, solicitado al área correspondiente. Esta información permitirá confirmar dimensiones, distribución de mobiliario, rutas de cableado, ubicación de switches, puntos de energía y posibles trayectorias de instalación temporal.
 
-La cantidad final de switches, access points, cableado y equipo de distribución se definirá después de la validación física de los espacios. De forma preliminar, el diseño requiere capacidad para 120 puertos adicionales en Red A, cobertura WiFi para invitados, reporteros, entrenadores y cámaras, y un router, firewall o equipo de capa 3 capaz de manejar las VLANs propuestas.
+La cantidad final de switches, access points, cableado y equipo de distribución se define con base en la infraestructura existente. De forma vigente, el diseño evita instalar puertos adicionales masivos en Red A, usa WiFi para laptops externas, invitados, reporteros, entrenadores y cámaras, y requiere un router, firewall o equipo de capa 3 capaz de manejar las VLANs propuestas.
 
 Mientras no se cuente con dichas medidas, la selección de espacios se justifica con base en aforo aproximado, disponibilidad operativa, separación de roles y viabilidad técnica preliminar.
 
 ## Justificación del Plan A
 
-El Plan A fue seleccionado porque permite resolver la necesidad principal del evento: alcanzar 264 equipos simultáneos para la categoría primaria sin modificar el calendario oficial. La Sala Borrego permite concentrar los 120 equipos externos en un solo espacio, lo cual simplifica la instalación de red, la administración de switches, el cableado temporal, las pruebas de DHCP, el monitoreo y el soporte técnico durante la competencia.
+El Plan A fue seleccionado porque permite resolver la necesidad principal del evento: alcanzar 264 equipos simultáneos para la categoría primaria sin modificar el calendario oficial. La Sala Borrego permite concentrar los 120 equipos externos en un solo espacio, lo cual simplifica la instalación de red, las pruebas de DHCP, el monitoreo y el soporte técnico durante la competencia.
 
 Sala Borrego también se considera adecuada por su cercanía con las salas de cómputo donde se ubican los demás competidores. Esta proximidad facilita la operación del evento y permite que los reporteros puedan cubrir las actividades sin recorrer distancias largas entre los espacios de competencia.
 
@@ -106,9 +106,9 @@ Esta alternativa mantiene intacta la lógica del diseño: no modifica calendario
 | Criterio | Plan A: Sala Borrego | Plan B: Auditorio Ingeniería |
 | --- | --- | --- |
 | Estado | Seleccionado | Contingencia |
-| Capacidad para 120 equipos | Requiere validación física | Requiere validación física |
+| Capacidad para 120 equipos | Cumple por aforo nominal reportado | Requiere validación física |
 | Simplicidad operativa | Alta | Media |
-| Riesgo principal | Energía, mesas y cableado temporal | Mobiliario y cableado temporal |
+| Riesgo principal | Colocar AP adicional si falta cobertura mínima | Mobiliario y conectividad temporal |
 | Impacto en calendario | No cambia | No cambia |
 | División de categorías | No requiere | No requiere |
 | Separación de roles | Clara | Clara |
@@ -117,9 +117,9 @@ Se selecciona el Plan A como alternativa principal por concentrar los equipos ad
 
 ## Bosquejo general de red
 
-La red propuesta se organiza mediante segmentación por VLANs. La Red A corresponde a competidores y utiliza VLAN 10. En ella se conectan las cinco salas de cómputo y la expansión de 120 equipos externos. Los jueces utilizan Red T / VLAN 20, el servidor e impresoras se ubican en Red TI / VLAN 30, los reporteros utilizan Red Repos / VLAN 40, los entrenadores Red E / VLAN 50, los invitados Red I / VLAN 60, la gestión Red M / VLAN 70 y las cámaras inalámbricas rentadas Red C / VLAN 80. Las cámaras de vigilancia consideradas para el evento son 20 cámaras rentadas, distribuidas en las cinco salas de cómputo con 4 cámaras por sala. Estas cámaras no forman parte del inventario actual del campus y se conectan de forma inalámbrica al SSID OMI-Camaras, asociado a Red C / VLAN 80. No requieren punto de red por cámara, pero sí energía, batería o toma eléctrica posible, además de cobertura WiFi estable en cada sala.
+La red propuesta se organiza mediante segmentación por VLANs. La Red A corresponde a competidores y utiliza VLAN 10. En ella se conectan las cinco salas de cómputo y la expansión de 120 equipos externos. Los jueces utilizan Red T / VLAN 20, el servidor e impresoras se ubican en Red TI / VLAN 30, los reporteros utilizan Red Repos / VLAN 40, los entrenadores Red E / VLAN 50, los invitados Red I / VLAN 60, la gestión Red M / VLAN 70 y las cámaras de monitoreo del evento Red C / VLAN 80. Las cámaras adicionales/rentadas se conectan de forma inalámbrica al SSID OMI-Camaras, asociado a Red C / VLAN 80. No requieren punto de red por cámara, pero sí energía, batería o toma eléctrica posible.
 
-En el Plan A, Sala Borrego se conecta a Red A mediante switches de acceso y cableado temporal. En el Plan B, el mismo esquema se replica en el Auditorio de la Escuela de Ingeniería. En ambos casos, los equipos externos reciben direccionamiento dentro de la subred de Red A y quedan sujetos a las mismas reglas de seguridad que los competidores ubicados en las salas de cómputo.
+En el Plan A, Sala Borrego se conecta a Red A mediante `OMI-Competidores` y APs existentes. En el Plan B, el esquema se replica en el Auditorio de la Escuela de Ingeniería mediante WiFi o conectividad temporal puntual. En ambos casos, los equipos externos reciben direccionamiento dentro de la subred de Red A y quedan sujetos a las mismas reglas de seguridad que los competidores ubicados en las salas de cómputo.
 
 Los bosquejos completos de cada alternativa se mantienen como anexo en `ActReto01-bosquejos-red.md`. Ese archivo contiene un diagrama Mermaid para el Plan A, un diagrama Mermaid para el Plan B y la leyenda de VLANs utilizada en ambos diseños.
 
@@ -128,4 +128,4 @@ Los bosquejos completos de cada alternativa se mantienen como anexo en `ActReto0
 
 La propuesta cumple con los requerimientos de la actividad al identificar los espacios físicos necesarios, documentar su capacidad, plantear dos alternativas de distribución, justificar la selección del Plan A y presentar un bosquejo de red para el evento. La solución mantiene el calendario oficial de la competencia, permite atender a 264 competidores simultáneos y conserva una separación clara entre competidores, jueces, entrenadores, reporteros e invitados.
 
-La validación final dependerá de confirmar físicamente las medidas, el mobiliario, la energía disponible y las rutas de cableado temporal con apoyo del plano AutoCAD del campus.
+La validación final dependerá de confirmar físicamente las medidas, el mobiliario, la energía disponible y la conectividad puntual con apoyo del plano AutoCAD del campus.

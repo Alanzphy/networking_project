@@ -20,3 +20,5 @@ Despues de actualizar la fuente, se ajusta el entregable formal.
 | --- | --- |
 | `ActReto01.md` | Documento formal para la actividad de espacios fisicos e infraestructura de red. |
 | `ActReto01-bosquejos-red.md` | Anexo con bosquejos Mermaid del Plan A y Plan B. |
+| `ActReto02-propuesta-infraestructura.md` | Propuesta de infraestructura, optimizacion de recursos y costos. |
+| `ActReto02-propuesta-economica.xlsx` | Propuesta economica en Excel con resumen, costos y fuentes. |

@@ -34,14 +34,14 @@ flowchart LR
 
     subgraph expansionA["Expansion Plan A"]
         redAExpansion --> borrego[Sala Borrego / 120 equipos externos]
-        borrego --> swBorrego[Switches de acceso y cableado temporal]
+        borrego --> wifiBorrego[SSID OMI-Competidores / APs existentes]
     end
 
     subgraph servicios["Servicios y operacion"]
         redTI --> servidor[Servidor de concurso]
         redTI --> impresoras[4 impresoras]
         redM --> gestion[Gestion de switches, APs y firewall]
-        redC --> camaras[20 camaras rentadas / SSID OMI-Camaras]
+        redC --> camaras[Camaras adicionales/rentadas / SSID OMI-Camaras]
     end
 
     subgraph espacios["Roles no competidores"]
@@ -84,14 +84,14 @@ flowchart LR
 
     subgraph expansionB["Expansion Plan B"]
         redAExpansion --> audIng[Auditorio Escuela de Ingenieria / 120 equipos externos]
-        audIng --> swAud[Switches de acceso y cableado temporal]
+        audIng --> wifiAud[SSID OMI-Competidores / AP o cobertura temporal]
     end
 
     subgraph servicios["Servicios y operacion"]
         redTI --> servidor[Servidor de concurso]
         redTI --> impresoras[4 impresoras]
         redM --> gestion[Gestion de switches, APs y firewall]
-        redC --> camaras[20 camaras rentadas / SSID OMI-Camaras]
+        redC --> camaras[Camaras adicionales/rentadas / SSID OMI-Camaras]
     end
 
     subgraph espacios["Roles no competidores"]

@@ -13,17 +13,17 @@ Usuario -> Evento -> Escenario -> Requerimientos -> Restricciones -> Resultado e
 
 | Usuario | Red | Cantidad | Tipo de conexion | Criticidad |
 | --- | --- | ---: | --- | --- |
-| Competidor preparatoria | Red A | 132 | Cableada | Alta |
-| Competidor secundaria | Red A | 198 | Cableada | Alta |
-| Competidor primaria | Red A | 264 | Cableada | Alta |
-| Juez | Red T | 10 | Cableada | Alta |
+| Competidor preparatoria | Red A | 132 | Hibrida cable/WiFi | Alta |
+| Competidor secundaria | Red A | 198 | Hibrida cable/WiFi | Alta |
+| Competidor primaria | Red A | 264 | Hibrida cable/WiFi | Alta |
+| Juez | Red T | 10 | Hibrida cable/WiFi | Alta |
 | Servidor local | Red TI | 1 | Cableada | Alta |
 | Impresora | Red TI | 4 | Cableada | Media |
 | Reportero | Red Repos | 32 | WiFi | Media |
 | Entrenador | Red E | 40 | Mixta/WiFi | Media |
 | Invitado | Red I | 100 | WiFi | Baja |
 | Administrador de red | Red M | Equipo tecnico | Cableada/gestion | Alta |
-| Camara rentada | Red C | 20 | WiFi | Media |
+| Camara adicional/rentada | Red C | Hasta 20 | WiFi | Media |
 
 ## Evento: inicio de turno de competencia
 
@@ -33,6 +33,7 @@ Requerimientos:
 
 - 132 equipos de Red A disponibles.
 - DHCP activo en VLAN 10.
+- SSID `OMI-Competidores` disponible para equipos que usen WiFi.
 - Servidor local disponible.
 - Acceso permitido desde Red A al servidor de concurso.
 
@@ -55,6 +56,7 @@ Requerimientos:
 - 198 equipos de Red A disponibles.
 - Reinicio o limpieza logica despues del turno de preparatoria.
 - Misma politica de acceso que preparatoria.
+- Conectividad Red A validada por cable y por `OMI-Competidores`.
 
 Restricciones:
 
@@ -73,19 +75,22 @@ Requerimientos:
 
 - 264 equipos de Red A disponibles.
 - Red A dimensionada con subred `/23`.
-- Switches, uplinks y DHCP preparados para el maximo simultaneo.
+- APs, uplinks y DHCP preparados para el maximo simultaneo.
+- 120 laptops rentadas en Sala Borrego conectadas por `OMI-Competidores`.
 
 Restricciones:
 
 - No se divide primaria en olas.
 - No se permite usar `/24` en Red A.
 - Se debe priorizar Red A si hay congestion.
+- Los competidores por WiFi deben recibir los mismos permisos que los competidores cableados.
 
 Resultado esperado:
 
 - Los 264 competidores participan al mismo tiempo.
 - No hay agotamiento de direcciones IP.
 - La plataforma de concurso se mantiene accesible.
+- Los 120 equipos de Sala Borrego reciben IP de VLAN 10 por WiFi.
 
 ## Evento: competidor envia solucion
 
@@ -94,6 +99,7 @@ Requerimientos:
 - El competidor tiene IP de Red A.
 - El servidor local esta en Red TI.
 - El firewall permite puertos de plataforma desde Red A al servidor.
+- Si el competidor usa WiFi, debe estar conectado a `OMI-Competidores`.
 
 Restricciones:
 
@@ -111,7 +117,7 @@ Resultado esperado:
 
 Requerimientos:
 
-- El juez usa un equipo en Red T.
+- El juez usa un equipo en Red T por cable o por `OMI-Jueces`.
 - Red T puede llegar al servidor local.
 - Red T puede imprimir en Red TI.
 
@@ -125,6 +131,26 @@ Resultado esperado:
 - El juez revisa envios y resultados.
 - El juez puede imprimir documentos operativos.
 - Los competidores no pueden observar ni interferir con esta actividad.
+
+## Evento: competidor se conecta por WiFi
+
+Requerimientos:
+
+- El competidor usa un equipo autorizado con WiFi funcional.
+- El SSID `OMI-Competidores` esta mapeado a Red A / VLAN 10.
+- El AP del espacio tiene capacidad suficiente; se estima hasta 150 equipos por AP.
+
+Restricciones:
+
+- El SSID no debe compartir VLAN con invitados, reporteros, entrenadores, jueces o camaras.
+- La clave o metodo de acceso debe entregarse solo a competidores autorizados.
+- Los permisos deben ser iguales a Red A cableada.
+
+Resultado esperado:
+
+- El competidor recibe IP de Red A.
+- Puede acceder al servidor de concurso.
+- No puede acceder a redes internas no autorizadas.
 
 ## Evento: servidor local opera la plataforma
 
@@ -240,27 +266,27 @@ Resultado esperado:
 - El equipo tecnico detecta fallos rapido.
 - Puede corregir DHCP, VLANs, APs o reglas sin entrar a redes de usuario.
 
-## Evento: camara rentada transmite vigilancia
+## Evento: camara adicional transmite vigilancia
 
 Requerimientos:
 
-- 20 camaras rentadas distribuidas en las 5 salas de computo.
-- 4 camaras por sala.
-- Conexion al SSID `OMI-Camaras`.
+- Camaras observadas consideradas como cobertura existente.
+- Hasta 20 camaras adicionales/rentadas distribuidas para completar cobertura de salas de competencia.
+- Conexion de camaras adicionales/rentadas al SSID `OMI-Camaras`.
 - SSID mapeado a Red C / VLAN 80.
 - Cobertura WiFi suficiente en cada sala de computo.
 - Energia, bateria o toma electrica disponible por camara.
 
 Restricciones:
 
-- Las camaras no forman parte del inventario actual del campus.
+- Las camaras observadas forman parte de la infraestructura existente; las adicionales/rentadas se documentan por separado.
 - Las camaras no deben conectarse a SSIDs de invitados, reporteros, entrenadores o competidores.
 - Competidores, invitados, reporteros y entrenadores no deben acceder a Red C.
 - Solo el sistema de monitoreo o personal autorizado debe consultar video.
 
 Resultado esperado:
 
-- Las 20 camaras reciben IP de Red C.
+- Las camaras adicionales/rentadas reciben IP de Red C.
 - La vigilancia de salas opera sin cableado de red por camara.
 - El trafico de video queda aislado de la red de competencia.
 
@@ -269,13 +295,15 @@ Resultado esperado:
 | Fallo | Impacto | Respuesta esperada |
 | --- | --- | --- |
 | DHCP Red A no entrega IP | Competidores no conectan | Revisar scope VLAN 10, gateway relay y capacidad |
+| SSID `OMI-Competidores` falla | Competidores WiFi no conectan | Revisar APs, VLAN 10, autenticacion y DHCP |
+| AP Sala Borrego saturado | Laptops rentadas lentas o desconectadas | Redistribuir clientes entre APs o reducir redes no criticas |
 | Servidor local caido | No hay plataforma | Activar procedimiento de recuperacion y avisar a jueces |
 | Impresora caida | Jueces no imprimen | Cambiar a otra impresora o cola alternativa |
 | AP saturado invitados | Invitados lentos | Limitar ancho de banda o agregar AP |
 | Internet congestionado | Publicacion/recursos lentos | Priorizar Red A y limitar Red I |
 | VLAN mal asignada | Usuario recibe red incorrecta | Revisar puerto, trunk y tagging |
 | ACL demasiado abierta | Riesgo de acceso indebido | Volver a politica deny-by-default |
-| Camara sin cobertura WiFi | Punto de vigilancia sin video | Reubicar camara, validar AP o agregar cobertura para `OMI-Camaras` |
+| Camara sin cobertura WiFi | Punto de vigilancia sin video | Reubicar camara, revisar AP o agregar cobertura para `OMI-Camaras` |
 
 ## Reglas de negocio
 

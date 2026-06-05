@@ -12,6 +12,8 @@ La validacion cubre:
 - Acceso al servidor.
 - Bloqueo entre redes.
 - WiFi.
+- Red A hibrida por cable y `OMI-Competidores`.
+- Red T hibrida por cable y `OMI-Jueces`.
 - Camaras inalambricas.
 - Impresion.
 - Operacion por turnos.
@@ -37,7 +39,7 @@ Notas:
 - "No iniciado" significa que Red TI no debe iniciar conexiones hacia usuarios salvo respuestas a sesiones permitidas.
 - Red M es de administracion y debe estar limitada al equipo tecnico.
 - Si el scoreboard se publica para entrenadores, debe ser solo lectura.
-- Red C es exclusiva para camaras rentadas inalambricas y solo debe comunicarse con monitoreo autorizado.
+- Red C es exclusiva para camaras adicionales/rentadas inalambricas y solo debe comunicarse con monitoreo autorizado.
 
 ## Checklist previo al evento
 
@@ -47,9 +49,10 @@ Notas:
 - Configurar VLANs 10, 20, 30, 40, 50, 60, 70 y 80.
 - Configurar trunks entre core, switches de acceso, firewall y APs.
 - Etiquetar puertos por salon y rol.
-- Validar energia para switches, servidor, impresoras, APs y camaras rentadas.
+- Validar energia para switches, servidor, impresoras, APs y camaras adicionales/rentadas.
 - Confirmar uplinks con capacidad suficiente.
-- Confirmar switches, energia, mesas y cableado temporal para 120 equipos externos en Sala Borrego.
+- Confirmar APs, energia, mesas y laptops WiFi para 120 equipos externos en Sala Borrego.
+- Confirmar que Sala Borrego conserva 3 APs disponibles; con 150 equipos aproximados por AP no se requieren APs adicionales como base.
 - Confirmar Auditorio Escuela de Ingenieria como contingencia si Sala Borrego no cumple.
 
 ### DHCP y direccionamiento
@@ -73,29 +76,36 @@ Notas:
 
 ### WiFi
 
-- Crear SSIDs `OMI-Reporteros`, `OMI-Entrenadores`, `OMI-Invitados` y `OMI-Camaras`.
+- Crear SSIDs `OMI-Competidores`, `OMI-Jueces`, `OMI-Reporteros`, `OMI-Entrenadores`, `OMI-Invitados` y `OMI-Camaras`.
 - Mapear cada SSID a su VLAN.
 - Probar autenticacion.
 - Validar cobertura en salas correspondientes.
+- Validar `OMI-Competidores` en laboratorios y Sala Borrego.
+- Validar `OMI-Jueces` en Domo Life.
 - Validar cobertura de `OMI-Camaras` en las 5 salas de computo.
+- Validar ubicacion de camaras observadas y camaras adicionales/rentadas segun matriz de cobertura.
 - Aplicar limite o prioridad menor a invitados si el equipo lo permite.
 
 ## Pruebas de aceptacion
 
 | Prueba | Metodo | Resultado esperado |
 | --- | --- | --- |
-| DHCP Red A | Conectar clientes de prueba en VLAN 10 | IP `10.50.0.0/23`, gateway correcto |
+| DHCP Red A cableada | Conectar clientes de prueba en puertos VLAN 10 | IP `10.50.0.0/23`, gateway correcto |
+| DHCP Red A WiFi | Conectar clientes a `OMI-Competidores` | IP `10.50.0.0/23`, gateway correcto |
 | Capacidad Red A | Simular o conectar hasta 264 clientes | No se agota el scope |
-| Expansion Sala Borrego | Conectar clientes de prueba desde Sala Borrego | IP de Red A / VLAN 10 y salida al servidor |
+| Expansion Sala Borrego | Conectar laptops por `OMI-Competidores` desde Sala Borrego | IP de Red A / VLAN 10 y salida al servidor |
+| Suficiencia AP Sala Borrego | Confirmar 3 APs disponibles para 120 laptops | No se requieren APs adicionales como base |
 | Contingencia Auditorio Ingenieria | Probar punto de red temporal en Auditorio Ingenieria | Puede operar como Plan B para Red A |
 | Acceso plataforma | Cliente Red A abre servidor | Plataforma responde |
 | Bloqueo impresoras | Cliente Red A intenta imprimir | Acceso denegado |
-| Acceso jueces | Cliente Red T abre servidor e impresoras | Acceso permitido |
+| Acceso jueces cable | Cliente Red T abre servidor e impresoras | Acceso permitido |
+| Acceso jueces WiFi | Cliente `OMI-Jueces` abre servidor e impresoras | Acceso permitido |
 | Bloqueo invitados | Cliente Red I intenta llegar a Red TI | Acceso denegado |
 | Reporteros Internet | Cliente Red Repos navega | Internet disponible |
 | Entrenadores scoreboard | Cliente Red E consulta resultados | Solo lectura si aplica |
 | Gestion | Cliente Red M administra switch/AP | Acceso permitido solo a tecnicos |
-| Camaras WiFi | Camara rentada se conecta a `OMI-Camaras` | IP de Red C y video visible solo para monitoreo autorizado |
+| Camaras WiFi | Camara adicional/rentada se conecta a `OMI-Camaras` | IP de Red C y video visible solo para monitoreo autorizado |
+| Ubicacion camaras | Revisar matriz de camaras por espacio | Cobertura documentada en 1223, 1224, 12102, 12104, 12401 y Sala Borrego |
 | Bloqueo Red C | Cliente Red A, Red I o Red Repos intenta llegar a Red C | Acceso denegado |
 
 ## Validacion por turno
@@ -103,7 +113,7 @@ Notas:
 ### Antes de Dia 1 manana: preparatoria
 
 - Confirmar 132 equipos encendidos y conectados.
-- Probar 5 equipos aleatorios en Red A.
+- Probar 5 equipos aleatorios en Red A, incluyendo al menos 1 por `OMI-Competidores` si se usa WiFi.
 - Confirmar acceso al servidor de concurso.
 - Confirmar bloqueo hacia impresoras y jueces.
 - Revisar hora del sistema en servidor y equipos.
@@ -114,7 +124,7 @@ Notas:
 - Cerrar sesiones de preparatoria.
 - Reiniciar o limpiar equipos segun politica del concurso.
 - Liberar o renovar leases si es necesario.
-- Probar 5 equipos aleatorios.
+- Probar 5 equipos aleatorios, incluyendo cable y `OMI-Competidores` si aplica.
 - Confirmar que secundaria tiene 198 equipos disponibles.
 - Validar servidor antes de abrir el turno.
 
@@ -124,7 +134,8 @@ Notas:
 - Confirmar 144 equipos base en salas de computo y 120 equipos externos en Sala Borrego.
 - Revisar que el scope Red A tenga margen suficiente.
 - Probar conectividad desde varios puntos del salon.
-- Probar conectividad desde Sala Borrego hacia servidor de concurso.
+- Probar conectividad desde Sala Borrego por `OMI-Competidores` hacia servidor de concurso.
+- Validar distribucion de clientes entre los 3 APs de Sala Borrego.
 - Probar bloqueo desde Sala Borrego hacia Red T, Red TI impresoras, Red Repos, Red E, Red I y Red C.
 - Confirmar que el enlace troncal no este saturado.
 - Priorizar Red A y limitar invitados si hace falta.
@@ -140,7 +151,9 @@ Monitorear continuamente:
 - Uso de CPU/memoria/disco del servidor.
 - Estado de uplinks.
 - Clientes conectados por SSID.
+- Clientes conectados a `OMI-Competidores` y `OMI-Jueces`.
 - Camaras conectadas al SSID `OMI-Camaras`.
+- Camaras existentes y adicionales ubicadas segun matriz de vigilancia.
 - Eventos de firewall bloqueados/permitidos.
 - Estado de impresoras.
 
@@ -197,8 +210,9 @@ Acciones que requieren autorizacion del comite:
 
 1. Identificar SSID afectado.
 2. Revisar numero de clientes por AP.
-3. Limitar Red I antes que Red Repos o Red E.
-4. Agregar AP o redistribuir usuarios si hay equipo disponible.
+3. Si afecta `OMI-Competidores`, priorizar Red A y reducir o limitar redes no criticas.
+4. Limitar Red I antes que Red Repos o Red E.
+5. Agregar AP o redistribuir usuarios si hay equipo disponible.
 
 ### Camara inalambrica falla
 

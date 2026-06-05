@@ -45,7 +45,9 @@ Flujo obligatorio:
 - Conteo oficial: 31 estados regulares + 1 estado sede con contingente doble (8 prepa, 12 secundaria, 16 primaria).
 - Capacidad maxima simultanea de competencia: 264 equipos (turno primaria, Dia 2).
 - Red A: VLAN 10, `10.50.0.0/23`.
-- Red C: VLAN 80 para 20 camaras rentadas inalambricas por SSID `OMI-Camaras`.
+- Red A hibrida: cable + SSID `OMI-Competidores` en VLAN 10 cuando se use WiFi.
+- Red T hibrida: cable + SSID `OMI-Jueces` en VLAN 20 cuando se use WiFi.
+- Red C: VLAN 80 para hasta 20 camaras adicionales/rentadas inalambricas por SSID `OMI-Camaras`.
 - Expansion Red A: Sala Borrego como Plan A para 120 equipos externos; Auditorio Escuela de Ingenieria como Plan B.
 - Las tablets no forman parte del inventario de competencia.
 
@@ -68,7 +70,7 @@ Despues de cambios en docs, revisar segun aplique:
 
 ```sh
 rg -n "iPad|iPads|tablet|Samsung" docs
-rg -n "/23|256|OMI-Camaras|VLAN 80" docs
+rg -n "/23|264|OMI-Camaras|VLAN 80|OMI-Competidores|OMI-Jueces" docs
 find . -maxdepth 3 -type f \( -name "*.feature" -o -name "*.yaml" -o -name "*.yml" \) -print
 git status --short
 ```

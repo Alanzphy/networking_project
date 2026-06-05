@@ -72,16 +72,44 @@ El inventario completo de espacios disponibles se conserva como contexto para to
 
 Las salas de computo son comunes a Plan A y Plan B porque contienen los equipos fijos del campus.
 
-| Sala | Equipos disponibles | Sistema operativo | Nodos de red |
-| --- | --- | --- | ---: |
-| 1223 | 40 PC | Windows 11 | 40 |
-| 1224 | 30 iMac | macOS | 0 (requiere cableado) |
-| 12102 | 30 PC Workstation | Windows 11 | 30 |
-| 12104 (Lab de moviles) | 15 PC Workstation + 19 MacBook Pro | Windows 11 / macOS | 14 |
-| 12401 (Lab de redes) | 10 PC | Windows 11 | 0 (requiere cableado) |
-| **Total base** | **144 equipos** | | **84 nodos** |
+| Sala | Equipos disponibles | Sistema operativo | Puertos Ethernet actuales | APs | Tomas | Conexion propuesta |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| 1223 | 40 PC | Windows 11 | 43 | 1 | 9 | Cableada |
+| 1224 | 30 iMac | macOS | 48 | 1 | 24 | WiFi preferente |
+| 12102 | 30 PC Workstation | Windows 11 | 40 | 1 | 43 | Cableada |
+| 12104 (Lab de moviles) | 15 PC Workstation + 19 MacBook Pro | Windows 11 / macOS | 8 | 1 | 16 | Hibrida |
+| 12401 (Lab de redes) | 10 PC | Windows 11 | 20 | 1 | Pendiente | Cableada |
+| **Total base** | **144 equipos** | | | | | |
 
 Los 144 equipos disponibles no cubren el maximo de 264 requerido para primaria. La diferencia de 120 equipos se resuelve mediante expansion fisica de Red A, sin cambiar calendario y sin dividir categorias.
+
+El levantamiento fisico actualizado permite optimizar recursos: la Red A se operara de forma hibrida, usando cable donde ya existe infraestructura suficiente y WiFi por `OMI-Competidores` donde instalar nodos adicionales no sea necesario.
+
+### Levantamiento fisico complementario
+
+| Espacio | Uso | Puertos Ethernet actuales | APs | Tomas | Camaras observadas | Estado |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| Sala Borrego | Expansion Red A / Plan A | Pendiente | 3 | Pendiente | 1 | Medido parcialmente |
+| Domo Life | Jueces | 2 | 3 | 56 | 0 | Medido |
+| Domo Escuela de Negocios y Humanidades | Reporteros | 1 | 2 | 34 | 0 | Medido |
+| Auditorio Escuela de Negocios y Humanidades | Entrenadores | 16 | 2 | 12 | 0 | Medido |
+| Auditorio Escuela de Ingenieria | Expansion Red A / Plan B | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+| Sala Menlo | Invitados | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+
+Cada AP se considera con capacidad aproximada de 150 equipos para dimensionar si hacen falta APs adicionales.
+
+### Matriz de camaras
+
+| Lugar | Camaras observadas | Camaras adicionales/rentadas propuestas | Total de cobertura | Criterio |
+| --- | ---: | ---: | ---: | --- |
+| Sala 1223 | 1 | 3 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 1224 | 1 | 3 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 12102 | 0 | 4 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 12104 | 0 | 4 | 4 | Completar 4 puntos de vigilancia. |
+| Sala 12401 | 0 | 3 | 3 | Agregar 3 camaras adicionales/rentadas. |
+| Sala Borrego | 1 | 2 | 3 | Refuerzo para expansion Red A. |
+
+La distribucion usa hasta 19 camaras adicionales/rentadas. Si Sala Borrego o 12401 deben llegar a 4 puntos de vigilancia, se requeririan camaras adicionales fuera de esta base.
 
 ### Comparativo Plan A vs Plan B
 
@@ -103,7 +131,7 @@ Los 144 equipos disponibles no cubren el maximo de 264 requerido para primaria. 
 | Espacio | Aforo declarado | Rol verificado | Cumple capacidad |
 | --- | ---: | --- | --- |
 | Salas de computo (5 salas) | 144 equipos | Competidores base | Si, para equipo fijo disponible |
-| Sala Borrego | ~120 personas | 120 equipos externos (Plan A) | Requiere validacion fisica de aforo exacto |
+| Sala Borrego | ~120 personas | 120 equipos externos (Plan A) | Si |
 | Auditorio Escuela de Ingenieria | ~120 personas | 120 equipos externos (Plan B) | Requiere validacion fisica de aforo exacto |
 | Domo Life | Variable | Jueces | Si |
 | Auditorio Escuela de Negocios y Humanidades | ~150 personas | Entrenadores | Si |
@@ -114,19 +142,20 @@ Los 144 equipos disponibles no cubren el maximo de 264 requerido para primaria. 
 
 Antes de cerrar la implementacion fisica se debe confirmar:
 
-- Sala Borrego permite instalar 120 computadoras externas con mesas o superficies suficientes.
-- Sala Borrego tiene energia suficiente o puede recibir distribucion electrica temporal segura.
-- Sala Borrego puede conectarse a Red A / VLAN 10 mediante switches y cableado temporal.
+- Sala Borrego conserva 3 APs disponibles para `OMI-Competidores`.
+- Si falta AP fisico o cobertura minima en Sala Borrego, se debe colocar AP adicional.
 - Auditorio Escuela de Ingenieria cumple las mismas condiciones como Plan B.
 - Los 120 equipos externos son computadoras aptas para competencia.
 
 ### Observaciones de la visita
 
-- Las salas de computo cuentan con tomas de corriente y puntos de red en numero variable; las salas 1224 y 12401 requieren extension de cableado estructurado.
+- Las salas de computo cuentan con tomas de corriente, puertos Ethernet y APs en numero variable; 12401 queda cerrado para conectividad con 20 puertos Ethernet y 1 AP.
+- 1224 tiene puertos Ethernet disponibles, pero se propone WiFi preferente para evitar reconfiguracion o cableado adicional.
+- 12104 queda como sala hibrida por tener menos puertos Ethernet que equipos.
 - Sala Menlo es el espacio abierto de mayor capacidad del campus y se conserva para invitados.
 - Domo Life ofrece privacidad suficiente para el area de jueces.
 - Auditorio ENH y Auditorio de Ingenieria tienen mobiliario fijo tipo auditorio; si se usan para computadoras se debe validar que el mobiliario soporte el montaje.
-- Sala Borrego se selecciona por aforo nominal suficiente para los 120 equipos externos y por mantener separados los roles operativos.
+- Sala Borrego se selecciona por aforo nominal suficiente, por tener 3 APs existentes y por mantener separados los roles operativos.
 
 ---
 
@@ -158,7 +187,7 @@ Las medidas seran completadas con el plano AutoCAD del campus solicitado al area
 Las 5 salas de computo son las instalaciones con equipo fijo del campus. Aportan 144 equipos para Red A y se usan en todos los turnos de competencia.
 
 **Sala Borrego (120 equipos externos)**
-Sala Borrego se selecciona como expansion principal de Red A porque su aforo aproximado de 120 personas es el limite nominal para acomodar los 120 equipos externos necesarios para completar los 264 competidores simultaneos de primaria. Se debe confirmar fisicamente que el espacio permite instalar 120 puestos con mesas y cableado temporal. Al concentrar los equipos adicionales en un solo espacio, se simplifica la operacion: un solo bloque de switches, cableado temporal, pruebas DHCP, etiquetado y monitoreo.
+Sala Borrego se selecciona como expansion principal de Red A porque su aforo aproximado de 120 personas es el limite nominal para acomodar los 120 equipos externos necesarios para completar los 264 competidores simultaneos de primaria. La expansion usara laptops rentadas conectadas por `OMI-Competidores` en VLAN 10. Con 3 APs existentes y una capacidad aproximada de 150 equipos por AP, no se requieren APs adicionales como base. Al concentrar los equipos adicionales en un solo espacio, se simplifica la operacion: un solo bloque de APs, pruebas DHCP, monitoreo WiFi y soporte.
 
 **Domo Life (jueces)**
 El Domo Life conserva separacion fisica para jueces, reduciendo el contacto con competidores, entrenadores, reporteros e invitados. Este aislamiento apoya la integridad de la evaluacion.
@@ -176,7 +205,7 @@ Sala Menlo tiene capacidad suficiente para 100 invitados y permite mantener a vi
 
 El Plan B mantiene la misma asignacion de roles, pero reemplaza Sala Borrego por el Auditorio Escuela de Ingenieria para los 120 equipos externos. Solo se activa si Sala Borrego no cumple con disponibilidad, energia, mobiliario, conectividad o condiciones de montaje.
 
-El Auditorio de Ingenieria cuenta con aforo aproximado de 120 personas, coincidiendo con el numero de equipos externos requeridos. La validacion fisica debe confirmar que el mobiliario permite instalar computadoras y que se puede llevar Red A / VLAN 10 mediante cableado temporal.
+El Auditorio de Ingenieria cuenta con aforo aproximado de 120 personas, coincidiendo con el numero de equipos externos requeridos. La validacion fisica debe confirmar que el mobiliario permite instalar laptops y que se puede llevar Red A / VLAN 10 por WiFi o, si fuera indispensable, mediante cableado temporal puntual.
 
 ---
 
@@ -185,15 +214,15 @@ El Auditorio de Ingenieria cuenta con aforo aproximado de 120 personas, coincidi
 | Criterio | Plan A: Sala Borrego | Plan B: Auditorio Ingenieria |
 | --- | --- | --- |
 | Estado | Seleccionado | Contingencia |
-| Capacidad para 120 equipos | Requiere validacion fisica (aforo nominal = 120) | Requiere validacion fisica (aforo nominal = 120) |
+| Capacidad para 120 equipos | Cumple por aforo nominal reportado | Requiere validacion fisica (aforo nominal = 120) |
 | Impacto en roles no competidores | Bajo | Bajo |
 | Simplicidad operativa | Alta: un solo espacio de expansion | Media: depende de mobiliario de auditorio |
-| Riesgo principal | Validar energia, mesas y cableado temporal | Validar mobiliario y cableado temporal |
+| Riesgo principal | Colocar AP adicional si falta AP fisico o cobertura minima | Validar mobiliario, energia y conectividad |
 | Calendario | No cambia | No cambia |
 | Categorias por olas | No usa olas | No usa olas |
 
 **Alternativa seleccionada: Plan A.**
-El Plan A resuelve la falta de 120 equipos sin modificar la estructura de la olimpiada. Mantiene primaria completa en Dia 2, concentra la expansion de Red A en Sala Borrego y conserva espacios separados para jueces, entrenadores, reporteros e invitados.
+El Plan A resuelve la falta de 120 equipos sin modificar la estructura de la olimpiada. Mantiene primaria completa en Dia 2, concentra la expansion de Red A en Sala Borrego, aprovecha los APs existentes y conserva espacios separados para jueces, entrenadores, reporteros e invitados.
 
 ---
 
@@ -218,9 +247,9 @@ El Plan A resuelve la falta de 120 equipos sin modificar la estructura de la oli
    | 1224  30 Mac |   | BORREGO     |             | Red T jueces  |
    | 12102 30 PC  |   | 120 equipos |             |               |
    | 12104 34 Eq. |   | externos    |             | AUDITORIO ENH |
-   | 12401 10 PC  |   | SW acceso   |             | VLAN 50 Red E |
-   |              |   | cableado    |             |               |
-   | SSID         |   | temporal    |             | DOMO ENH      |
+   | 12401 10 PC  |   | 3 AP WiFi   |             | VLAN 50 Red E |
+   |              |   | SSID        |             |               |
+   | SSID         |   | OMI-Comp.   |             | DOMO ENH      |
    | OMI-Camaras  |   +-------------+             | VLAN 40 Repos |
    | VLAN 80      |                               |               |
    +--------------+                               | SALA MENLO    |
@@ -246,9 +275,9 @@ El Plan A resuelve la falta de 120 equipos sin modificar la estructura de la oli
    | 144 equipos  |   | INGENIERIA  |             | Red T jueces  |
    |              |   | 120 equipos |             |               |
    | SSID         |   | externos    |             | AUDITORIO ENH |
-   | OMI-Camaras  |   | SW acceso   |             | Red E         |
-   | VLAN 80      |   | cableado    |             |               |
-   +--------------+   | temporal    |             | DOMO ENH      |
+   | OMI-Camaras  |   | AP/WiFi     |             | Red E         |
+   | VLAN 80      |   | temporal    |             |               |
+   +--------------+   | segun valid. |             | DOMO ENH      |
                       +-------------+             | Red Repos     |
                                                   | SALA MENLO    |
                                                   | Red I         |
@@ -266,10 +295,16 @@ Leyenda:
 | 50 | Red E | Entrenadores |
 | 60 | Red I | Invitados |
 | 70 | Red M | Gestion |
-| 80 | Red C | Camaras rentadas por WiFi |
+| 80 | Red C | Camaras de monitoreo del evento |
 
-Las camaras son rentadas para el evento y se conectan de forma inalambrica al SSID `OMI-Camaras`. No forman parte del inventario actual del campus y no requieren punto de red por camara.
+SSIDs principales:
+
+| SSID | VLAN | Uso |
+| --- | ---: | --- |
+| `OMI-Competidores` | 10 | Competidores por WiFi |
+| `OMI-Jueces` | 20 | Jueces por WiFi |
+| `OMI-Camaras` | 80 | Camaras adicionales/rentadas |
+
+Las camaras observadas se consideran cobertura existente. Las camaras adicionales/rentadas se conectan de forma inalambrica al SSID `OMI-Camaras` y no requieren punto de red por camara.
 
 ---
-
-
