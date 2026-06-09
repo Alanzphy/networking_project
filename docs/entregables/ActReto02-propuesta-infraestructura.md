@@ -60,7 +60,7 @@ Desde el punto de vista de seguridad y operación, la alternativa conserva una r
 | Cámaras adicionales/rentadas | 19 base | Refuerzo de vigilancia | Complementan las cámaras observadas según la matriz de ubicación. Se usa costo de referencia de compra equivalente. |
 | Switches rentados | 0 base | No requeridos como renta base | Se usa la infraestructura de switching del campus; solo se agregarían switches si TI detecta falta de uplinks o puertos críticos. |
 | Nodos Cat 6a nuevos | 0 base | No requeridos como base | Se evita instalación masiva; solo sería puntual si una necesidad física lo exige. |
-| Soporte TI | 2 días | Configuración, monitoreo y atención de fallas | Costo nominal de la tabla base. |
+| Soporte TI | 4 personas por 2 días | Configuración, monitoreo y atención de fallas | Se considera $500 M.N. por persona por día; cada persona equivale a $1,000 M.N. por los dos días. |
 
 ### Factores de decisión para seleccionar equipos y materiales
 
@@ -125,12 +125,12 @@ La optimización principal consiste en aprovechar la infraestructura ya observad
 | ---: | --- | --- | ---: | ---: |
 | 130 | RENTA-LAPTOP-2D | Renta de laptop por 2 días para 120 competidores externos en Sala Borrego y 10 jueces. Incluye patch cord y tarjeta WiFi. | $1,200 M.N. | $156,000 M.N. |
 | 19 | CCTV-223 | Cámaras adicionales/rentadas para vigilancia del evento por SSID `OMI-Camaras` / VLAN 80. Costo de referencia Steren México. | $899 M.N. | $17,081 M.N. |
-| 2 | SOPORTE-TI-DIA | Soporte T.I. nominal por día para configuración, monitoreo y atención de fallas durante el evento. | $500 M.N. | $1,000 M.N. |
+| 4 | SOPORTE-TI-2D | Soporte T.I. para cuatro personas durante dos días, considerando $500 M.N. por persona por día. | $1,000 M.N. | $4,000 M.N. |
 | 0 | SWITCH-RENTA-2D | No se rentan switches adicionales como base; se usan switches existentes del campus para troncales, VLANs, APs y equipos fijos. | $600 M.N. | $0 M.N. |
 | 0 | CAT6A-NODO | Nodos Cat 6a nuevos no requeridos como base. Referencia de consigna: $200 USD por nodo si fuera puntual. | $0 M.N. | $0 M.N. |
 | 0 | AP-ADICIONAL | APs adicionales no requeridos como base. Sala Borrego cuenta con 3 APs para 120 laptops. | $0 M.N. | $0 M.N. |
 | 0 | MOBILIARIO | Sillas y mobiliario existentes suficientes en los espacios; no se renta mobiliario como base. | $0 M.N. | $0 M.N. |
-| **Total** | | | | **$174,081 M.N.** |
+| **Total** | | | | **$177,081 M.N.** |
 
 Notas de costo:
 
@@ -158,4 +158,4 @@ Antes del evento se debe comprobar:
 
 ## 8. Conclusión
 
-La propuesta seleccionada mantiene el Plan A, pero optimiza la implementación: en lugar de rentar switches e instalar nodos para todos los equipos faltantes, aprovecha APs existentes y laptops con WiFi. El costo preliminar queda en $174,081 M.N., incluyendo laptops, soporte TI y cámaras adicionales/rentadas de referencia. La estrategia disminuye la intervención física en el campus y conserva la segmentación por VLANs necesaria para seguridad y operación.
+La propuesta seleccionada mantiene el Plan A, pero optimiza la implementación: en lugar de rentar switches e instalar nodos para todos los equipos faltantes, aprovecha APs existentes y laptops con WiFi. El costo preliminar queda en $177,081 M.N., incluyendo laptops, soporte TI y cámaras adicionales/rentadas de referencia. La estrategia disminuye la intervención física en el campus y conserva la segmentación por VLANs necesaria para seguridad y operación.
