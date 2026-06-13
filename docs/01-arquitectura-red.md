@@ -12,7 +12,7 @@ La arquitectura se basa en:
 - Firewall o ACLs para permitir solo flujos necesarios.
 - WiFi separado por SSID y mapeado a VLAN.
 - Red A hibrida: cable donde ya existe infraestructura suficiente y WiFi para equipos portatiles o rentados.
-- Red de gestion aislada para infraestructura.
+- Administracion tecnica fuera de las VLANs de usuarios del evento.
 
 ## Justificacion de subnetting
 
@@ -22,49 +22,48 @@ La Red A necesita una subred mayor a `/24`. Un `/24` ofrece 254 hosts utiles, pe
 
 ## Bloque base sugerido
 
-Bloque propuesto para el evento:
+Bloque propuesto para las VLANs internas del evento:
 
 ```text
-10.50.0.0/22
+172.23.8.0/21
 ```
 
-Este bloque ofrece direcciones desde `10.50.0.0` hasta `10.50.3.255`. Debe cambiarse si el campus ya usa ese rango.
+Este bloque ofrece direcciones desde `172.23.8.0` hasta `172.23.15.255`. El enlace WAN entre RTFrontera y FCampus queda fuera de este bloque y usa `10.32.100.0/30`.
 
 ## Plan de VLANs y subredes
 
-| Red | VLAN | Subred | Gateway sugerido | Hosts utiles | Uso |
-| --- | ---: | --- | --- | ---: | --- |
-| Red A | 10 | `10.50.0.0/23` | `10.50.0.1` | 510 | Competidores |
-| Red T | 20 | `10.50.2.0/27` | `10.50.2.1` | 30 | Jueces |
-| Red TI | 30 | `10.50.2.32/28` | `10.50.2.33` | 14 | Servidor e impresoras |
-| Red Repos | 40 | `10.50.2.64/26` | `10.50.2.65` | 62 | Reporteros |
-| Red E | 50 | `10.50.2.128/26` | `10.50.2.129` | 62 | Entrenadores |
-| Red I | 60 | `10.50.3.0/25` | `10.50.3.1` | 126 | Invitados |
-| Red M | 70 | `10.50.3.128/27` | `10.50.3.129` | 30 | Gestion |
-| Red C | 80 | `10.50.3.160/27` | `10.50.3.161` | 30 | Camaras de monitoreo del evento |
+| Segmento | Hosts requeridos | Prefijo | Mascara decimal | Bloque asignado | Primera IP valida | Ultima IP valida |
+| --- | ---: | --- | --- | --- | --- | --- |
+| Competidores (VLAN 10) | 264 | `/23` | `255.255.254.0` | `172.23.8.0 - 172.23.9.255` | `172.23.8.1` | `172.23.9.254` |
+| Invitados (VLAN 60) | 100 | `/25` | `255.255.255.128` | `172.23.10.0 - 172.23.10.127` | `172.23.10.1` | `172.23.10.126` |
+| Entrenadores (VLAN 50) | 40 | `/26` | `255.255.255.192` | `172.23.10.128 - 172.23.10.191` | `172.23.10.129` | `172.23.10.190` |
+| Reporteros (VLAN 40) | 32 | `/26` | `255.255.255.192` | `172.23.10.192 - 172.23.10.255` | `172.23.10.193` | `172.23.10.254` |
+| Camaras (VLAN 70) | 20 | `/27` | `255.255.255.224` | `172.23.11.0 - 172.23.11.31` | `172.23.11.1` | `172.23.11.30` |
+| Jueces (VLAN 20) | 10 | `/28` | `255.255.255.240` | `172.23.11.32 - 172.23.11.47` | `172.23.11.33` | `172.23.11.46` |
+| Servidor e impresoras (VLAN 30) | 5 | `/29` | `255.255.255.248` | `172.23.11.48 - 172.23.11.55` | `172.23.11.49` | `172.23.11.54` |
+| Enlace WAN RTFrontera - FCampus | 2 | `/30` | `255.255.255.252` | `10.32.100.0 - 10.32.100.3` | `10.32.100.1` | `10.32.100.2` |
 
 ## Reservas recomendadas
 
 | Red | Rango DHCP sugerido | Reservas |
 | --- | --- | --- |
-| Red A | `10.50.0.50 - 10.50.1.254` | Gateway, monitoreo, equipos de soporte |
-| Red T | `10.50.2.10 - 10.50.2.30` | Gateway y puestos fijos |
+| Red A | `172.23.8.50 - 172.23.9.254` | Gateway, reservas y equipos de soporte |
+| Red T | `172.23.11.34 - 172.23.11.46` | Gateway y puestos fijos |
 | Red TI | No DHCP o DHCP reservado | Servidor e impresoras con IP fija |
-| Red Repos | `10.50.2.70 - 10.50.2.126` | Gateway y APs fuera de la VLAN cliente |
-| Red E | `10.50.2.140 - 10.50.2.190` | Gateway y equipo de soporte |
-| Red I | `10.50.3.10 - 10.50.3.126` | Gateway |
-| Red M | IPs estaticas | Switches, APs, firewall, monitoreo |
+| Red Repos | `172.23.10.194 - 172.23.10.254` | Gateway y APs fuera de la VLAN cliente |
+| Red E | `172.23.10.130 - 172.23.10.190` | Gateway y equipo de apoyo |
+| Red I | `172.23.10.10 - 172.23.10.126` | Gateway y reservas |
 | Red C | DHCP reservado | Hasta 20 camaras adicionales/rentadas inalambricas |
 
 ## Direcciones estaticas de servicios
 
 | Servicio | Red | IP sugerida | Notas |
 | --- | --- | --- | --- |
-| Servidor de concurso | Red TI | `10.50.2.34` | Plataforma visible desde Red A y Red T |
-| Impresora 1 | Red TI | `10.50.2.35` | Solo jueces/TI |
-| Impresora 2 | Red TI | `10.50.2.36` | Solo jueces/TI |
-| Impresora 3 | Red TI | `10.50.2.37` | Solo jueces/TI |
-| Impresora 4 | Red TI | `10.50.2.38` | Solo jueces/TI |
+| Servidor de concurso | Red TI | `172.23.11.50` | Plataforma visible desde Red A y Red T |
+| Impresora 1 | Red TI | `172.23.11.51` | Solo jueces/TI |
+| Impresora 2 | Red TI | `172.23.11.52` | Solo jueces/TI |
+| Impresora 3 | Red TI | `172.23.11.53` | Solo jueces/TI |
+| Impresora 4 | Red TI | `172.23.11.54` | Solo jueces/TI |
 | DNS/DHCP del evento | Campus o firewall | Por definir | Debe entregar scopes por VLAN |
 
 ## Topologia logica
@@ -76,10 +75,10 @@ Firewall / Router capa 3
    |
 Troncal campus / core switch
    |
-+------------------+------------------+------------------+------------------+
-|                  |                  |                  |                  |
-Switches Red A     Switch jueces/TI   Switch/APs WiFi    Gestion / Camaras
-VLAN 10            VLAN 20/30         VLAN 40/50/60/80   VLAN 70
++------------------+------------------+--------------------------+
+|                  |                  |                          |
+Switches Red A     Switch jueces/TI   Switch/APs WiFi y camaras
+VLAN 10            VLAN 20/30         VLAN 40/50/60/70
 ```
 
 Salones de computo con equipo:
@@ -116,15 +115,15 @@ El enrutamiento entre VLANs debe pasar por el firewall o por un dispositivo capa
 | `OMI-Reporteros` | 40 | Reporteros | WPA2/WPA3 |
 | `OMI-Entrenadores` | 50 | Entrenadores | WPA2/WPA3 |
 | `OMI-Invitados` | 60 | Invitados | WPA2/WPA3 o portal cautivo |
-| `OMI-Camaras` | 80 | Camaras adicionales/rentadas | WPA2/WPA3 con clave controlada |
+| `OMI-Camaras` | 70 | Camaras adicionales/rentadas | WPA2/WPA3 con clave controlada |
 
 Buenas practicas:
 
-- No publicar SSIDs internos de gestion.
+- No publicar SSIDs internos de administracion.
 - `OMI-Competidores` debe mapearse solo a VLAN 10 y recibir las mismas ACLs que Red A cableada.
 - `OMI-Jueces` debe mapearse solo a VLAN 20 y recibir las mismas ACLs que Red T cableada.
 - Separar invitados de cualquier red operativa.
-- Separar camaras adicionales/rentadas de usuarios y gestion mediante VLAN 80.
+- Separar camaras adicionales/rentadas de usuarios mediante VLAN 70.
 - Limitar ancho de banda de invitados si hay congestion.
 - Priorizar Red A y Red T sobre redes WiFi no criticas.
 - Cada AP se dimensiona con capacidad aproximada de 150 equipos para estimar si hacen falta APs adicionales.
@@ -135,11 +134,11 @@ Politica base: negar por defecto y permitir solo lo necesario.
 
 | Origen | Destino | Acceso | Motivo |
 | --- | --- | --- | --- |
-| Red A | Servidor concurso `10.50.2.34` | Permitir HTTP/HTTPS y puertos de plataforma | Envio de soluciones |
+| Red A | Servidor concurso `172.23.11.50` | Permitir HTTP/HTTPS y puertos de plataforma | Envio de soluciones |
 | Red A | Internet | Permitir segun politica del concurso | Recursos autorizados o plataforma externa |
 | Red A | Red T | Bloquear | Aislamiento de jueces |
 | Red A | Red TI impresoras | Bloquear | Evitar uso no autorizado |
-| Red A | Red E, Repos, I, M | Bloquear | Aislamiento |
+| Red A | Red E, Repos, I | Bloquear | Aislamiento |
 | Red T | Servidor concurso | Permitir | Evaluacion y administracion |
 | Red T | Impresoras | Permitir | Impresion operativa |
 | Red T | Internet | Permitir | Operacion |
@@ -150,8 +149,7 @@ Politica base: negar por defecto y permitir solo lo necesario.
 | Red E | Scoreboard/servidor | Permitir solo lectura si aplica | Seguimiento de delegaciones |
 | Red I | Internet | Permitir | Invitados |
 | Red I | Redes internas | Bloquear | Seguridad |
-| Red M | Equipos de red | Permitir administracion | Operacion tecnica |
-| Red C | Servidor de grabacion/monitoreo en Red M | Permitir solo streaming de video | Vigilancia de salones con camaras adicionales/rentadas |
+| Acceso tecnico autorizado fuera de VLANs de usuario | Red C | Permitir solo visualizacion de video si aplica | Vigilancia de salones con camaras adicionales/rentadas |
 | Red C | Redes de usuario | Bloquear | Las camaras no deben ser accesibles desde competidores ni invitados |
 | Red A / Red I / Red E / Red Repos | Red C | Bloquear | Ningun usuario accede a camaras |
 
@@ -161,9 +159,8 @@ Orden recomendado de prioridad:
 
 1. Red A hacia servidor de concurso.
 2. Red T hacia servidor e impresoras.
-3. Red M para gestion y monitoreo.
-4. Red E y Red Repos.
-5. Red I invitados.
+3. Red E y Red Repos.
+4. Red I invitados.
 
 Si el enlace a Internet se congestiona, se debe limitar Red I antes de afectar Red A.
 
@@ -181,7 +178,7 @@ Salones de computo (Red A + Red C inalambrica):
 - Auditorio Escuela de Ingenieria debe poder reemplazar a Sala Borrego como Plan B para los mismos 120 equipos externos.
 - Sala Borrego tiene 3 APs y 1 camara observada; con capacidad aproximada de 150 equipos por AP, no requiere APs adicionales como base para 120 laptops.
 - La expansion Red A no requiere nodos Cat 6a nuevos como base; solo se agregarian si una necesidad fisica puntual lo vuelve necesario.
-- Hasta 20 camaras adicionales/rentadas deben conectarse por WiFi al SSID `OMI-Camaras`, asignado a VLAN 80.
+- Hasta 20 camaras adicionales/rentadas deben conectarse por WiFi al SSID `OMI-Camaras`, asignado a VLAN 70.
 - Las camaras observadas se contemplan como cobertura existente: 1223 (1), 1224 (1) y Sala Borrego (1).
 - La distribucion propuesta de camaras adicionales/rentadas es: 1223 (3), 1224 (3), 12102 (4), 12104 (4), 12401 (3) y Sala Borrego (2).
 - Las camaras adicionales/rentadas no requieren punto de red por unidad, pero si energia, bateria o toma electrica y conectividad al SSID `OMI-Camaras`.
@@ -210,7 +207,7 @@ General:
 - No administrar switches desde redes de usuario.
 - No depender de direccionamiento automatico sin scopes DHCP separados.
 - No usar el mismo SSID para roles distintos.
-- No conectar camaras al SSID de invitados, reporteros, entrenadores o gestion.
+- No conectar camaras al SSID de invitados, reporteros o entrenadores.
 
 ## Criterios de aceptacion tecnica
 
@@ -222,6 +219,6 @@ General:
 - El servidor local responde desde Red A y Red T.
 - Las impresoras responden desde Red T y no desde Red A.
 - Invitados, reporteros y entrenadores no alcanzan redes internas no autorizadas.
-- La red de gestion alcanza switches, APs y firewall.
-- Las camaras adicionales/rentadas reciben IP en `10.50.3.160/27` por `OMI-Camaras` y solo el sistema de monitoreo puede alcanzarlas.
+- La administracion de switches, APs y firewall se realiza fuera de las VLANs de usuario del evento.
+- Las camaras adicionales/rentadas reciben IP en `172.23.11.0/27` por `OMI-Camaras` y solo pueden ser consultadas desde acceso tecnico autorizado fuera de las VLANs de usuario del evento.
 - Ningun equipo de competidor, invitado o reportero puede alcanzar Red C.

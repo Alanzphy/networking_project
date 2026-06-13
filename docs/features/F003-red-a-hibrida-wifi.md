@@ -27,7 +27,7 @@ No incluye:
 - Compra o instalacion definitiva de APs nuevos.
 - Diseno de radiofrecuencia detallado.
 - Certificacion formal de cableado.
-- Cambio de VLANs, subredes o calendario.
+- Cambio de calendario.
 
 ## Requerimientos
 
@@ -41,10 +41,10 @@ No incluye:
 
 ## Restricciones
 
-- La Red A sigue usando VLAN 10 y `10.50.0.0/23`.
+- La Red A sigue usando VLAN 10 y `172.23.8.0/23`.
 - `OMI-Competidores` no debe compartir VLAN con invitados, reporteros, entrenadores, jueces o camaras.
 - `OMI-Jueces` no debe ser accesible para competidores ni usuarios generales.
-- Las camaras adicionales/rentadas continuan en `OMI-Camaras` / VLAN 80.
+- Las camaras adicionales/rentadas continuan en `OMI-Camaras` / VLAN 70.
 - No se agregan nodos Cat 6a nuevos como base; solo se considerarian si una necesidad fisica puntual lo vuelve necesario.
 
 ## Escenarios
@@ -65,7 +65,7 @@ Resultado esperado:
 
 - Las 120 laptops reciben IP de Red A.
 - Las laptops acceden al servidor de concurso.
-- Las laptops quedan bloqueadas hacia jueces, impresoras, invitados, reporteros, entrenadores, gestion y camaras.
+- Las laptops quedan bloqueadas hacia jueces, impresoras, invitados, reporteros, entrenadores y camaras.
 
 ### Escenario 2: competidor usa laboratorio hibrido
 

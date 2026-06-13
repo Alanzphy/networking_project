@@ -10,7 +10,7 @@ La Red A se habia documentado como cableada para todos los competidores. El leva
 
 ## Decision
 
-Adoptar una Red A hibrida: usar Ethernet donde ya exista infraestructura suficiente y usar el SSID `OMI-Competidores`, mapeado a VLAN 10, para equipos portatiles, iMacs, MacBooks y laptops rentadas. Para jueces, habilitar `OMI-Jueces` en VLAN 20 cuando se requiera conectividad inalambrica. Mantener `OMI-Camaras` en VLAN 80 para camaras adicionales/rentadas.
+Adoptar una Red A hibrida: usar Ethernet donde ya exista infraestructura suficiente y usar el SSID `OMI-Competidores`, mapeado a VLAN 10, para equipos portatiles, iMacs, MacBooks y laptops rentadas. Para jueces, habilitar `OMI-Jueces` en VLAN 20 cuando se requiera conectividad inalambrica. Mantener `OMI-Camaras` en la VLAN de camaras vigente para camaras adicionales/rentadas.
 
 ## Alternativas consideradas
 

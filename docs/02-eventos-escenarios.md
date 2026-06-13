@@ -22,7 +22,6 @@ Usuario -> Evento -> Escenario -> Requerimientos -> Restricciones -> Resultado e
 | Reportero | Red Repos | 32 | WiFi | Media |
 | Entrenador | Red E | 40 | Mixta/WiFi | Media |
 | Invitado | Red I | 100 | WiFi | Baja |
-| Administrador de red | Red M | Equipo tecnico | Cableada/gestion | Alta |
 | Camara adicional/rentada | Red C | Hasta 20 | WiFi | Media |
 
 ## Evento: inicio de turno de competencia
@@ -47,7 +46,7 @@ Resultado esperado:
 
 - Los 132 competidores reciben IP valida.
 - Todos pueden entrar a la plataforma de concurso.
-- Ningun competidor puede acceder a jueces, impresoras o gestion.
+- Ningun competidor puede acceder a jueces, impresoras, camaras u otras redes de usuario.
 
 ### Escenario: secundaria inicia Dia 1 por la tarde
 
@@ -171,7 +170,7 @@ Resultado esperado:
 
 - La plataforma funciona durante cada turno.
 - Los roles acceden solo a lo que necesitan.
-- Un fallo puede diagnosticarse rapidamente desde Red M o Red T.
+- Un fallo puede diagnosticarse rapidamente desde Red T o desde acceso tecnico autorizado fuera de las VLANs de usuario.
 
 ## Evento: impresion operativa
 
@@ -202,7 +201,7 @@ Requerimientos:
 
 Restricciones:
 
-- Reporteros no acceden a Red A, Red T, Red TI, Red E, Red I o Red M.
+- Reporteros no acceden a Red A, Red T, Red TI, Red E, Red I o Red C.
 - El ancho de banda de prensa no debe afectar envios de competidores.
 
 Resultado esperado:
@@ -221,7 +220,7 @@ Requerimientos:
 Restricciones:
 
 - Entrenadores no acceden a equipos de competidores.
-- Entrenadores no acceden a jueces, impresoras o gestion.
+- Entrenadores no acceden a jueces, impresoras, camaras ni administracion tecnica.
 - El scoreboard no debe exponer administracion ni datos sensibles.
 
 Resultado esperado:
@@ -248,18 +247,19 @@ Resultado esperado:
 - Invitados navegan por Internet.
 - La red de competencia permanece protegida.
 
-## Evento: administrador monitorea infraestructura
+## Evento: equipo tecnico monitorea infraestructura
 
 Requerimientos:
 
-- Acceso por Red M.
+- Acceso por consola, red institucional autorizada o puerto administrativo fuera de las VLANs de usuario del evento.
 - Visibilidad de switches, APs, firewall, DHCP y servidor.
 - Herramientas de diagnostico disponibles.
 
 Restricciones:
 
-- Red M no debe estar disponible para usuarios generales.
+- La administracion tecnica no debe estar disponible para usuarios generales.
 - Credenciales de administracion no deben usarse en redes invitadas.
+- No se reserva una VLAN de gestion dentro del diseno del evento.
 
 Resultado esperado:
 
@@ -273,7 +273,7 @@ Requerimientos:
 - Camaras observadas consideradas como cobertura existente.
 - Hasta 20 camaras adicionales/rentadas distribuidas para completar cobertura de salas de competencia.
 - Conexion de camaras adicionales/rentadas al SSID `OMI-Camaras`.
-- SSID mapeado a Red C / VLAN 80.
+- SSID mapeado a Red C / VLAN 70.
 - Cobertura WiFi suficiente en cada sala de computo.
 - Energia, bateria o toma electrica disponible por camara.
 
@@ -282,7 +282,7 @@ Restricciones:
 - Las camaras observadas forman parte de la infraestructura existente; las adicionales/rentadas se documentan por separado.
 - Las camaras no deben conectarse a SSIDs de invitados, reporteros, entrenadores o competidores.
 - Competidores, invitados, reporteros y entrenadores no deben acceder a Red C.
-- Solo el sistema de monitoreo o personal autorizado debe consultar video.
+- El video solo debe consultarse desde acceso tecnico autorizado fuera de las VLANs de usuario del evento.
 
 Resultado esperado:
 

@@ -21,8 +21,7 @@ flowchart LR
     core --> redAExpansion[Red A expansion / VLAN 10]
     core --> roles[Espacios por rol]
     core --> redTI[Red TI / VLAN 30]
-    core --> redM[Red M / VLAN 70]
-    core --> redC[Red C / VLAN 80]
+    core --> redC[Red C / VLAN 70]
 
     subgraph base["Competidores base - 144 equipos"]
         redABase --> s1223[Sala 1223 / 40 PC]
@@ -40,7 +39,6 @@ flowchart LR
     subgraph servicios["Servicios y operacion"]
         redTI --> servidor[Servidor de concurso]
         redTI --> impresoras[4 impresoras]
-        redM --> gestion[Gestion de switches, APs y firewall]
         redC --> camaras[Camaras adicionales/rentadas / SSID OMI-Camaras]
     end
 
@@ -71,8 +69,7 @@ flowchart LR
     core --> redAExpansion[Red A expansion / VLAN 10]
     core --> roles[Espacios por rol]
     core --> redTI[Red TI / VLAN 30]
-    core --> redM[Red M / VLAN 70]
-    core --> redC[Red C / VLAN 80]
+    core --> redC[Red C / VLAN 70]
 
     subgraph base["Competidores base - 144 equipos"]
         redABase --> s1223[Sala 1223 / 40 PC]
@@ -90,7 +87,6 @@ flowchart LR
     subgraph servicios["Servicios y operacion"]
         redTI --> servidor[Servidor de concurso]
         redTI --> impresoras[4 impresoras]
-        redM --> gestion[Gestion de switches, APs y firewall]
         redC --> camaras[Camaras adicionales/rentadas / SSID OMI-Camaras]
     end
 
@@ -112,5 +108,4 @@ flowchart LR
 | 40 | Red Repos | Reporteros |
 | 50 | Red E | Entrenadores |
 | 60 | Red I | Invitados |
-| 70 | Red M | Gestión de infraestructura |
-| 80 | Red C | Cámaras inalámbricas rentadas |
+| 70 | Red C | Cámaras inalámbricas rentadas |

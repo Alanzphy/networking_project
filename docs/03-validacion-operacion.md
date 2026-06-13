@@ -23,30 +23,30 @@ La validacion cubre:
 
 Politica general: bloquear por defecto y permitir solo lo especificado.
 
-| Origen | Red A | Red T | Red TI servidor | Red TI impresoras | Red Repos | Red E | Red I | Red C | Internet | Red M |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Red A | Local segun politica | No | Si, plataforma | No | No | No | No | No | Si | No |
-| Red T | No | Local | Si | Si | No | No | No | No | Si | No |
-| Red TI | No iniciado | Si segun respuesta | Local | Local | No | No | No | No | Limitado | No |
-| Red Repos | No | No | No | No | Local | No | No | No | Si | No |
-| Red E | No | No | Solo scoreboard si aplica | No | No | Local | No | No | Si | No |
-| Red I | No | No | No | No | No | No | Local | No | Si | No |
-| Red C | No | No | No | No | No | No | No | Local | No | Si, video/monitoreo |
-| Red M | Si admin si aplica | Si admin si aplica | Si admin | Si admin | Si admin/AP | Si admin/AP | Si admin/AP | Si monitoreo | Si | Local |
+| Origen | Red A | Red T | Red TI servidor | Red TI impresoras | Red Repos | Red E | Red I | Red C | Internet |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Red A | Local segun politica | No | Si, plataforma | No | No | No | No | No | Si |
+| Red T | No | Local | Si | Si | No | No | No | No | Si |
+| Red TI | No iniciado | Si segun respuesta | Local | Local | No | No | No | No | Limitado |
+| Red Repos | No | No | No | No | Local | No | No | No | Si |
+| Red E | No | No | Solo scoreboard si aplica | No | No | Local | No | No | Si |
+| Red I | No | No | No | No | No | No | Local | No | Si |
+| Red C | No | No | No | No | No | No | No | Local | No |
 
 Notas:
 
 - "No iniciado" significa que Red TI no debe iniciar conexiones hacia usuarios salvo respuestas a sesiones permitidas.
-- Red M es de administracion y debe estar limitada al equipo tecnico.
 - Si el scoreboard se publica para entrenadores, debe ser solo lectura.
-- Red C es exclusiva para camaras adicionales/rentadas inalambricas y solo debe comunicarse con monitoreo autorizado.
+- Red C es exclusiva para camaras adicionales/rentadas inalambricas.
+- La visualizacion de camaras se realiza desde acceso tecnico autorizado fuera de las VLANs de usuario del evento; no se modela como flujo Red TI <-> Red C.
+- La administracion tecnica de infraestructura queda fuera de las VLANs de usuario del evento.
 
 ## Checklist previo al evento
 
 ### Infraestructura
 
 - Confirmar bloque IP final con el campus.
-- Configurar VLANs 10, 20, 30, 40, 50, 60, 70 y 80.
+- Configurar VLANs 10, 20, 30, 40, 50, 60 y 70.
 - Configurar trunks entre core, switches de acceso, firewall y APs.
 - Etiquetar puertos por salon y rol.
 - Validar energia para switches, servidor, impresoras, APs y camaras adicionales/rentadas.
@@ -59,7 +59,7 @@ Notas:
 
 - Crear scope DHCP para Red A con capacidad mayor a 264 clientes.
 - Crear scopes para Red T, Red Repos, Red E, Red I y Red C.
-- Asignar IPs fijas a servidor, impresoras y gestion.
+- Asignar IPs fijas a servidor e impresoras.
 - Probar gateway por VLAN.
 - Probar DNS por VLAN.
 - Confirmar que no hay conflicto con la red del campus.
@@ -90,8 +90,8 @@ Notas:
 
 | Prueba | Metodo | Resultado esperado |
 | --- | --- | --- |
-| DHCP Red A cableada | Conectar clientes de prueba en puertos VLAN 10 | IP `10.50.0.0/23`, gateway correcto |
-| DHCP Red A WiFi | Conectar clientes a `OMI-Competidores` | IP `10.50.0.0/23`, gateway correcto |
+| DHCP Red A cableada | Conectar clientes de prueba en puertos VLAN 10 | IP `172.23.8.0/23`, gateway correcto |
+| DHCP Red A WiFi | Conectar clientes a `OMI-Competidores` | IP `172.23.8.0/23`, gateway correcto |
 | Capacidad Red A | Simular o conectar hasta 264 clientes | No se agota el scope |
 | Expansion Sala Borrego | Conectar laptops por `OMI-Competidores` desde Sala Borrego | IP de Red A / VLAN 10 y salida al servidor |
 | Suficiencia AP Sala Borrego | Confirmar 3 APs disponibles para 120 laptops | No se requieren APs adicionales como base |
@@ -103,8 +103,8 @@ Notas:
 | Bloqueo invitados | Cliente Red I intenta llegar a Red TI | Acceso denegado |
 | Reporteros Internet | Cliente Red Repos navega | Internet disponible |
 | Entrenadores scoreboard | Cliente Red E consulta resultados | Solo lectura si aplica |
-| Gestion | Cliente Red M administra switch/AP | Acceso permitido solo a tecnicos |
-| Camaras WiFi | Camara adicional/rentada se conecta a `OMI-Camaras` | IP de Red C y video visible solo para monitoreo autorizado |
+| Bloqueo administracion | Cliente de Red A, Red I o Red Repos intenta administrar switch/AP | Acceso denegado |
+| Camaras WiFi | Camara adicional/rentada se conecta a `OMI-Camaras` | IP de Red C y video visible solo desde acceso tecnico autorizado fuera de VLANs de usuario |
 | Ubicacion camaras | Revisar matriz de camaras por espacio | Cobertura documentada en 1223, 1224, 12102, 12104, 12401 y Sala Borrego |
 | Bloqueo Red C | Cliente Red A, Red I o Red Repos intenta llegar a Red C | Acceso denegado |
 
@@ -172,7 +172,7 @@ Acciones que requieren autorizacion del comite:
 - Cambiar horario de competencia.
 - Habilitar acceso nuevo no previsto.
 - Mover usuarios entre VLANs.
-- Cambiar acceso de Red C o exponer video fuera del monitoreo autorizado.
+- Cambiar acceso de Red C o exponer video fuera del acceso tecnico autorizado.
 
 ## Procedimientos de fallo
 
@@ -181,13 +181,13 @@ Acciones que requieren autorizacion del comite:
 1. Verificar si el problema afecta a un equipo, un switch o toda la VLAN.
 2. Revisar scope DHCP y agotamiento de direcciones.
 3. Confirmar relay/helper si DHCP esta centralizado.
-4. Probar gateway `10.50.0.1`.
+4. Probar gateway `172.23.8.1`.
 5. Escalar si afecta a multiples competidores.
 
 ### Servidor local falla
 
 1. Confirmar energia y enlace fisico.
-2. Probar acceso desde Red T y Red M.
+2. Probar acceso desde Red T y desde acceso tecnico autorizado.
 3. Revisar servicios de plataforma.
 4. Avisar a jueces antes de reiniciar.
 5. Registrar hora de falla y recuperacion.
@@ -201,7 +201,7 @@ Acciones que requieren autorizacion del comite:
 
 ### Impresora falla
 
-1. Probar ping desde Red T o Red M.
+1. Probar ping desde Red T o desde acceso tecnico autorizado.
 2. Revisar cola de impresion.
 3. Cambiar a otra impresora disponible.
 4. Mantener impresoras bloqueadas para Red A e invitados.

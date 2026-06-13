@@ -23,7 +23,7 @@ Se selecciona el **Plan A: Sala Borrego como expansión principal de Red A**.
 
 La decisión se mantiene porque permite cubrir el máximo simultáneo de 264 competidores en primaria sin cambiar el calendario, sin dividir categorías y sin crear olas. Las cinco salas de cómputo aportan 144 equipos fijos del campus y Sala Borrego recibe 120 laptops rentadas para completar la capacidad requerida.
 
-La mejora respecto a la propuesta anterior es que la Red A se implementa de forma **híbrida**. Se usará cable donde ya existe infraestructura suficiente y WiFi donde sea más conveniente evitar instalaciones adicionales. Para ello se agrega el SSID `OMI-Competidores`, mapeado a Red A / VLAN 10. Los jueces pueden usar `OMI-Jueces`, mapeado a Red T / VLAN 20. Las cámaras adicionales/rentadas conservan `OMI-Camaras`, mapeado a Red C / VLAN 80.
+La mejora respecto a la propuesta anterior es que la Red A se implementa de forma **híbrida**. Se usará cable donde ya existe infraestructura suficiente y WiFi donde sea más conveniente evitar instalaciones adicionales. Para ello se agrega el SSID `OMI-Competidores`, mapeado a Red A / VLAN 10. Los jueces pueden usar `OMI-Jueces`, mapeado a Red T / VLAN 20. Las cámaras adicionales/rentadas conservan `OMI-Camaras`, mapeado a Red C / VLAN 70.
 
 Cada AP se considera con capacidad aproximada de 150 equipos para dimensionar si hacen falta APs adicionales. Sala Borrego tiene 3 APs, por lo que los 120 equipos externos no requieren APs adicionales como base.
 
@@ -33,7 +33,7 @@ La alternativa seleccionada es la más adecuada porque atiende el requerimiento 
 
 La decisión también se sustenta en la infraestructura existente. Las salas de cómputo aportan 144 equipos fijos y Sala Borrego permite concentrar los 120 equipos externos faltantes en un solo espacio. Al usar laptops rentadas conectadas por `OMI-Competidores`, se evita instalar nodos Cat 6a masivos y se reduce la necesidad de switches rentados. Esto mantiene la segmentación de Red A / VLAN 10 y reduce intervenciones físicas en el campus.
 
-Desde el punto de vista de seguridad y operación, la alternativa conserva una red por rol: competidores, jueces, servidor/impresoras, reporteros, entrenadores, invitados, gestión y cámaras. Esta separación facilita aplicar ACLs, validar DHCP por VLAN y bloquear accesos no autorizados. Por esa razón, el Plan A no solo cubre capacidad, sino que también mantiene una topología administrable para el equipo técnico durante los dos días del evento.
+Desde el punto de vista de seguridad y operación, la alternativa conserva una red por rol: competidores, jueces, servidor/impresoras, reporteros, entrenadores, invitados y cámaras. Esta separación facilita aplicar ACLs, validar DHCP por VLAN y bloquear accesos no autorizados. Por esa razón, el Plan A no solo cubre capacidad, sino que también mantiene una topología administrable para el equipo técnico durante los dos días del evento.
 
 ## 2. Inventario de espacios e infraestructura observada
 
@@ -70,7 +70,7 @@ Desde el punto de vista de seguridad y operación, la alternativa conserva una r
 | APs existentes | Reutilizar 15 observados | Capacidad aproximada de 150 equipos por AP, SSIDs por VLAN y menor intervención física. | Los APs existentes permiten cubrir competidores, jueces, reporteros, entrenadores y cámaras. Sala Borrego tiene 3 APs, suficientes como base para 120 laptops. |
 | Switches rentados | 0 renta base | Uso preferente de WiFi, puertos existentes y reducción de costo. | No se requiere conectar masivamente las laptops por cable. Sí se utilizarán los switches existentes del campus para troncales, VLANs, APs y equipos fijos; lo que se elimina de la propuesta base es la renta de switches adicionales. |
 | Nodos Cat 6a nuevos | 0 base | Infraestructura existente, EIA/TIA 568 y optimización de recursos. | La propuesta evita instalar nodos nuevos porque los equipos externos se conectan por WiFi y las salas base ya tienen puertos suficientes o conexión híbrida. |
-| Cámaras adicionales/rentadas | 19 base | Cobertura de vigilancia, separación en Red C y facilidad de instalación inalámbrica. | Complementan las cámaras observadas y se conectan a `OMI-Camaras` / VLAN 80, sin usar red de invitados ni red de competidores. |
+| Cámaras adicionales/rentadas | 19 base | Cobertura de vigilancia, separación en Red C y facilidad de instalación inalámbrica. | Complementan las cámaras observadas y se conectan a `OMI-Camaras` / VLAN 70, sin usar red de invitados ni red de competidores. |
 | Core/firewall/router L3 | Usar infraestructura del campus | Enrutamiento inter-VLAN, ACLs, DHCP relay y salida a Internet. | Es necesario para separar redes, aplicar reglas de acceso y controlar la comunicación entre Red A, Red T, Red TI, Red C y redes de usuarios. |
 | Servidor e impresoras | Mantener en Red TI | Seguridad, control de acceso e IP fija. | El servidor debe ser accesible desde competidores y jueces, mientras que las impresoras solo deben estar disponibles para jueces/TI. |
 | Sillas y mobiliario | 0 renta base | Disponibilidad en espacios y reducción de costos. | El levantamiento considera que hay sillas suficientes, por lo que no se incluye renta de mobiliario como costo base. |
@@ -103,6 +103,8 @@ Las cámaras observadas en sitio se contemplan como cobertura existente. Las cá
 
 Con esta distribución se usan 19 cámaras adicionales/rentadas como base: 17 para complementar las 5 salas de cómputo y 2 como refuerzo en Sala Borrego. Si el comité exige 4 cámaras también en 12401 o Sala Borrego, se requerirían cámaras adicionales fuera de esta base.
 
+La visualización de cámaras se realiza desde acceso técnico autorizado fuera de las VLANs de usuario del evento, sin reservar una IP adicional en Red TI.
+
 ## 5. Optimización de recursos
 
 La optimización principal consiste en aprovechar la infraestructura ya observada:
@@ -124,7 +126,7 @@ La optimización principal consiste en aprovechar la infraestructura ya observad
 | Cantidad | Número de producto | Descripción/Justificación | Costo Unitario | Costo total |
 | ---: | --- | --- | ---: | ---: |
 | 130 | RENTA-LAPTOP-2D | Renta de laptop por 2 días para 120 competidores externos en Sala Borrego y 10 jueces. Incluye patch cord y tarjeta WiFi. | $1,200 M.N. | $156,000 M.N. |
-| 19 | CCTV-223 | Cámaras adicionales/rentadas para vigilancia del evento por SSID `OMI-Camaras` / VLAN 80. Costo de referencia Steren México. | $899 M.N. | $17,081 M.N. |
+| 19 | CCTV-223 | Cámaras adicionales/rentadas para vigilancia del evento por SSID `OMI-Camaras` / VLAN 70. Costo de referencia Steren México. | $899 M.N. | $17,081 M.N. |
 | 4 | SOPORTE-TI-2D | Soporte T.I. para cuatro personas durante dos días, considerando $500 M.N. por persona por día. | $1,000 M.N. | $4,000 M.N. |
 | 0 | SWITCH-RENTA-2D | No se rentan switches adicionales como base; se usan switches existentes del campus para troncales, VLANs, APs y equipos fijos. | $600 M.N. | $0 M.N. |
 | 0 | CAT6A-NODO | Nodos Cat 6a nuevos no requeridos como base. Referencia de consigna: $200 USD por nodo si fuera puntual. | $0 M.N. | $0 M.N. |
@@ -151,9 +153,10 @@ Antes del evento se debe comprobar:
 - 120 laptops rentadas conectadas en Sala Borrego con IP de VLAN 10.
 - Confirmación de 3 APs disponibles en Sala Borrego; agregar AP solo si falta AP físico o cobertura mínima.
 - Acceso de competidores al servidor de concurso.
-- Bloqueo de Red A hacia jueces, impresoras, invitados, reporteros, entrenadores, gestión y cámaras.
+- Bloqueo de Red A hacia jueces, impresoras, invitados, reporteros, entrenadores y cámaras.
 - Acceso de jueces por `OMI-Jueces` al servidor e impresoras.
 - Cobertura de `OMI-Camaras` para cámaras adicionales/rentadas en las salas de cómputo.
+- Confirmación de que el video de cámaras solo se consulta desde acceso técnico autorizado fuera de las VLANs de usuario.
 - Ubicación física de cámaras observadas y cámaras adicionales/rentadas según la matriz de vigilancia.
 
 ## 8. Conclusión

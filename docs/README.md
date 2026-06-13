@@ -40,5 +40,7 @@ Ningun cambio importante debe vivir solo en una conversacion. Si una decision af
 - No crear Gherkin ni YAML; el formato oficial es Markdown.
 - Mantener la Red A en `/23` mientras el maximo simultaneo siga siendo 264 equipos.
 - Documentar Red A como hibrida cuando se use WiFi de competidores.
+- Mantener camaras en Red C / VLAN 70 por `OMI-Camaras`.
+- No reintroducir una VLAN de gestion dentro de las VLANs del evento.
 - Documentar supuestos cuando falte una decision final.
 - Marcar como pendiente cualquier inconsistencia que no deba resolverse todavia.

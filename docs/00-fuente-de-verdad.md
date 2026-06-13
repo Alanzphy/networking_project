@@ -67,7 +67,7 @@ Nota: el inventario completo de espacios se conserva para dar contexto a futuras
 
 ### Camaras de vigilancia
 
-Se contemplan camaras existentes observadas y hasta 20 camaras adicionales/rentadas para el evento. Las camaras adicionales deben ser inalambricas para facilitar la instalacion y conectarse al SSID dedicado `OMI-Camaras`, mapeado a Red C (VLAN 80), separada de las redes de competencia, invitados y gestion.
+Se contemplan camaras existentes observadas y hasta 20 camaras adicionales/rentadas para el evento. Las camaras adicionales deben ser inalambricas para facilitar la instalacion y conectarse al SSID dedicado `OMI-Camaras`, mapeado a Red C (VLAN 70), separada de las redes de competencia, invitados, reporteros y entrenadores.
 
 | Lugar | Camaras observadas | Camaras adicionales/rentadas propuestas | Total de cobertura | Criterio |
 | --- | ---: | ---: | ---: | --- |
@@ -150,14 +150,16 @@ Restricciones del calendario:
 | Dias de evento | 2 dias | Preparatoria y secundaria en Dia 1; primaria en Dia 2. |
 | Capacidad maxima Red A | 264 equipos | Primaria requiere 264 computadoras simultaneas. |
 | Red A | Subred `/23` | Un `/24` solo ofrece 254 hosts utiles y no alcanza. |
-| Bloque base sugerido | `10.50.0.0/22` | Permite segmentar el evento completo en subredes internas. |
+| Bloque base sugerido | `172.23.8.0/21` | Permite segmentar las VLANs internas del evento. |
+| Enlace WAN | `10.32.100.0/30` | Enlace RTFrontera - FCampus fuera del bloque interno `/21`. |
 | Servidor local | Plataforma de concurso | Competidores acceden al servicio; jueces administran/evaluan. |
 | Separacion de roles | VLAN por rol | Reduce riesgos y facilita reglas de acceso. |
-| Camaras de vigilancia | Observadas + adicionales/rentadas inalambricas, Red C / VLAN 80, subred `/27` | Aisladas de redes de competencia y usuarios para evitar trafico de video en rutas criticas. |
+| Camaras de vigilancia | Observadas + adicionales/rentadas inalambricas, Red C / VLAN 70, subred `/27` | Aisladas de redes de competencia y usuarios; el video se consulta desde acceso tecnico autorizado fuera de VLANs de usuario. |
 | Espacios del evento | Inventario completo registrado | Se conserva para apoyar decisiones, alternativas y planes operativos. |
 | Expansion Red A | Sala Borrego como Plan A; Auditorio Ingenieria como Plan B | Permite cubrir 120 equipos externos sin cambiar calendario ni dividir categorias. |
 | Red A hibrida | Cable + SSID `OMI-Competidores` en VLAN 10 | Optimiza recursos y evita instalacion masiva de nodos Cat 6a. |
 | Red T hibrida | Cable + SSID `OMI-Jueces` en VLAN 20 | Permite operar jueces con laptops sin cableado adicional. |
+| VLAN de gestion | Eliminada del diseno del evento | La administracion tecnica queda fuera de las VLANs de usuario del evento. |
 | Capacidad AP | ~150 equipos por AP | Supuesto operativo para dimensionar si hacen falta APs adicionales. |
 | Mobiliario | Sillas existentes suficientes | No se renta mobiliario de sillas como base de costos. |
 
@@ -183,7 +185,7 @@ RF-09. Los entrenadores deben contar con conectividad mixta o WiFi suficiente pa
 
 RF-10. Los invitados deben usar una red WiFi separada solo para Internet.
 
-RF-11. La red de gestion debe permitir administrar switches, access points y firewall.
+RF-11. La administracion de switches, access points y firewall debe realizarse fuera de las VLANs de usuario del evento.
 
 RF-12. Las camaras adicionales/rentadas deben conectarse por WiFi dedicado a Red C para vigilancia de las salas de computo.
 
@@ -213,7 +215,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 - Las impresoras no deben ser visibles desde competidores, reporteros, entrenadores o invitados.
 - Las redes WiFi deben mapearse a VLANs separadas.
 - Invitados y reporteros no deben acceder a redes internas del evento.
-- La administracion de red debe estar separada en una VLAN de gestion.
+- La administracion de red no debe exponerse en ninguna VLAN de usuario del evento.
 - Las camaras inalambricas deben usar un SSID dedicado y no deben compartir red con invitados, reporteros, entrenadores o competidores.
 - La expansion de 120 equipos externos no debe modificar el calendario oficial ni dividir categorias.
 - `OMI-Competidores` debe mapearse exclusivamente a Red A / VLAN 10.
@@ -225,11 +227,10 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 | --- | --- | --- | ---: | --- |
 | Red A | Competidores | Hibrida cable/WiFi | 264 | Alta |
 | Red T | Jueces | Hibrida cable/WiFi | 10 | Alta |
-| Red TI | Servidor e impresoras | Cableada | 5+ | Alta |
+| Red TI | Servidor e impresoras | Cableada | 5 | Alta |
 | Red Repos | Reporteros | WiFi | 32 | Media |
 | Red E | Entrenadores | Mixta/WiFi | 40 | Media |
 | Red I | Invitados | WiFi | 100 | Baja |
-| Red M | Gestion | Cableada/administrativa | 20+ | Alta |
 | Red C | Camaras de monitoreo del evento | WiFi | Hasta 20 | Media |
 
 ## Criterios de aceptacion
@@ -240,7 +241,7 @@ La infraestructura queda aceptada cuando:
 - `OMI-Competidores` entrega direccion IP de Red A / VLAN 10 a equipos autorizados.
 - Sala Borrego entrega conectividad Red A a 120 equipos externos en Plan A por WiFi.
 - Los competidores pueden acceder al servidor de concurso.
-- Los competidores no pueden acceder a jueces, impresoras, gestion, prensa, entrenadores o invitados.
+- Los competidores no pueden acceder a jueces, impresoras, prensa, entrenadores, invitados o camaras.
 - Los jueces pueden acceder al servidor e impresoras desde Red T cableada o `OMI-Jueces`.
 - Reporteros, entrenadores e invitados reciben conectividad segun su rol.
 - La matriz de permisos esta validada antes del primer turno.
@@ -257,8 +258,8 @@ La infraestructura queda aceptada cuando:
 - Los APs existentes pueden mapear SSIDs a VLANs o ser configurados por TI.
 - Cada AP soporta aproximadamente 150 equipos para estimar si hacen falta APs adicionales.
 - No se contemplan nodos Cat 6a nuevos como base de la propuesta; solo se agregarian si una necesidad fisica puntual lo vuelve necesario.
-- La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 80 para camaras adicionales/rentadas.
-- El bloque `10.50.0.0/22` puede cambiar si ya existe conflicto.
+- La red troncal del campus permite transportar las VLANs requeridas incluyendo VLAN 70 para camaras adicionales/rentadas.
+- El bloque `172.23.8.0/21` puede cambiar si ya existe conflicto.
 - La plataforma de concurso estara en el servidor local.
 - El equipo tecnico del campus puede configurar VLANs, DHCP, ACLs y WiFi.
 - Las camaras adicionales/rentadas requieren cobertura WiFi dedicada por `OMI-Camaras`.

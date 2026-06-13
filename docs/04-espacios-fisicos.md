@@ -251,7 +251,7 @@ El Plan A resuelve la falta de 120 equipos sin modificar la estructura de la oli
    |              |   | SSID        |             |               |
    | SSID         |   | OMI-Comp.   |             | DOMO ENH      |
    | OMI-Camaras  |   +-------------+             | VLAN 40 Repos |
-   | VLAN 80      |                               |               |
+   | VLAN 70      |                               |               |
    +--------------+                               | SALA MENLO    |
                                                   | VLAN 60 Red I |
                                                   +---------------+
@@ -276,7 +276,7 @@ El Plan A resuelve la falta de 120 equipos sin modificar la estructura de la oli
    |              |   | 120 equipos |             |               |
    | SSID         |   | externos    |             | AUDITORIO ENH |
    | OMI-Camaras  |   | AP/WiFi     |             | Red E         |
-   | VLAN 80      |   | temporal    |             |               |
+   | VLAN 70      |   | temporal    |             |               |
    +--------------+   | segun valid. |             | DOMO ENH      |
                       +-------------+             | Red Repos     |
                                                   | SALA MENLO    |
@@ -294,8 +294,7 @@ Leyenda:
 | 40 | Red Repos | Reporteros |
 | 50 | Red E | Entrenadores |
 | 60 | Red I | Invitados |
-| 70 | Red M | Gestion |
-| 80 | Red C | Camaras de monitoreo del evento |
+| 70 | Red C | Camaras de monitoreo del evento |
 
 SSIDs principales:
 
@@ -303,7 +302,7 @@ SSIDs principales:
 | --- | ---: | --- |
 | `OMI-Competidores` | 10 | Competidores por WiFi |
 | `OMI-Jueces` | 20 | Jueces por WiFi |
-| `OMI-Camaras` | 80 | Camaras adicionales/rentadas |
+| `OMI-Camaras` | 70 | Camaras adicionales/rentadas |
 
 Las camaras observadas se consideran cobertura existente. Las camaras adicionales/rentadas se conectan de forma inalambrica al SSID `OMI-Camaras` y no requieren punto de red por camara.
 
