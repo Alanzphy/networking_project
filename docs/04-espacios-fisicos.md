@@ -295,6 +295,7 @@ Leyenda:
 | 50 | Red E | Entrenadores |
 | 60 | Red I | Invitados |
 | 70 | Red C | Camaras de monitoreo del evento |
+| 99 | Administracion | Controladora Packet Tracer |
 
 SSIDs principales:
 
@@ -305,5 +306,7 @@ SSIDs principales:
 | `OMI-Camaras` | 70 | Camaras adicionales/rentadas |
 
 Las camaras observadas se consideran cobertura existente. Las camaras adicionales/rentadas se conectan de forma inalambrica al SSID `OMI-Camaras` y no requieren punto de red por camara.
+
+La controladora de Packet Tracer se modela en VLAN 99 Administracion con IP sugerida `172.23.11.66/28`; no corresponde a un espacio de usuarios.
 
 ---

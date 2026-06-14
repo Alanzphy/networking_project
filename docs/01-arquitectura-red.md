@@ -4,6 +4,8 @@
 
 Disenar una red segmentada, segura y operable para soportar la competencia OMI durante dos dias, con 264 equipos maximos en la Red A y roles separados por VLAN.
 
+La red del evento se plantea como una red local paralela integrada a la infraestructura actual del campus. Su interconexion debe conservar la continuidad operativa de la red institucional, usar bloques IP autorizados por TI Nacional/campus y aplicar restricciones que eviten interferencias con servicios existentes.
+
 La arquitectura se basa en:
 
 - VLAN por tipo de usuario.
@@ -12,13 +14,15 @@ La arquitectura se basa en:
 - Firewall o ACLs para permitir solo flujos necesarios.
 - WiFi separado por SSID y mapeado a VLAN.
 - Red A hibrida: cable donde ya existe infraestructura suficiente y WiFi para equipos portatiles o rentados.
-- Administracion tecnica fuera de las VLANs de usuarios del evento.
+- VLAN 99 para Administracion tecnica/controladora en Packet Tracer, aislada de usuarios.
 
 ## Justificacion de subnetting
 
 Si todos los usuarios compartieran una sola red IP, seria dificil aislar competidores, jueces, servidor, impresoras, prensa, entrenadores e invitados. El subnetting permite que cada VLAN tenga su propio rango y que las reglas de acceso sean claras.
 
 La Red A necesita una subred mayor a `/24`. Un `/24` ofrece 254 hosts utiles, pero primaria requiere 264 computadoras simultaneas, ademas de gateway, reservas y posibles equipos de soporte. Por eso Red A debe usar `/23`.
+
+La VLAN 99 usa `/28` porque solo requiere un segmento tecnico pequeno para gateway, controladora y posibles reservas de administracion. No forma parte de las redes de usuarios del evento.
 
 ## Bloque base sugerido
 
@@ -41,6 +45,7 @@ Este bloque ofrece direcciones desde `172.23.8.0` hasta `172.23.15.255`. El enla
 | Camaras (VLAN 70) | 20 | `/27` | `255.255.255.224` | `172.23.11.0 - 172.23.11.31` | `172.23.11.1` | `172.23.11.30` |
 | Jueces (VLAN 20) | 10 | `/28` | `255.255.255.240` | `172.23.11.32 - 172.23.11.47` | `172.23.11.33` | `172.23.11.46` |
 | Servidor e impresoras (VLAN 30) | 5 | `/29` | `255.255.255.248` | `172.23.11.48 - 172.23.11.55` | `172.23.11.49` | `172.23.11.54` |
+| Administracion (VLAN 99) | 14 | `/28` | `255.255.255.240` | `172.23.11.64 - 172.23.11.79` | `172.23.11.65` | `172.23.11.78` |
 | Enlace WAN RTFrontera - FCampus | 2 | `/30` | `255.255.255.252` | `10.32.100.0 - 10.32.100.3` | `10.32.100.1` | `10.32.100.2` |
 
 ## Reservas recomendadas
@@ -54,6 +59,7 @@ Este bloque ofrece direcciones desde `172.23.8.0` hasta `172.23.15.255`. El enla
 | Red E | `172.23.10.130 - 172.23.10.190` | Gateway y equipo de apoyo |
 | Red I | `172.23.10.10 - 172.23.10.126` | Gateway y reservas |
 | Red C | DHCP reservado | Hasta 20 camaras adicionales/rentadas inalambricas |
+| Administracion | No DHCP o DHCP reservado | Gateway, controladora Packet Tracer y equipo tecnico autorizado |
 
 ## Direcciones estaticas de servicios
 
@@ -64,6 +70,7 @@ Este bloque ofrece direcciones desde `172.23.8.0` hasta `172.23.15.255`. El enla
 | Impresora 2 | Red TI | `172.23.11.52` | Solo jueces/TI |
 | Impresora 3 | Red TI | `172.23.11.53` | Solo jueces/TI |
 | Impresora 4 | Red TI | `172.23.11.54` | Solo jueces/TI |
+| Controladora Packet Tracer | Administracion / VLAN 99 | `172.23.11.66` | Administracion tecnica; gateway sugerido `172.23.11.65` |
 | DNS/DHCP del evento | Campus o firewall | Por definir | Debe entregar scopes por VLAN |
 
 ## Topologia logica
@@ -77,8 +84,8 @@ Troncal campus / core switch
    |
 +------------------+------------------+--------------------------+
 |                  |                  |                          |
-Switches Red A     Switch jueces/TI   Switch/APs WiFi y camaras
-VLAN 10            VLAN 20/30         VLAN 40/50/60/70
+Switches Red A     Switch jueces/TI   Switch/APs WiFi y camaras   Controladora
+VLAN 10            VLAN 20/30         VLAN 40/50/60/70             VLAN 99
 ```
 
 Salones de computo con equipo:
@@ -105,6 +112,8 @@ Domo Life          (variable)       VLAN 20 (jueces)
 Nota: el inventario completo de espacios disponibles vive en `00-fuente-de-verdad.md` y sirve como contexto para decisiones, alternativas y planes operativos.
 
 El enrutamiento entre VLANs debe pasar por el firewall o por un dispositivo capa 3 con reglas equivalentes.
+
+La controladora de Packet Tracer se ubica en Administracion / VLAN 99 con IP sugerida `172.23.11.66`. Esta VLAN no debe ser alcanzable desde redes de usuarios.
 
 ## SSIDs WiFi
 
@@ -150,6 +159,8 @@ Politica base: negar por defecto y permitir solo lo necesario.
 | Red I | Internet | Permitir | Invitados |
 | Red I | Redes internas | Bloquear | Seguridad |
 | Acceso tecnico autorizado fuera de VLANs de usuario | Red C | Permitir solo visualizacion de video si aplica | Vigilancia de salones con camaras adicionales/rentadas |
+| Acceso tecnico autorizado | Administracion / VLAN 99 | Permitir solo administracion de controladora e infraestructura | Operacion tecnica en Packet Tracer |
+| Red A / Red T / Red TI / Red Repos / Red E / Red I / Red C | Administracion / VLAN 99 | Bloquear | La controladora no debe quedar expuesta a usuarios ni servicios del evento |
 | Red C | Redes de usuario | Bloquear | Las camaras no deben ser accesibles desde competidores ni invitados |
 | Red A / Red I / Red E / Red Repos | Red C | Bloquear | Ningun usuario accede a camaras |
 
@@ -199,12 +210,14 @@ General:
 - Energia estable para switches, servidor, impresoras, APs y camaras adicionales/rentadas.
 - Access points suficientes para reporteros, entrenadores, invitados y camaras inalambricas.
 - Etiquetado fisico de puertos por salon y por VLAN.
+- Controladora de Packet Tracer conectada a VLAN 99 Administracion.
 
 ## Restricciones tecnicas
 
 - No mezclar puertos de competidores con puertos de jueces.
 - No conectar impresoras a WiFi de invitados o prensa.
 - No administrar switches desde redes de usuario.
+- No exponer VLAN 99 a redes de usuario.
 - No depender de direccionamiento automatico sin scopes DHCP separados.
 - No usar el mismo SSID para roles distintos.
 - No conectar camaras al SSID de invitados, reporteros o entrenadores.
@@ -219,6 +232,7 @@ General:
 - El servidor local responde desde Red A y Red T.
 - Las impresoras responden desde Red T y no desde Red A.
 - Invitados, reporteros y entrenadores no alcanzan redes internas no autorizadas.
-- La administracion de switches, APs y firewall se realiza fuera de las VLANs de usuario del evento.
+- La administracion de switches, APs, firewall y controladora se realiza fuera de VLANs de usuario; la controladora de Packet Tracer usa VLAN 99.
 - Las camaras adicionales/rentadas reciben IP en `172.23.11.0/27` por `OMI-Camaras` y solo pueden ser consultadas desde acceso tecnico autorizado fuera de las VLANs de usuario del evento.
 - Ningun equipo de competidor, invitado o reportero puede alcanzar Red C.
+- VLAN 99 responde en `172.23.11.64/28` y la controladora sugerida `172.23.11.66` no es alcanzable desde redes de usuario.

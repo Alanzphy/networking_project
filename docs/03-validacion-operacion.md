@@ -15,6 +15,7 @@ La validacion cubre:
 - Red A hibrida por cable y `OMI-Competidores`.
 - Red T hibrida por cable y `OMI-Jueces`.
 - Camaras inalambricas.
+- Administracion tecnica / VLAN 99 para controladora Packet Tracer.
 - Impresion.
 - Operacion por turnos.
 - Respuesta a fallos.
@@ -23,30 +24,31 @@ La validacion cubre:
 
 Politica general: bloquear por defecto y permitir solo lo especificado.
 
-| Origen | Red A | Red T | Red TI servidor | Red TI impresoras | Red Repos | Red E | Red I | Red C | Internet |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Red A | Local segun politica | No | Si, plataforma | No | No | No | No | No | Si |
-| Red T | No | Local | Si | Si | No | No | No | No | Si |
-| Red TI | No iniciado | Si segun respuesta | Local | Local | No | No | No | No | Limitado |
-| Red Repos | No | No | No | No | Local | No | No | No | Si |
-| Red E | No | No | Solo scoreboard si aplica | No | No | Local | No | No | Si |
-| Red I | No | No | No | No | No | No | Local | No | Si |
-| Red C | No | No | No | No | No | No | No | Local | No |
+| Origen | Red A | Red T | Red TI servidor | Red TI impresoras | Red Repos | Red E | Red I | Red C | VLAN 99 Admin | Internet |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Red A | Local segun politica | No | Si, plataforma | No | No | No | No | No | No | Si |
+| Red T | No | Local | Si | Si | No | No | No | No | No | Si |
+| Red TI | No iniciado | Si segun respuesta | Local | Local | No | No | No | No | No | Limitado |
+| Red Repos | No | No | No | No | Local | No | No | No | No | Si |
+| Red E | No | No | Solo scoreboard si aplica | No | No | Local | No | No | No | Si |
+| Red I | No | No | No | No | No | No | Local | No | No | Si |
+| Red C | No | No | No | No | No | No | No | Local | No | No |
+| VLAN 99 Admin | No iniciado | No iniciado | No iniciado | No iniciado | No | No | No | No | Local | Limitado |
 
 Notas:
 
-- "No iniciado" significa que Red TI no debe iniciar conexiones hacia usuarios salvo respuestas a sesiones permitidas.
+- "No iniciado" significa que Red TI o VLAN 99 Admin no deben iniciar conexiones hacia usuarios salvo respuestas a sesiones permitidas o acceso tecnico autorizado.
 - Si el scoreboard se publica para entrenadores, debe ser solo lectura.
 - Red C es exclusiva para camaras adicionales/rentadas inalambricas.
 - La visualizacion de camaras se realiza desde acceso tecnico autorizado fuera de las VLANs de usuario del evento; no se modela como flujo Red TI <-> Red C.
-- La administracion tecnica de infraestructura queda fuera de las VLANs de usuario del evento.
+- VLAN 99 Admin es exclusiva para controladora Packet Tracer y administracion tecnica autorizada; no es red de usuarios.
 
 ## Checklist previo al evento
 
 ### Infraestructura
 
-- Confirmar bloque IP final con el campus.
-- Configurar VLANs 10, 20, 30, 40, 50, 60 y 70.
+- Confirmar bloque IP final con TI Nacional/campus.
+- Configurar VLANs 10, 20, 30, 40, 50, 60, 70 y 99.
 - Configurar trunks entre core, switches de acceso, firewall y APs.
 - Etiquetar puertos por salon y rol.
 - Validar energia para switches, servidor, impresoras, APs y camaras adicionales/rentadas.
@@ -54,15 +56,18 @@ Notas:
 - Confirmar APs, energia, mesas y laptops WiFi para 120 equipos externos en Sala Borrego.
 - Confirmar que Sala Borrego conserva 3 APs disponibles; con 150 equipos aproximados por AP no se requieren APs adicionales como base.
 - Confirmar Auditorio Escuela de Ingenieria como contingencia si Sala Borrego no cumple.
+- Confirmar controladora Packet Tracer en VLAN 99 Administracion.
 
 ### DHCP y direccionamiento
 
 - Crear scope DHCP para Red A con capacidad mayor a 264 clientes.
 - Crear scopes para Red T, Red Repos, Red E, Red I y Red C.
+- Configurar VLAN 99 sin DHCP abierto o con reserva exclusiva para controladora/equipo tecnico.
 - Asignar IPs fijas a servidor e impresoras.
+- Asignar IP sugerida `172.23.11.66/28` a la controladora y gateway `172.23.11.65`.
 - Probar gateway por VLAN.
 - Probar DNS por VLAN.
-- Confirmar que no hay conflicto con la red del campus.
+- Confirmar que no hay conflicto con la red del campus y que TI Nacional/campus valido las restricciones de interconexion.
 
 ### Seguridad
 
@@ -72,6 +77,7 @@ Notas:
 - Bloquear invitados y reporteros hacia redes internas.
 - Bloquear redes de usuario hacia Red C.
 - Bloquear administracion desde redes de usuario.
+- Bloquear redes de usuario hacia VLAN 99.
 - Documentar cualquier excepcion temporal.
 
 ### WiFi
@@ -104,6 +110,8 @@ Notas:
 | Reporteros Internet | Cliente Red Repos navega | Internet disponible |
 | Entrenadores scoreboard | Cliente Red E consulta resultados | Solo lectura si aplica |
 | Bloqueo administracion | Cliente de Red A, Red I o Red Repos intenta administrar switch/AP | Acceso denegado |
+| Controladora VLAN 99 | Controladora Packet Tracer conectada a VLAN 99 | IP `172.23.11.66/28`, gateway `172.23.11.65` |
+| Bloqueo VLAN 99 | Cliente de Red A, Red T, Red I o Red Repos intenta llegar a `172.23.11.66` | Acceso denegado |
 | Camaras WiFi | Camara adicional/rentada se conecta a `OMI-Camaras` | IP de Red C y video visible solo desde acceso tecnico autorizado fuera de VLANs de usuario |
 | Ubicacion camaras | Revisar matriz de camaras por espacio | Cobertura documentada en 1223, 1224, 12102, 12104, 12401 y Sala Borrego |
 | Bloqueo Red C | Cliente Red A, Red I o Red Repos intenta llegar a Red C | Acceso denegado |
@@ -153,6 +161,7 @@ Monitorear continuamente:
 - Clientes conectados por SSID.
 - Clientes conectados a `OMI-Competidores` y `OMI-Jueces`.
 - Camaras conectadas al SSID `OMI-Camaras`.
+- Estado de controladora en VLAN 99.
 - Camaras existentes y adicionales ubicadas segun matriz de vigilancia.
 - Eventos de firewall bloqueados/permitidos.
 - Estado de impresoras.
@@ -173,6 +182,7 @@ Acciones que requieren autorizacion del comite:
 - Habilitar acceso nuevo no previsto.
 - Mover usuarios entre VLANs.
 - Cambiar acceso de Red C o exponer video fuera del acceso tecnico autorizado.
+- Exponer VLAN 99 a cualquier red de usuario.
 
 ## Procedimientos de fallo
 
@@ -197,7 +207,7 @@ Acciones que requieren autorizacion del comite:
 1. Confirmar si Red A todavia llega al servidor local.
 2. Validar salida desde firewall.
 3. Reducir trafico de Red I si hay degradacion.
-4. Escalar al campus si el enlace institucional esta caido.
+4. Escalar a TI del campus o TI Nacional si el enlace institucional esta caido.
 
 ### Impresora falla
 
@@ -222,6 +232,14 @@ Acciones que requieren autorizacion del comite:
 4. Reubicar camara o AP si la cobertura es insuficiente.
 5. Confirmar que Red C no sea accesible desde redes de usuario.
 
+### Controladora o VLAN 99 falla
+
+1. Confirmar energia y enlace de la controladora.
+2. Verificar IP `172.23.11.66/28` y gateway `172.23.11.65`.
+3. Confirmar que el puerto o trunk transporte VLAN 99.
+4. Probar acceso desde equipo tecnico autorizado.
+5. Confirmar que redes de usuario sigan bloqueadas hacia VLAN 99.
+
 ## Cierre del evento
 
 - Exportar o respaldar logs necesarios.
@@ -241,6 +259,7 @@ Guardar capturas o registros de:
 - Pruebas de bloqueo entre redes.
 - Pruebas de acceso al servidor.
 - Pruebas de camaras inalambricas y bloqueo hacia Red C.
+- Pruebas de controladora en VLAN 99 y bloqueo desde usuarios.
 - Clientes conectados por turno.
 - Incidentes y resoluciones.
 

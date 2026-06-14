@@ -22,6 +22,7 @@ flowchart LR
     core --> roles[Espacios por rol]
     core --> redTI[Red TI / VLAN 30]
     core --> redC[Red C / VLAN 70]
+    core --> admin[VLAN 99 Administracion]
 
     subgraph base["Competidores base - 144 equipos"]
         redABase --> s1223[Sala 1223 / 40 PC]
@@ -40,6 +41,7 @@ flowchart LR
         redTI --> servidor[Servidor de concurso]
         redTI --> impresoras[4 impresoras]
         redC --> camaras[Camaras adicionales/rentadas / SSID OMI-Camaras]
+        admin --> controladora[Controladora Packet Tracer]
     end
 
     subgraph espacios["Roles no competidores"]
@@ -70,6 +72,7 @@ flowchart LR
     core --> roles[Espacios por rol]
     core --> redTI[Red TI / VLAN 30]
     core --> redC[Red C / VLAN 70]
+    core --> admin[VLAN 99 Administracion]
 
     subgraph base["Competidores base - 144 equipos"]
         redABase --> s1223[Sala 1223 / 40 PC]
@@ -88,6 +91,7 @@ flowchart LR
         redTI --> servidor[Servidor de concurso]
         redTI --> impresoras[4 impresoras]
         redC --> camaras[Camaras adicionales/rentadas / SSID OMI-Camaras]
+        admin --> controladora[Controladora Packet Tracer]
     end
 
     subgraph espacios["Roles no competidores"]
@@ -109,3 +113,4 @@ flowchart LR
 | 50 | Red E | Entrenadores |
 | 60 | Red I | Invitados |
 | 70 | Red C | Cámaras inalámbricas rentadas |
+| 99 | Administración | Controladora Packet Tracer |

@@ -2,11 +2,11 @@
 
 ## Estado
 
-Integrada
+Integrada; modificada por F005 para agregar VLAN 99 de Administracion tecnica.
 
 ## Problema
 
-El diseno anterior reservaba una VLAN de gestion y otra VLAN distinta para camaras. El plan fisico en Packet Tracer requiere simplificar la segmentacion, eliminar la VLAN de gestion del evento y usar VLAN 70 para camaras de monitoreo.
+El diseno anterior reservaba una VLAN de gestion y otra VLAN distinta para camaras. El plan fisico en Packet Tracer requirio simplificar la segmentacion, eliminar la VLAN de gestion anterior y usar VLAN 70 para camaras de monitoreo. Posteriormente F005 agrega VLAN 99 como Administracion tecnica limitada para la controladora de Packet Tracer.
 
 ## Objetivo
 
@@ -19,7 +19,7 @@ Incluye:
 - Cambiar el bloque interno del evento a `172.23.8.0/21`.
 - Mantener Red A en VLAN 10 con prefijo `/23`.
 - Asociar `OMI-Camaras` a VLAN 70.
-- Eliminar la VLAN de gestion del diseno del evento.
+- Eliminar la VLAN de gestion anterior del diseno del evento.
 - Agregar enlace WAN RTFrontera - FCampus en `10.32.100.0/30`.
 
 No incluye:
@@ -32,7 +32,7 @@ No incluye:
 
 | ID | Requerimiento | Prioridad |
 | --- | --- | --- |
-| RF-F004-01 | Las VLANs activas del evento deben ser 10, 20, 30, 40, 50, 60 y 70. | Alta |
+| RF-F004-01 | Las VLANs activas de usuarios y servicios del evento deben ser 10, 20, 30, 40, 50, 60 y 70. VLAN 99 queda fuera de usuarios y se reserva para Administracion tecnica por F005. | Alta |
 | RF-F004-02 | Las camaras adicionales/rentadas deben conectarse a `OMI-Camaras` en Red C / VLAN 70. | Alta |
 | RF-F004-03 | La administracion tecnica no debe exponerse en ninguna VLAN de usuario del evento. | Alta |
 | RNF-F004-01 | El nuevo direccionamiento debe conservar capacidad suficiente para 264 competidores simultaneos. | Alta |
@@ -42,7 +42,7 @@ No incluye:
 - Red A conserva `/23` para cubrir 264 competidores mas reservas.
 - Red C debe permanecer aislada de competidores, invitados, reporteros y entrenadores.
 - El enlace WAN `10.32.100.0/30` queda fuera del bloque interno `172.23.8.0/21`.
-- No debe quedar ninguna referencia operativa a la VLAN de gestion anterior ni a una VLAN distinta para camaras.
+- No debe quedar ninguna referencia operativa a la VLAN de gestion anterior ni a una VLAN distinta para camaras; VLAN 99 se documenta por separado en F005.
 
 ## Escenarios
 
@@ -84,15 +84,15 @@ Resultado esperado:
 
 | Documento | Cambio requerido |
 | --- | --- |
-| `00-fuente-de-verdad.md` | Actualizar decisiones, bloque IP, Red C y eliminacion de VLAN de gestion. |
+| `00-fuente-de-verdad.md` | Actualizar decisiones, bloque IP, Red C y eliminacion de VLAN de gestion anterior. |
 | `01-arquitectura-red.md` | Reemplazar tabla de VLANs, subredes, gateways, reservas y reglas. |
-| `02-eventos-escenarios.md` | Quitar la red de gestion y ajustar camaras a VLAN 70. |
-| `03-validacion-operacion.md` | Quitar la red de gestion de matriz y pruebas; validar VLAN 70 para camaras. |
+| `02-eventos-escenarios.md` | Quitar la red de gestion anterior y ajustar camaras a VLAN 70. |
+| `03-validacion-operacion.md` | Quitar la red de gestion anterior de matriz y pruebas; validar VLAN 70 para camaras. |
 | `04-espacios-fisicos.md` | Actualizar leyenda de VLANs y SSID `OMI-Camaras`. |
 
 ## Validacion
 
-- Confirmar que no existan referencias operativas a la VLAN de gestion anterior ni a una VLAN distinta para camaras.
+- Confirmar que no existan referencias operativas a la VLAN de gestion anterior ni a una VLAN distinta para camaras; la administracion vigente debe aparecer como VLAN 99.
 - Confirmar que `OMI-Camaras` aparece asociado a VLAN 70.
 - Confirmar que Red A usa `172.23.8.0/23`.
 - Probar DHCP por VLAN y aislamiento de Red C.
@@ -104,4 +104,4 @@ Resultado esperado:
 ## Supuestos
 
 - El bloque `172.23.8.0/21` no entra en conflicto con la red institucional.
-- La administracion tecnica se realiza por consola, red institucional autorizada o puertos administrativos fuera de VLANs de usuario.
+- La administracion tecnica se realiza por consola, red institucional autorizada, puertos administrativos fuera de VLANs de usuario o VLAN 99 para controladora de Packet Tracer.

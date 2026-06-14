@@ -49,7 +49,7 @@ Flujo obligatorio:
 - Red A hibrida: cable + SSID `OMI-Competidores` en VLAN 10 cuando se use WiFi.
 - Red T hibrida: cable + SSID `OMI-Jueces` en VLAN 20 cuando se use WiFi.
 - Red C: VLAN 70 para hasta 20 camaras adicionales/rentadas inalambricas por SSID `OMI-Camaras`.
-- VLAN de gestion: eliminada del diseno del evento.
+- VLAN 99: Administracion tecnica para controladora en Packet Tracer, `172.23.11.64/28`.
 - Expansion Red A: Sala Borrego como Plan A para 120 equipos externos; Auditorio Escuela de Ingenieria como Plan B.
 - Las tablets no forman parte del inventario de competencia.
 
@@ -72,7 +72,7 @@ Despues de cambios en docs, revisar segun aplique:
 
 ```sh
 rg -n "iPad|iPads|tablet|Samsung" docs
-rg -n "/23|264|172\\.23|OMI-Camaras|VLAN 70|OMI-Competidores|OMI-Jueces" docs
+rg -n "/23|264|172\\.23|OMI-Camaras|VLAN 70|VLAN 99|OMI-Competidores|OMI-Jueces" docs
 find . -maxdepth 3 -type f \( -name "*.feature" -o -name "*.yaml" -o -name "*.yml" \) -print
 git status --short
 ```

@@ -15,6 +15,7 @@ Esta carpeta guarda specs de features o cambios antes de integrarlos a la fuente
 - `F002-asignacion-final-espacios.md`: resolver asignacion definitiva de salones y espacios.
 - `F003-red-a-hibrida-wifi.md`: definir Red A hibrida con WiFi optimizado.
 - `F004-plan-ip-sin-vlan-gestion.md`: eliminar VLAN de gestion, mover camaras a VLAN 70 y adoptar `172.23.8.0/21`.
+- `F005-vlan-99-administracion.md`: agregar VLAN 99 de Administracion para controladora en Packet Tracer.
 
 ## Regla
 

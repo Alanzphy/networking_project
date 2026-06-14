@@ -23,7 +23,7 @@ Se selecciona el **Plan A: Sala Borrego como expansión principal de Red A**.
 
 La decisión se mantiene porque permite cubrir el máximo simultáneo de 264 competidores en primaria sin cambiar el calendario, sin dividir categorías y sin crear olas. Las cinco salas de cómputo aportan 144 equipos fijos del campus y Sala Borrego recibe 120 laptops rentadas para completar la capacidad requerida.
 
-La mejora respecto a la propuesta anterior es que la Red A se implementa de forma **híbrida**. Se usará cable donde ya existe infraestructura suficiente y WiFi donde sea más conveniente evitar instalaciones adicionales. Para ello se agrega el SSID `OMI-Competidores`, mapeado a Red A / VLAN 10. Los jueces pueden usar `OMI-Jueces`, mapeado a Red T / VLAN 20. Las cámaras adicionales/rentadas conservan `OMI-Camaras`, mapeado a Red C / VLAN 70.
+La mejora respecto a la propuesta anterior es que la Red A se implementa de forma **híbrida**. Se usará cable donde ya existe infraestructura suficiente y WiFi donde sea más conveniente evitar instalaciones adicionales. Para ello se agrega el SSID `OMI-Competidores`, mapeado a Red A / VLAN 10. Los jueces pueden usar `OMI-Jueces`, mapeado a Red T / VLAN 20. Las cámaras adicionales/rentadas conservan `OMI-Camaras`, mapeado a Red C / VLAN 70. Para el armado en Packet Tracer se agrega VLAN 99 de Administración para la controladora, usando `172.23.11.64/28`.
 
 Cada AP se considera con capacidad aproximada de 150 equipos para dimensionar si hacen falta APs adicionales. Sala Borrego tiene 3 APs, por lo que los 120 equipos externos no requieren APs adicionales como base.
 
@@ -58,6 +58,7 @@ Desde el punto de vista de seguridad y operación, la alternativa conserva una r
 | Sillas | 0 renta base | Mobiliario disponible en campus | Se considera que hay sillas suficientes en todos los espacios. |
 | APs existentes | 15 observados | Competidores, jueces, reporteros, entrenadores y cámaras | No se cotizan como renta base. |
 | Cámaras adicionales/rentadas | 19 base | Refuerzo de vigilancia | Complementan las cámaras observadas según la matriz de ubicación. Se usa costo de referencia de compra equivalente. |
+| Controladora Packet Tracer | 1 | Administración técnica | Se modela en VLAN 99 con IP sugerida `172.23.11.66`; no se cotiza como renta base. |
 | Switches rentados | 0 base | No requeridos como renta base | Se usa la infraestructura de switching del campus; solo se agregarían switches si TI detecta falta de uplinks o puertos críticos. |
 | Nodos Cat 6a nuevos | 0 base | No requeridos como base | Se evita instalación masiva; solo sería puntual si una necesidad física lo exige. |
 | Soporte TI | 4 personas por 2 días | Configuración, monitoreo y atención de fallas | Se considera $500 M.N. por persona por día; cada persona equivale a $1,000 M.N. por los dos días. |
@@ -72,6 +73,7 @@ Desde el punto de vista de seguridad y operación, la alternativa conserva una r
 | Nodos Cat 6a nuevos | 0 base | Infraestructura existente, EIA/TIA 568 y optimización de recursos. | La propuesta evita instalar nodos nuevos porque los equipos externos se conectan por WiFi y las salas base ya tienen puertos suficientes o conexión híbrida. |
 | Cámaras adicionales/rentadas | 19 base | Cobertura de vigilancia, separación en Red C y facilidad de instalación inalámbrica. | Complementan las cámaras observadas y se conectan a `OMI-Camaras` / VLAN 70, sin usar red de invitados ni red de competidores. |
 | Core/firewall/router L3 | Usar infraestructura del campus | Enrutamiento inter-VLAN, ACLs, DHCP relay y salida a Internet. | Es necesario para separar redes, aplicar reglas de acceso y controlar la comunicación entre Red A, Red T, Red TI, Red C y redes de usuarios. |
+| Controladora Packet Tracer | Modelar 1 controladora | Administración de APs e infraestructura simulada. | Se ubica en VLAN 99 / `172.23.11.64/28`, aislada de redes de usuario. |
 | Servidor e impresoras | Mantener en Red TI | Seguridad, control de acceso e IP fija. | El servidor debe ser accesible desde competidores y jueces, mientras que las impresoras solo deben estar disponibles para jueces/TI. |
 | Sillas y mobiliario | 0 renta base | Disponibilidad en espacios y reducción de costos. | El levantamiento considera que hay sillas suficientes, por lo que no se incluye renta de mobiliario como costo base. |
 
@@ -87,6 +89,7 @@ La propuesta sigue el criterio de cableado estructurado EIA/TIA 568 en lo necesa
 | APs de Domo Life | Domo Life | Dar servicio a `OMI-Jueces` / VLAN 20. |
 | APs de reporteros e invitados | Domo ENH, Auditorio ENH y Sala Menlo | Mantener redes separadas por SSID y VLAN. |
 | Servidor e impresoras | Red TI / VLAN 30 | Mantener IP fija y acceso solo desde redes autorizadas. |
+| Controladora Packet Tracer | VLAN 99 Administración | Usar IP sugerida `172.23.11.66/28`; bloquear acceso desde redes de usuario. |
 
 ### Ubicación de cámaras
 
@@ -158,6 +161,7 @@ Antes del evento se debe comprobar:
 - Cobertura de `OMI-Camaras` para cámaras adicionales/rentadas en las salas de cómputo.
 - Confirmación de que el video de cámaras solo se consulta desde acceso técnico autorizado fuera de las VLANs de usuario.
 - Ubicación física de cámaras observadas y cámaras adicionales/rentadas según la matriz de vigilancia.
+- Controladora Packet Tracer en VLAN 99 con IP `172.23.11.66/28` y bloqueo desde redes de usuario.
 
 ## 8. Conclusión
 

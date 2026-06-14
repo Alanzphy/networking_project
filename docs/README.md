@@ -1,6 +1,8 @@
 # Documentacion SDD - Red OMI
 
-Este directorio es la fuente de verdad del proyecto de infraestructura de red para la OMI. La documentacion esta organizada para trabajar con Spec Driven Development: primero se define la especificacion, despues se ajusta la arquitectura y al final se valida contra pruebas.
+Este directorio es la fuente de verdad del proyecto de infraestructura de red para la OMI. El reto consiste en disenar, configurar e interconectar una red local paralela a la infraestructura actual del TEC de Monterrey sin comprometer la continuidad operativa del campus.
+
+La documentacion esta organizada para trabajar con Spec Driven Development: primero se define la especificacion, despues se ajusta la arquitectura y al final se valida contra pruebas. TI Nacional/campus se considera la entidad de apoyo para validar bloques IP permitidos, restricciones de conectividad y condiciones de interconexion.
 
 ## Como leer el proyecto
 
@@ -41,6 +43,6 @@ Ningun cambio importante debe vivir solo en una conversacion. Si una decision af
 - Mantener la Red A en `/23` mientras el maximo simultaneo siga siendo 264 equipos.
 - Documentar Red A como hibrida cuando se use WiFi de competidores.
 - Mantener camaras en Red C / VLAN 70 por `OMI-Camaras`.
-- No reintroducir una VLAN de gestion dentro de las VLANs del evento.
+- No reintroducir una VLAN de gestion para usuarios; VLAN 99 queda reservada solo para Administracion tecnica/controladora en Packet Tracer.
 - Documentar supuestos cuando falte una decision final.
 - Marcar como pendiente cualquier inconsistencia que no deba resolverse todavia.

@@ -251,20 +251,23 @@ Resultado esperado:
 
 Requerimientos:
 
-- Acceso por consola, red institucional autorizada o puerto administrativo fuera de las VLANs de usuario del evento.
-- Visibilidad de switches, APs, firewall, DHCP y servidor.
+- Acceso por consola, red institucional autorizada, puerto administrativo fuera de las VLANs de usuario o VLAN 99 Administracion.
+- Controladora Packet Tracer ubicada en VLAN 99 con IP sugerida `172.23.11.66/28`.
+- Visibilidad de switches, APs, firewall, DHCP, servidor y controladora.
 - Herramientas de diagnostico disponibles.
 
 Restricciones:
 
 - La administracion tecnica no debe estar disponible para usuarios generales.
 - Credenciales de administracion no deben usarse en redes invitadas.
-- No se reserva una VLAN de gestion dentro del diseno del evento.
+- VLAN 99 no debe ser alcanzable desde Red A, Red T, Red TI, Red Repos, Red E, Red I ni Red C.
+- No se publica SSID de administracion para usuarios.
 
 Resultado esperado:
 
 - El equipo tecnico detecta fallos rapido.
 - Puede corregir DHCP, VLANs, APs o reglas sin entrar a redes de usuario.
+- La controladora queda aislada en VLAN 99 y opera sin exponerse a usuarios del evento.
 
 ## Evento: camara adicional transmite vigilancia
 

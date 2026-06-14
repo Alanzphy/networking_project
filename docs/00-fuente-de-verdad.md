@@ -4,6 +4,15 @@
 
 Este documento es la fuente de verdad principal para el diseno de red de la Olimpiada Mexicana de Informatica en campus sede. Aplica Spec Driven Development en formato Markdown: primero se define el comportamiento esperado del evento, despues se derivan arquitectura, restricciones, escenarios y validaciones.
 
+## Contexto del reto
+
+El TEC de Monterrey se prepara para ser sede de la Olimpiada Mexicana de Informatica y requiere disenar, configurar e interconectar una nueva red local a la infraestructura de red actual del campus sin comprometer la continuidad de operacion.
+
+La red del evento debe ser compatible con la red institucional, usar direcciones IP autorizadas, respetar restricciones tecnicas del campus y evitar interferencias con los servicios existentes. Por eso se plantea una red paralela y segmentada que se integra a la infraestructura actual mediante enlaces controlados, VLANs, reglas de acceso y validacion previa.
+
+TI Nacional del Tecnologico de Monterrey funge como socio formador y entidad de apoyo para proporcionar informacion clave: bloques IP permitidos, restricciones de conectividad, condiciones para interconexion y lineamientos tecnicos que debe observar el diseno antes de ponerse en produccion.
+
+## Documentos base
 
 - `00-fuente-de-verdad.md`: conteos, decisiones, calendario, requerimientos y supuestos.
 - `01-arquitectura-red.md`: VLANs, subredes, topologia logica, direccionamiento y reglas.
@@ -154,12 +163,13 @@ Restricciones del calendario:
 | Enlace WAN | `10.32.100.0/30` | Enlace RTFrontera - FCampus fuera del bloque interno `/21`. |
 | Servidor local | Plataforma de concurso | Competidores acceden al servicio; jueces administran/evaluan. |
 | Separacion de roles | VLAN por rol | Reduce riesgos y facilita reglas de acceso. |
+| Integracion con campus | Validar con TI Nacional/campus | El bloque IP, las restricciones y la interconexion no deben afectar la continuidad operativa institucional. |
 | Camaras de vigilancia | Observadas + adicionales/rentadas inalambricas, Red C / VLAN 70, subred `/27` | Aisladas de redes de competencia y usuarios; el video se consulta desde acceso tecnico autorizado fuera de VLANs de usuario. |
 | Espacios del evento | Inventario completo registrado | Se conserva para apoyar decisiones, alternativas y planes operativos. |
 | Expansion Red A | Sala Borrego como Plan A; Auditorio Ingenieria como Plan B | Permite cubrir 120 equipos externos sin cambiar calendario ni dividir categorias. |
 | Red A hibrida | Cable + SSID `OMI-Competidores` en VLAN 10 | Optimiza recursos y evita instalacion masiva de nodos Cat 6a. |
 | Red T hibrida | Cable + SSID `OMI-Jueces` en VLAN 20 | Permite operar jueces con laptops sin cableado adicional. |
-| VLAN de gestion | Eliminada del diseno del evento | La administracion tecnica queda fuera de las VLANs de usuario del evento. |
+| VLAN 99 Administracion | `172.23.11.64/28` | Segmento tecnico para controladora de Packet Tracer; no es red de usuarios. |
 | Capacidad AP | ~150 equipos por AP | Supuesto operativo para dimensionar si hacen falta APs adicionales. |
 | Mobiliario | Sillas existentes suficientes | No se renta mobiliario de sillas como base de costos. |
 
@@ -191,6 +201,8 @@ RF-12. Las camaras adicionales/rentadas deben conectarse por WiFi dedicado a Red
 
 RF-13. Los 120 equipos externos deben conectarse a Red A / VLAN 10 desde Sala Borrego en Plan A, preferentemente por WiFi.
 
+RF-14. La controladora de Packet Tracer debe ubicarse en VLAN 99 Administracion, usando el bloque `172.23.11.64/28`.
+
 ## Requerimientos no funcionales
 
 RNF-01. Seguridad: cada rol debe estar aislado en su propia VLAN y subred.
@@ -207,6 +219,10 @@ RNF-06. Escalabilidad limitada: las subredes deben reservar margen para gateway,
 
 RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institucional.
 
+RNF-08. Continuidad operativa: la red paralela del evento no debe degradar ni interrumpir la operacion normal de la red del campus.
+
+RNF-09. Administracion tecnica: VLAN 99 debe quedar aislada de redes de usuario y accesible solo por equipo tecnico autorizado.
+
 ## Restricciones principales
 
 - Red A no puede compartir subred con invitados, reporteros, entrenadores ni jueces.
@@ -216,6 +232,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 - Las redes WiFi deben mapearse a VLANs separadas.
 - Invitados y reporteros no deben acceder a redes internas del evento.
 - La administracion de red no debe exponerse en ninguna VLAN de usuario del evento.
+- VLAN 99 no debe usarse para competidores, jueces, reporteros, entrenadores, invitados, servidor, impresoras ni camaras.
 - Las camaras inalambricas deben usar un SSID dedicado y no deben compartir red con invitados, reporteros, entrenadores o competidores.
 - La expansion de 120 equipos externos no debe modificar el calendario oficial ni dividir categorias.
 - `OMI-Competidores` debe mapearse exclusivamente a Red A / VLAN 10.
@@ -232,6 +249,7 @@ RNF-07. Integracion campus: el bloque IP final no debe chocar con la red institu
 | Red E | Entrenadores | Mixta/WiFi | 40 | Media |
 | Red I | Invitados | WiFi | 100 | Baja |
 | Red C | Camaras de monitoreo del evento | WiFi | Hasta 20 | Media |
+| Administracion | Controladora Packet Tracer | Cableada/tecnica | 14 IP utiles | Alta |
 
 ## Criterios de aceptacion
 
@@ -247,6 +265,7 @@ La infraestructura queda aceptada cuando:
 - La matriz de permisos esta validada antes del primer turno.
 - El calendario de dos dias no rebasa la capacidad maxima de equipos.
 - Las camaras adicionales/rentadas reciben conectividad por `OMI-Camaras` sin ser accesibles desde redes de usuario.
+- VLAN 99 Administracion permite operar la controladora de Packet Tracer sin ser accesible desde redes de usuario.
 - Existe checklist operativo para inicio, cambio y cierre de turnos.
 
 ## Supuestos
@@ -262,6 +281,8 @@ La infraestructura queda aceptada cuando:
 - El bloque `172.23.8.0/21` puede cambiar si ya existe conflicto.
 - La plataforma de concurso estara en el servidor local.
 - El equipo tecnico del campus puede configurar VLANs, DHCP, ACLs y WiFi.
+- TI Nacional/campus proporciona o valida los bloques IP permitidos, restricciones de conectividad y condiciones de interconexion.
+- VLAN 99 Administracion usa `172.23.11.64/28`; gateway sugerido `172.23.11.65` y controladora sugerida `172.23.11.66`.
 - Las camaras adicionales/rentadas requieren cobertura WiFi dedicada por `OMI-Camaras`.
 - 12401 no tiene camaras existentes; se agregan 3 camaras adicionales/rentadas para ese salon.
 - Sala Menlo y Auditorio Escuela de Ingenieria requieren levantamiento fisico actualizado.
